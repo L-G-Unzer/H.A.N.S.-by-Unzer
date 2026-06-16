@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unzer Handover Assistant</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:    #e63946;
+      --dark:   #1a1a2e;
+      --grey:   #f4f6f9;
+      --border: #e0e0e0;
+      --text:   #1a1a2e;
+      --muted:  #888;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--grey);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--dark);
+      color: white;
+      padding: 1.1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1  { font-size: 1.15rem; font-weight: 700; }
+    header span { font-size: 0.8rem; opacity: .5; }
+
+    /* ── Layout ── */
+    main {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+      margin-bottom: 1.25rem;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      color: var(--dark);
+    }
+
+    /* ── Tile Grid ── */
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+    .tile {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .tile:hover, .tile.active {
+      border-color: var(--red);
+      background: #fff5f5;
+    }
+    .tile-icon  { font-size: 2rem; margin-bottom: .5rem; }
+    .tile-title { font-size: .95rem; font-weight: 600; }
+    .tile-desc  { font-size: .78rem; color: var(--muted); margin-top: .3rem; line-height: 1.4; }
+
+    /* ── Steps ── */
+    .steps {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: 1.5rem;
+      font-size: .8rem;
+    }
+    .step { display: flex; align-items: center; gap: .3rem; color: #bbb; }
+    .step.active { color: var(--red); font-weight: 600; }
+    .step.done   { color: #2a9d8f; }
+    .step-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; font-weight: 700;
+    }
+    .step-sep { color: #ccc; }
+
+    /* ── Forms ── */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group { margin-bottom: 1.1rem; }
+    label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 500;
+      margin-bottom: .35rem;
+    }
+    label .req { color: var(--red); }
+    input[type=text], input[type=date], textarea, select {
+      width: 100%;
+      padding: .55rem .85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: .875rem;
+      background: #fafafa;
+      transition: border-color .2s;
+      font-family: inherit;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--red);
+      background: white;
+    }
+    textarea { min-height: 90px; resize: vertical; line-height: 1.5; }
+
+    /* ── Tag chips (Projekte) ── */
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: .5rem;
+    }
+    .tag {
+      background: #f0f0f0;
+      border-radius: 20px;
+      padding: .25rem .75rem;
+      font-size: .78rem;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .tag button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: .85rem;
+      line-height: 1;
+      padding: 0;
+    }
+    .tag-input-row {
+      display: flex;
+      gap: .5rem;
+      margin-top: .5rem;
+    }
+    .tag-input-row input { flex: 1; }
+    .btn-sm {
+      padding: .45rem .9rem;
+      border-radius: 8px;
+      border: none;
+      font-size: .8rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: var(--dark);
+      color: white;
+      white-space: nowrap;
+    }
+    .btn-sm:hover { background: #2d2d4e; }
+
+    /* ── Output Options ── */
+    .output-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+    }
+    .opt {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: .9rem 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      transition: all .2s;
+    }
+    .opt:hover, .opt.selected {
+      border-color: var(--red);
+      background: #fff5f5;
+    }
+    .opt-icon  { font-size: 1.35rem; flex-shrink: 0; }
+    .opt-title { font-size: .87rem; font-weight: 600; }
+    .opt-sub   { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+
+    /* ── Buttons ── */
+    .btn-row {
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: .65rem 1.4rem;
+      border-radius: 8px;
+      border: none;
+      font-size: .875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .2s;
+      font-family: inherit;
+    }
+    .btn-primary   { background: var(--red); color: white; }
+    .btn-primary:hover:not(:disabled) { background: #c1121f; }
+    .btn-primary:disabled { background: #ddd; cursor: not-allowed; color: #aaa; }
+    .btn-ghost     { background: #f0f0f0; color: #333; }
+    .btn-ghost:hover { background: #e0e0e0; }
+
+    /* ── Result ── */
+    #result-box {
+      background: white;
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
+      border-left: 4px solid var(--red);
+      white-space: pre-wrap;
+      font-size: .85rem;
+      line-height: 1.75;
+      max-height: 600px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Loading ── */
+    .spinner-wrap {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: 1.5rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .spinner {
+      width: 20px; height: 20px;
+      border: 3px solid #eee;
+      border-top-color: var(--red);
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem; right: 1.5rem;
+      background: var(--dark);
+      color: white;
+      padding: .7rem 1.2rem;
+      border-radius: 8px;
+      font-size: .85rem;
+      opacity: 0;
+      transition: opacity .3s;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .toast.show { opacity: 1; }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 580px) {
+      .form-row, .output-grid, .tile-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🤝 Unzer Handover Assistant</h1>
+  <span>Internal Tool</span>
+</header>
+
+<main>
+
+  <!-- ══════════════════════════════════════
+       SCREEN 1 – Modus wählen
+  ══════════════════════════════════════ -->
+  <div id="s-start">
+    <div class="card" style="margin-bottom:1rem">
+      <div class="card-title">Was möchtest du übergeben?</div>
+      <div class="tile-grid">
+
+        <div class="tile" onclick="selectMode('vacation')">
+          <div class="tile-icon">🏖️</div>
+          <div class="tile-title">Urlaubsübergabe</div>
+          <div class="tile-desc">Interne Vertretung für einen Abwesenheitszeitraum</div>
+        </div>
+
+        <div class="tile" onclick="selectMode('customer')">
+          <div class="tile-icon">🤝</div>
+          <div class="tile-title">Kundenhandover</div>
+          <div class="tile-desc">Teamübergreifende Übergabe von Kunden & Opportunities</div>
+        </div>
+
+        <div class="tile" onclick="selectMode('project')">
+          <div class="tile-icon">📂</div>
+          <div class="tile-title">Projektübergabe</div>
+          <div class="tile-desc">Übergabe laufender Projekte an andere Teams</div>
+        </div>
+
+        <div class="tile" onclick="selectMode('custom')">
+          <div class="tile-icon">✏️</div>
+          <div class="tile-title">Freie Übergabe</div>
+          <div class="tile-desc">Individueller Übergabetyp – frei konfigurierbar</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SCREEN 2 – Eingaben
+  ══════════════════════════════════════ -->
+  <div id="s-form" class="hidden">
+
+    <div class="steps">
+      <div class="step done"><div class="step-num">✓</div>Modus</div>
+      <div class="step-sep">›</div>
+      <div class="step active"><div class="step-num">2</div>Eingaben</div>
+      <div class="step-sep">›</div>
+      <div class="step"><div class="step-num">3</div>Ausgabe</div>
+      <div class="step-sep">›</div>
+      <div class="step"><div class="step-num">4</div>Ergebnis</div>
+    </div>
+
+    <!-- ── URLAUB ── -->
+    <div id="form-vacation" class="hidden">
+      <div class="card">
+        <div class="card-title">🏖️ Urlaubsübergabe</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Dein Name <span class="req">*</span></label>
+            <input type="text" id="v-name" placeholder="Maria Schmidt"/>
+          </div>
+          <div class="form-group">
+            <label>Vertretung <span class="req">*</span></label>
+            <input type="text" id="v-sub" placeholder="Max Mustermann"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Abwesenheit von <span class="req">*</span></label>
+            <input type="date" id="v-start"/>
+          </div>
+          <div class="form-group">
+            <label>Abwesenheit bis <span class="req">*</span></label>
+            <input type="date" id="v-end"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Kritische Punkte & Deadlines</label>
+          <textarea id="v-critical"
+            placeholder="z. B. Angebot an Kunde XY bis 15.08.; Meeting ABC am 20.08. vorbereiten..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Kundenübersicht / Kontext</label>
+          <textarea id="v-context"
+            placeholder="Welche Kunden / Projekte sind betroffen? Aktueller Stand?"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Weitere Notizen (optional)</label>
+          <textarea id="v-notes" placeholder="Zusätzliche Hinweise für die Vertretung..."></textarea>
+        </div>
+
+        <!-- Zusätzliche Projekte -->
+        <div class="form-group">
+          <label>Weitere Projekte / Themen in dieser Übergabe</label>
+          <div class="tag-input-row">
+            <input type="text" id="v-proj-input" placeholder="Projektname eingeben..."/>
+            <button class="btn-sm" onclick="addTag('vacation')">+ Hinzufügen</button>
+          </div>
+          <div class="tag-row" id="v-tags"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── KUNDE ── -->
+    <div id="form-customer" class="hidden">
+      <div class="card">
+        <div class="card-title">🤝 Kundenhandover</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Übergabe von <span class="req">*</span></label>
+            <input type="text" id="c-from" placeholder="Name + Team"/>
+          </div>
+          <div class="form-group">
+            <label>Übergabe an <span class="req">*</span></label>
+            <input type="text" id="c-to" placeholder="Name + Team"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Kundenstatus & Opportunity-Stand</label>
+          <textarea id="c-status" placeholder="Aktueller Stand, Phase, letzte Aktivitäten..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Offene Commitments & Entscheidungen</label>
+          <textarea id="c-commit" placeholder="Was wurde zugesagt? Welche Entscheidungen stehen aus?"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Nächste Schritte</label>
+          <textarea id="c-next" placeholder="Was muss passieren? Wer ist verantwortlich?"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Risiken & Eskalationspunkte</label>
+          <textarea id="c-risks" placeholder="Kritische Punkte, Eskalationspotenzial..."></textarea>
+        </div>
+
+        <!-- Zusätzliche Projekte -->
+        <div class="form-group">
+          <label>Weitere Kunden / Projekte in dieser Übergabe</label>
+          <div class="tag-input-row">
+            <input type="text" id="c-proj-input" placeholder="Kundenname / Projektname..."/>
+            <button class="btn-sm" onclick="addTag('customer')">+ Hinzufügen</button>
+          </div>
+          <div class="tag-row" id="c-tags"></div>
+        </div>
+      </div>
+
+      <!-- Dynamisch hinzugefügte Projekt-Blöcke -->
+      <div id="c-extra-blocks"></div>
+    </div>
+
+    <!-- ── PROJEKT ── -->
+    <div id="form-project" class="hidden">
+      <div class="card">
+        <div class="card-title">📂 Projektübergabe</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Projektname <span class="req">*</span></label>
+            <input type="text" id="p-name" placeholder="z. B. Migration CRM"/>
+          </div>
+          <div class="form-group">
+            <label>Übergabe an <span class="req">*</span></label>
+            <input type="text" id="p-to" placeholder="Name + Team"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Projektstatus & Phase</label>
+          <textarea id="p-status" placeholder="Aktueller Stand, abgeschlossene Meilensteine..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Offene Aufgaben & Verantwortlichkeiten</label>
+          <textarea id="p-todos" placeholder="Wer macht was bis wann?"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Abhängigkeiten & Risiken</label>
+          <textarea id="p-risks" placeholder="Was blockiert das Projekt? Externe Abhängigkeiten?"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Dokumentation & Links (optional)</label>
+          <textarea id="p-links" placeholder="Confluence, JIRA, SharePoint Links..."></textarea>
+        </div>
+
+        <!-- Zusätzliche Teilprojekte -->
+        <div class="form-group">
+          <label>Weitere Teilprojekte / Workstreams</label>
+          <div class="tag-input-row">
+            <input type="text" id="p-proj-input" placeholder="Teilprojekt eingeben..."/>
+            <button class="btn-sm" onclick="addTag('project')">+ Hinzufügen</button>
+          </div>
+          <div class="tag-row" id="p-tags"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FREI ── -->
+    <div id="form-custom" class="hidden">
+      <div class="card">
+        <div class="card-title">✏️ Freie Übergabe</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Titel der Übergabe <span class="req">*</span></label>
+            <input type="text" id="x-title" placeholder="z. B. Prozessübergabe Finance"/>
+          </div>
+          <div class="form-group">
+            <label>Übergabe von → an <span class="req">*</span></label>
+            <input type="text" id="x-persons" placeholder="Person A → Person B"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Was soll übergeben werden? <span class="req">*</span></label>
+          <textarea id="x-content" style="min-height:140px"
+            placeholder="Beschreibe frei, was übergeben werden soll, was wichtig ist, welche Deadlines bestehen..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Besondere Hinweise (optional)</label>
+          <textarea id="x-notes" placeholder="Alles weitere, was die Person wissen sollte..."></textarea>
+        </div>
+
+        <!-- Zusätzliche Themen -->
+        <div class="form-group">
+          <label>Weitere Themen / Bereiche</label>
+          <div class="tag-input-row">
+            <input type="text" id="x-proj-input" placeholder="Thema eingeben..."/>
+            <button class="btn-sm" onclick="addTag('custom')">+ Hinzufügen</button>
+          </div>
+          <div class="tag-row" id="x-tags"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="go('s-start')">← Zurück</button>
+      <button class="btn btn-primary" onclick="goToOutput()">Weiter →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SCREEN 3 – Output wählen
+  ══════════════════════════════════════ -->
+  <div id="s-output" class="hidden">
+
+    <div class="steps">
+      <div class="step done"><div class="step-num">✓</div>Modus</div>
+      <div class="step-sep">›</div>
+      <div class="step done"><div class="step-num">✓</div>Eingaben</div>
+      <div class="step-sep">›</div>
+      <div class="step active"><div class="step-num">3</div>Ausgabe</div>
+      <div class="step-sep">›</div>
+      <div class="step"><div class="step-num">4</div>Ergebnis</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Ausgabeformat wählen (Mehrfachauswahl möglich)</div>
+      <div class="output-grid">
+
+        <div class="opt" onclick="toggleOpt(this,'short')">
+          <div class="opt-icon">📄</div>
+          <div>
+            <div class="opt-title">Short Overview</div>
+            <div class="opt-sub">Kompakte 1-Seiten-Zusammenfassung</div>
+          </div>
+        </div>
+
+        <div class="opt" onclick="toggleOpt(this,'email')">
+          <div class="opt-icon">📧</div>
+          <div>
+            <div class="opt-title">E-Mail an Vertretung</div>
+            <div class="opt-sub">Fertig formuliert, direkt versendbar</div>
+          </div>
+        </div>
+
+        <div class="opt" onclick="toggleOpt(this,'deadlines')">
+          <div class="opt-icon">📅</div>
+          <div>
+            <div class="opt-title">Deadlines & Termine</div>
+            <div class="opt-sub">Terminliste + .ics Kalender-Export</div>
+          </div>
+        </div>
+
+        <div class="opt" onclick="toggleOpt(this,'bullets')">
+          <div class="opt-icon">📌</div>
+          <div>
+            <div class="opt-title">Stichpunkt-Übergabe</div>
+            <div class="opt-sub">Strukturierte Bullet-Point-Übersicht</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="go('s-form')">← Zurück</button>
+      <button class="btn btn-primary" id="btn-gen"
+              onclick="generate()" disabled>✨ Übergabe generieren</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SCREEN 4 – Ergebnis
+  ══════════════════════════════════════ -->
+  <div id="s-result" class="hidden">
+
+    <div class="steps">
+      <div class="step done"><div class="step-num">✓</div>Modus</div>
+      <div class="step-sep">›</div>
+      <div class="step done"><div class="step-num">✓</div>Eingaben</div>
+      <div class="step-sep">›</div>
+      <div class="step done"><div class="step-num">✓</div>Ausgabe</div>
+      <div class="step-sep">›</div>
+      <div class="step active"><div class="step-num">4</div>Ergebnis</div>
+    </div>
+
+    <div id="loading" class="spinner-wrap">
+      <div class="spinner"></div>
+      Übergabe wird generiert…
+    </div>
+
+    <div id="result-box" class="hidden"></div>
+
+    <div id="result-actions" class="btn-row hidden" style="margin-top:.75rem">
+      <button class="btn btn-primary" onclick="copyResult()">📋 Kopieren</button>
+      <button class="btn btn-ghost"   onclick="openMailto()" id="btn-mail">📧 E-Mail öffnen</button>
+      <button class="btn btn-ghost"   onclick="exportICS()"  id="btn-ics">📅 .ics exportieren</button>
+      <button class="btn btn-ghost"   onclick="reset()">🔄 Neue Übergabe</button>
+    </div>
+  </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+let mode     = null;
+let outputs  = new Set();
+let tags     = { vacation: [], customer: [], project: [], custom: [] };
+let lastData = {};
+let lastText = '';
+
+// ═══════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════
+function go(id) {
+  ['s-start','s-form','s-output','s-result']
+    .forEach(s => document.getElementById(s).classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function selectMode(m) {
+  mode = m;
+  ['vacation','customer','project','custom']
+    .forEach(f => document.getElementById('form-' + f).classList.add('hidden'));
+  document.getElementById('form-' + m).classList.remove('hidden');
+  go('s-form');
+}
+
+function goToOutput() {
+  if (!validateForm()) return;
+  go('s-output');
+}
+
+// ═══════════════════════════════════════════════
+// TAGS / PROJEKTE
+// ═══════════════════════════════════════════════
+function addTag(m) {
+  const input = document.getElementById(
+    m === 'vacation' ? 'v-proj-input' :
+    m === 'customer' ? 'c-proj-input' :
+    m === 'project'  ? 'p-proj-input' : 'x-proj-input'
+  );
+  const val = input.value.trim();
+  if (!val) return;
+  tags[m].push(val);
+  input.value = '';
+  renderTags(m);
+}
+
+function removeTag(m, idx) {
+  tags[m].splice(idx, 1);
+  renderTags(m);
+}
+
+function renderTags(m) {
+  const prefix = m === 'vacation' ? 'v' :
+                 m === 'customer' ? 'c' :
+                 m === 'project'  ? 'p' : 'x';
+  const container = document.getElementById(prefix + '-tags');
+  container.innerHTML = tags[m].map((t, i) => `
+    <div class="tag">
+      ${t}
+      <button onclick="removeTag('${m}',${i})">×</button>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════
+// VALIDATION
+// ═══════════════════════════════════════════════
+function validateForm() {
+  const checks = {
+    vacation: () =>
+      val('v-name') && val('v-sub') && val('v-start') && val('v-end'),
+    customer: () =>
+      val('c-from') && val('c-to'),
+    project:  () =>
+      val('p-name') && val('p-to'),
+    custom:   () =>
+      val('x-title') && val('x-persons') && val('x-content')
+  };
+  if (!checks[mode]()) {
+    toast('⚠️ Bitte alle Pflichtfelder ausfüllen.');
+    return false;
+  }
+  return true;
+}
+
+function val(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+// ═══════════════════════════════════════════════
+// OUTPUT SELECTION
+// ═══════════════════════════════════════════════
+function toggleOpt(el, v) {
+  el.classList.toggle('selected');
+  outputs.has(v) ? outputs.delete(v) : outputs.add(v);
+  document.getElementById('btn-gen').disabled = outputs.size === 0;
+}
+
+// ═══════════════════════════════════════════════
+// COLLECT DATA
+// ═══════════════════════════════════════════════
+function collectData() {
+  const extra = tags[mode].length
+    ? '\n\nWeitere Themen/Projekte: ' + tags[mode].join(', ')
+    : '';
+
+  if (mode === 'vacation') return {
+    name: val('v-name'), substitute: val('v-sub'),
+    startDate: val('v-start'), endDate: val('v-end'),
+    criticalPoints: val('v-critical') + extra,
+    customerContext: val('v-context'),
+    shortOverview: val('v-notes')
+  };
+
+  if (mode === 'customer') return {
+    fromPerson: val('c-from'), toPerson: val('c-to'),
+    customerStatus: val('c-status') + extra,
+    commitments: val('c-commit'),
+    nextSteps: val('c-next'), risks: val('c-risks')
+  };
+
+  if (mode === 'project') return {
+    projectName: val('p-name'), toPerson: val('p-to'),
+    status: val('p-status') + extra,
+    todos: val('p-todos'), risks: val('p-risks'), links: val('p-links')
+  };
+
+  return {
+    title: val('x-title'), persons: val('x-persons'),
+    content: val('x-content') + extra, notes: val('x-notes')
+  };
+}
+
+// ═══════════════════════════════════════════════
+// BUILD PROMPT
+// ═══════════════════════════════════════════════
+function buildPrompt(outputType, data) {
+
+  const outputInstructions = {
+    short: `
+Erstelle eine kompakte 1-Seiten-Übergabe:
+
+## Übergabe-Übersicht
+**Von/An:** … | **Zeitraum/Datum:** … | **Kontext:** …
+
+### 🔑 Top-Themen (max. 5 Bullets)
+### ⚠️ Kritische Deadlines (max. 3)
+### ✅ Sofort-To-dos (max. 5, priorisiert)
+### 📞 Bei Fragen: [Name | Kontakt | Thema]`,
+
+    email: `
+Erstelle eine fertig formulierte E-Mail:
+
+Betreff: Übergabe [Name] | [Zeitraum/Kontext]
+
+Hallo [Empfänger],
+[Kurzer Einstieg 2-3 Sätze]
+
+**Was du wissen musst:**
+[Top 3-5 Themen mit Status]
+
+**Deine wichtigsten To-dos:**
+[Nummerierte Liste mit Deadlines]
+
+**Kritische Termine:**
+[Datum – Uhrzeit – Termin – Vorbereitung nötig]
+
+**Bei dringenden Fragen:** [Eskalationsweg]
+
+Viele Grüße, [Absender]`,
+
+    deadlines: `
+Erstelle eine vollständige Deadline- und Terminliste:
+
+## 📅 Alle Termine & Deadlines
+
+| Datum | Uhrzeit | Thema | Teilnehmer | Priorität |
+|-------|---------|-------|------------|-----------|
+| ...   | ...     | ...   | ...        | 🔴/🟡/🟢  |
+
+Danach einen JSON-Block für den Kalender-Export:
+\`\`\`json
+{"events":[{"title":"...","start":"YYYY-MM-DDTHH:mm:ss","end":"YYYY-MM-DDTHH:mm:ss","description":"...","priority":"high|medium|low"}]}
+\`\`\``,
+
+    bullets: `
+Erstelle eine strukturierte Stichpunkt-Übergabe:
+
+## 📌 Stichpunkt-Übergabe
+
+### [Thema/Kunde/Projekt 1]
+- **Stand:** …
+- **Nächster Schritt:** …
+- **Deadline:** …
+- **Risiko:** …
+- **Ansprechpartner:** …
+
+[Weitere Themen gleiche Struktur]
+
+## ⚡ Top-3-Prioritäten
+## 🚨 Eskalationsweg`
+  };
+
+  const modeContext = {
+    vacation: `
+Urlaubsübergabe:
+- Von: ${data.name}
+- Vertretung: ${data.substitute}
+- Zeitraum: ${data.startDate} bis ${data.endDate}
+- Kritische Punkte: ${data.criticalPoints || 'keine'}
+- Kundenkontext: ${data.customerContext || 'keine'}
+- Notizen: ${data.shortOverview || 'keine'}`,
+
+    customer: `
+Kundenhandover:
+- Von: ${data.fromPerson}
+- An: ${data.toPerson}
+- Kundenstatus: ${data.customerStatus || 'keine'}
+- Commitments: ${data.commitments || 'keine'}
+- Nächste Schritte: ${data.nextSteps || 'keine'}
+- Risiken: ${data.risks || 'keine'}`,
+
+    project: `
+Projektübergabe:
+- Projekt: ${data.projectName}
+- Übergabe an: ${data.toPerson}
+- Status: ${data.status || 'keine'}
+- Offene Aufgaben: ${data.todos || 'keine'}
+- Risiken: ${data.risks || 'keine'}
+- Links/Doku: ${data.links || 'keine'}`,
+
+    custom: `
+Freie Übergabe:
+- Titel: ${data.title}
+- Personen: ${data.persons}
+- Inhalt: ${data.content}
+- Hinweise: ${data.notes || 'keine'}`
+  };
+
+  return `Du bist der interne Handover-Assistent von Unzer.
+Erstelle eine strukturierte, business-taugliche Übergabe auf Deutsch.
+Faktenbasiert – nur die bereitgestellten Informationen verwenden.
+Fehlende Infos als "Offen" markieren.
+
+# Eingabedaten
+${modeContext[mode]}
+
+# Gewünschte Ausgabe
+${outputInstructions[outputType]}`;
+}
+
+// ═══════════════════════════════════════════════
+// GENERATE
+// ═══════════════════════════════════════════════
+async function generate() {
+  lastData = collectData();
+  const types = Array.from(outputs);
+
+  go('s-result');
+  document.getElementById('loading').classList.remove('hidden');
+  document.getElementById('result-box').classList.add('hidden');
+  document.getElementById('result-actions').classList.add('hidden');
+
+  try {
+    const results = await Promise.all(
+      types.map(t => callAI(buildPrompt(t, lastData)))
+    );
+
+    const labels = {
+      short:     '📄 SHORT OVERVIEW',
+      email:     '📧 E-MAIL',
+      deadlines: '📅 DEADLINES & TERMINE',
+      bullets:   '📌 STICHPUNKT-ÜBERGABE'
+    };
+
+    lastText = types.map((t, i) =>
+      `${labels[t]}\n${'─'.repeat(50)}\n\n${results[i]}`
+    ).join('\n\n' + '═'.repeat(60) + '\n\n');
+
+    document.getElementById('loading').classList.add('hidden');
+    const box = document.getElementById('result-box');
+    box.textContent = lastText;
+    box.classList.remove('hidden');
+
+    const actions = document.getElementById('result-actions');
+    actions.classList.remove('hidden');
+    document.getElementById('btn-mail').classList
+      .toggle('hidden', !outputs.has('email'));
+    document.getElementById('btn-ics').classList
+      .toggle('hidden', !outputs.has('deadlines'));
+
+  } catch(e) {
+    document.getElementById('loading').classList.add('hidden');
+    const box = document.getElementById('result-box');
+    box.textContent = '❌ Fehler: ' + e.message;
+    box.classList.remove('hidden');
+  }
+}
+
+// ═══════════════════════════════════════════════
+// AI CALL  →  /api/generate (dein Backend)
+// ═══════════════════════════════════════════════
+async function callAI(prompt) {
+  const res = await fetch('/api/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt })
+  });
+  if (!res.ok) throw new Error(`API Fehler: ${res.status}`);
+  const data = await res.json();
+  return data.output;
+}
+
+// ═══════════════════════════════════════════════
+// AKTIONEN
+// ═══════════════════════════════════════════════
+function copyResult() {
+  navigator.clipboard.writeText(lastText)
+    .then(() => toast('✅ Kopiert!'));
+}
+
+function openMailto() {
+  const d    = lastData;
+  const subj = encodeURIComponent(
+    `Übergabe ${d.name || d.fromPerson || d.title || ''} | ${d.startDate || ''}`
+  );
+  const body = encodeURIComponent(lastText);
+  window.location.href = `mailto:?subject=${subj}&body=${body}`;
+}
+
+function exportICS() {
+  const match = lastText.match(/```json\s*([\s\S]*?)```/);
+  if (!match) { toast('⚠️ Keine Termindaten gefunden.'); return; }
+
+  try {
+    const { events } = JSON.parse(match[1]);
+    const lines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Unzer Handover Assistant//DE',
+      'X-WR-CALNAME:Handover Termine',
+      'X-WR-TIMEZONE:Europe/Berlin'
+    ];
+
+    events.forEach((e, i) => {
+      const uid  = `handover-${Date.now()}-${i}@unzer.com`;
+      const dtStart = e.start.replace(/[-:]/g,'').replace('T','T');
+      const dtEnd   = e.end
+        ? e.end.replace(/[-:]/g,'').replace('T','T')
+        : dtStart;
+      lines.push(
+        'BEGIN:VEVENT',
+        `UID:${uid}`,
+        `DTSTAMP:${new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)}Z`,
+        `DTSTART:${dtStart}`,
+        `DTEND:${dtEnd}`,
+        `SUMMARY:${e.title}`,
+        `DESCRIPTION:${(e.description || '').replace(/\n/g,'\\n')}`,
+        'END:VEVENT'
+      );
+    });
+    lines.push('END:VCALENDAR');
+
+    const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href = url;
+    a.download = `handover-${Date.now()}.ics`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('✅ Kalender exportiert!');
+  } catch(e) {
+    toast('❌ Fehler beim ICS-Export.');
+  }
+}
+
+function reset() {
+  mode = null; outputs.clear(); lastData = {}; lastText = '';
+  tags = { vacation: [], customer: [], project: [], custom: [] };
+  document.querySelectorAll('input[type=text], input[type=date], textarea')
+    .forEach(el => el.value = '');
+  document.querySelectorAll('.opt').forEach(el => el.classList.remove('selected'));
+  document.querySelectorAll('.tag-row').forEach(el => el.innerHTML = '');
+  document.getElementById('btn-gen').disabled = true;
+  go('s-start');
+}
+
+// ═══════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// Enter-Taste für Tag-Inputs
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const map = {
+      'v-proj-input': 'vacation',
+      'c-proj-input': 'customer',
+      'p-proj-input': 'project',
+      'x-proj-input': 'custom'
+    };
+    if (map[e.target.id]) addTag(map[e.target.id]);
+  }
+});
+</script>
+</body>
+</html>
