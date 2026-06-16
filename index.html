@@ -6,217 +6,433 @@
   <title>Unzer Relay – Handover Assistant</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --red:   #c0392b;
-      --dark:  #0a0a14;
-      --grey:  #f7f7f8;
-      --white: #ffffff;
-      --bdr:   #e2e2e6;
-      --muted: #9a9aaa;
-      --text:  #1a1a2a;
-      --green: #1a7a4a;
+      --bg:      #0d0d1a;
+      --surface: #13132a;
+      --card:    #1a1a35;
+      --card2:   #1f1f3d;
+      --accent:  #c0392b;
+      --accent2: #e74c3c;
+      --blue:    #4a9eff;
+      --teal:    #00c9b1;
+      --border:  rgba(255,255,255,.07);
+      --border2: rgba(255,255,255,.12);
+      --text:    #f0f0f8;
+      --text2:   #9898b8;
+      --text3:   #6060a0;
+      --white:   #ffffff;
+      --green:   #00c97d;
+      --yellow:  #f5a623;
+      --red:     #e74c3c;
     }
+
     body {
-      font-family: 'Segoe UI', -apple-system, sans-serif;
-      background: var(--grey); color: var(--text);
-      min-height: 100vh; font-size: 14px;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.5;
     }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--surface); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+    /* ── Header ── */
     header {
-      background: var(--dark); color: white;
-      padding: .9rem 2.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,.04);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: .85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(10px);
     }
     .hl { display: flex; align-items: center; gap: .85rem; }
     .lm {
-      width: 30px; height: 30px; background: var(--red);
-      border-radius: 6px; display: flex; align-items: center;
-      justify-content: center; font-size: .65rem;
-      font-weight: 800; color: white;
+      width: 32px; height: 32px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .65rem; font-weight: 800; color: white;
+      letter-spacing: .5px;
+      box-shadow: 0 0 12px rgba(231,76,60,.3);
     }
-    header h1 { font-size: .95rem; font-weight: 500; }
-    .ver { font-size: .7rem; color: rgba(255,255,255,.3); margin-top: .1rem; }
-    .hr2 { display: flex; align-items: center; gap: .5rem; }
-    .rsvg { opacity: .55; }
-    .rl { color: rgba(255,255,255,.45); font-size: .72rem; font-weight: 700; letter-spacing: 2px; }
-    main { max-width: 860px; margin: 2.5rem auto; padding: 0 1.5rem; }
-    .ph { margin-bottom: 1.75rem; }
-    .ph h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: .2rem; }
-    .ph p { font-size: .81rem; color: var(--muted); }
+    .h-title { font-size: .92rem; font-weight: 600; color: var(--text); }
+    .h-sub { font-size: .68rem; color: var(--text3); margin-top: .05rem; }
+    .hr2 { display: flex; align-items: center; gap: .6rem; }
+    .relay-ico { opacity: .5; }
+    .relay-lbl {
+      color: rgba(255,255,255,.35);
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+    }
+
+    /* ── Main ── */
+    main { max-width: 860px; margin: 2rem auto; padding: 0 1.5rem; }
+
+    /* ── Page Header ── */
+    .ph { margin-bottom: 2rem; }
+    .ph h2 {
+      font-size: 1.4rem; font-weight: 700;
+      letter-spacing: -.3px; margin-bottom: .3rem;
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,.6) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .ph p { font-size: .82rem; color: var(--text2); }
 
     /* ── Cards ── */
     .card {
-      background: var(--white); border-radius: 8px;
-      border: 1px solid var(--bdr); padding: 1.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
       margin-bottom: 1rem;
     }
+    .card-glow {
+      box-shadow: 0 0 30px rgba(74,158,255,.05);
+    }
     .clbl {
-      font-size: .67rem; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 1.1rem;
+      font-size: .65rem; font-weight: 700;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--text3); margin-bottom: 1rem;
     }
 
     /* ── Tile Slider ── */
-    .stop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.1rem; }
-    .ag { display: flex; gap: .3rem; }
-    .arr {
-      width: 28px; height: 28px; border-radius: 6px;
-      border: 1px solid var(--bdr); background: var(--white);
-      cursor: pointer; font-size: .8rem;
-      display: flex; align-items: center; justify-content: center;
-      transition: all .15s;
+    .stop {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 1.25rem;
     }
-    .arr:hover { border-color: var(--red); color: var(--red); }
-    .arr:disabled { opacity: .3; cursor: not-allowed; }
+    .ag { display: flex; gap: .35rem; }
+    .arr {
+      width: 28px; height: 28px; border-radius: 7px;
+      border: 1px solid var(--border2);
+      background: var(--card2);
+      cursor: pointer; font-size: .78rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .15s; color: var(--text2);
+    }
+    .arr:hover { border-color: var(--accent); color: var(--accent); }
+    .arr:disabled { opacity: .25; cursor: not-allowed; }
+
     .tpages { overflow: hidden; }
     .tpage { display: none; grid-template-columns: 1fr 1fr; gap: .75rem; animation: fi .2s ease; }
     .tpage.active { display: grid; }
-    @keyframes fi { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-    .dots { display: flex; justify-content: center; gap: .35rem; margin-top: .9rem; }
-    .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--bdr); cursor: pointer; transition: background .2s; }
-    .dot.active { background: var(--red); }
+    @keyframes fi { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .dots { display: flex; justify-content: center; gap: .4rem; margin-top: 1rem; }
+    .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border2); cursor: pointer; transition: all .2s; }
+    .dot.active { background: var(--accent); width: 16px; border-radius: 2px; }
+
+    /* ── Tiles ── */
     .tile {
-      border: 1px solid var(--bdr); border-radius: 8px;
-      padding: 1.1rem; cursor: pointer; transition: all .15s;
-      display: flex; align-items: flex-start; gap: .75rem;
-      background: var(--white);
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem;
+      cursor: pointer; transition: all .2s;
+      display: flex; align-items: flex-start; gap: .8rem;
+      position: relative; overflow: hidden;
     }
-    .tile:hover, .tile.sel { border-color: var(--red); background: #fdf9f9; }
+    .tile::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+    }
+    .tile:hover {
+      border-color: rgba(231,76,60,.4);
+      background: rgba(231,76,60,.06);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0,0,0,.3);
+    }
     .tiw {
-      width: 34px; height: 34px; border-radius: 7px;
-      background: var(--grey); border: 1px solid var(--bdr);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      width: 36px; height: 36px; border-radius: 9px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
     }
-    .tiw svg { width: 16px; height: 16px; stroke: #555; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .tiw svg { width: 16px; height: 16px; stroke: var(--text2); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .tile:hover .tiw svg { stroke: var(--accent2); }
     .tb { flex: 1; }
-    .tt { font-size: .86rem; font-weight: 600; margin-bottom: .15rem; }
-    .td { font-size: .74rem; color: var(--muted); line-height: 1.4; }
-    .ta { color: var(--bdr); font-size: .85rem; align-self: center; flex-shrink: 0; transition: color .15s; }
-    .tile:hover .ta { color: var(--red); }
+    .tt { font-size: .86rem; font-weight: 600; color: var(--text); margin-bottom: .15rem; }
+    .td { font-size: .74rem; color: var(--text2); line-height: 1.4; }
+    .ta { color: var(--text3); font-size: .85rem; align-self: center; flex-shrink: 0; transition: color .2s; }
+    .tile:hover .ta { color: var(--accent2); }
 
     /* ── Steps ── */
-    .steps { display: flex; align-items: center; gap: .35rem; margin-bottom: 1.75rem; font-size: .73rem; }
-    .step { display: flex; align-items: center; gap: .28rem; color: var(--muted); }
+    .steps {
+      display: flex; align-items: center; gap: .4rem;
+      margin-bottom: 1.75rem; font-size: .72rem;
+    }
+    .step { display: flex; align-items: center; gap: .3rem; color: var(--text3); }
     .step.active { color: var(--text); font-weight: 600; }
-    .step.done { color: var(--green); }
-    .sn { width: 19px; height: 19px; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: .63rem; font-weight: 700; }
-    .sep { color: var(--bdr); }
+    .step.done { color: var(--teal); }
+    .sn {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .62rem; font-weight: 700;
+    }
+    .step.done .sn { background: var(--teal); border-color: var(--teal); color: var(--bg); }
+    .sep { color: var(--border2); font-size: .7rem; }
 
     /* ── Section Labels ── */
-    .sl { font-size: .67rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin: 1.1rem 0 .55rem; padding-bottom: .35rem; border-bottom: 1px solid var(--bdr); }
+    .sl {
+      font-size: .64rem; font-weight: 700;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--text3);
+      margin: 1.25rem 0 .6rem;
+      padding-bottom: .4rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: .5rem;
+    }
     .sl:first-child { margin-top: 0; }
 
     /* ── Customer Multi-Select ── */
-    .cust-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: .6rem;
-      margin-bottom: .85rem;
-    }
+    .cust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .75rem; }
     .cust-card {
-      border: 1px solid var(--bdr); border-radius: 8px;
-      padding: .85rem 1rem; cursor: pointer;
-      transition: all .15s; background: var(--white);
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .9rem 1rem;
+      cursor: pointer; transition: all .2s;
       display: flex; align-items: flex-start; gap: .65rem;
+      position: relative;
     }
-    .cust-card:hover { border-color: var(--red); background: #fdf9f9; }
-    .cust-card.sel { border-color: var(--red); background: #fdf9f9; }
-    .cust-check {
-      width: 16px; height: 16px; border-radius: 4px;
-      border: 1.5px solid var(--bdr); flex-shrink: 0;
-      margin-top: .1rem; transition: all .15s;
+    .cust-card:hover { border-color: rgba(231,76,60,.35); background: rgba(231,76,60,.05); }
+    .cust-card.sel {
+      border-color: var(--accent);
+      background: rgba(231,76,60,.08);
+      box-shadow: 0 0 16px rgba(231,76,60,.12);
     }
-    .cust-card.sel .cust-check { background: var(--red); border-color: var(--red); }
-    .cust-name { font-size: .84rem; font-weight: 600; margin-bottom: .1rem; }
-    .cust-meta { font-size: .72rem; color: var(--muted); line-height: 1.4; }
-    .ht { display: inline-block; padding: .07rem .38rem; border-radius: 4px; font-size: .65rem; font-weight: 700; text-transform: uppercase; }
-    .hf { background: #fdf0f0; color: #c0392b; }
-    .hm { background: #fef9ec; color: #b7791f; }
-    .hp { background: #eef6ee; color: #1a7a4a; }
-    .sel-info { font-size: .75rem; color: var(--red); font-weight: 600; margin-top: .5rem; }
+    .cust-chk {
+      width: 16px; height: 16px; border-radius: 5px;
+      border: 1.5px solid var(--border2);
+      flex-shrink: 0; margin-top: .1rem;
+      transition: all .15s; display: flex;
+      align-items: center; justify-content: center;
+    }
+    .cust-card.sel .cust-chk {
+      background: var(--accent); border-color: var(--accent);
+    }
+    .cust-card.sel .cust-chk::after {
+      content: '✓'; font-size: .6rem; color: white; font-weight: 800;
+    }
+    .cust-name { font-size: .83rem; font-weight: 600; color: var(--text); margin-bottom: .2rem; }
+    .cust-meta { font-size: .71rem; color: var(--text2); line-height: 1.4; }
+    .htag {
+      display: inline-block;
+      padding: .08rem .45rem; border-radius: 4px;
+      font-size: .63rem; font-weight: 700;
+      letter-spacing: .3px; text-transform: uppercase;
+    }
+    .hf { background: rgba(231,76,60,.15); color: #ff6b6b; }
+    .hm { background: rgba(245,166,35,.15); color: #f5a623; }
+    .hp { background: rgba(0,201,125,.15); color: #00c97d; }
+
+    .sel-info {
+      font-size: .73rem; color: var(--accent2);
+      font-weight: 600; margin-top: .5rem;
+    }
 
     /* ── Forms ── */
     .r2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
     .fg { margin-bottom: .85rem; }
-    label { display: block; font-size: .76rem; font-weight: 500; margin-bottom: .27rem; color: #444; }
-    label .req { color: var(--red); }
+    label { display: block; font-size: .74rem; font-weight: 500; margin-bottom: .3rem; color: var(--text2); }
+    label .req { color: var(--accent2); }
+
     input[type=text], input[type=date], textarea, select {
-      width: 100%; padding: .48rem .72rem;
-      border: 1px solid var(--bdr); border-radius: 6px;
-      font-size: .83rem; background: var(--white);
-      font-family: inherit; color: var(--text);
-      transition: border-color .15s, box-shadow .15s; -webkit-appearance: none;
+      width: 100%;
+      padding: .52rem .8rem;
+      background: var(--card2);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      font-size: .83rem;
+      color: var(--text);
+      font-family: inherit;
+      transition: border-color .15s, box-shadow .15s;
+      -webkit-appearance: none;
     }
-    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,57,43,.07); }
+    input::placeholder, textarea::placeholder { color: var(--text3); }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: rgba(231,76,60,.5);
+      box-shadow: 0 0 0 3px rgba(231,76,60,.1);
+    }
     textarea { min-height: 80px; resize: vertical; line-height: 1.5; }
-    .tr { display: flex; flex-wrap: wrap; gap: .32rem; margin-top: .38rem; }
-    .tag { background: var(--grey); border: 1px solid var(--bdr); border-radius: 4px; padding: .16rem .5rem; font-size: .74rem; display: flex; align-items: center; gap: .28rem; }
-    .tag button { background: none; border: none; cursor: pointer; color: var(--muted); font-size: .78rem; padding: 0; }
-    .tag button:hover { color: var(--red); }
-    .ti { display: flex; gap: .45rem; margin-top: .38rem; }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236060a0'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right .75rem center;
+      padding-right: 2rem; cursor: pointer;
+    }
+    select option { background: var(--card2); color: var(--text); }
+
+    /* Tags */
+    .tr { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .4rem; }
+    .tag {
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border2);
+      border-radius: 5px;
+      padding: .18rem .55rem; font-size: .73rem;
+      display: flex; align-items: center; gap: .3rem;
+      color: var(--text2);
+    }
+    .tag button { background: none; border: none; cursor: pointer; color: var(--text3); font-size: .78rem; padding: 0; }
+    .tag button:hover { color: var(--accent2); }
+    .ti { display: flex; gap: .45rem; margin-top: .4rem; }
     .ti input { flex: 1; }
-    .bxs { padding: .38rem .75rem; border-radius: 6px; border: 1px solid var(--bdr); font-size: .76rem; font-weight: 500; cursor: pointer; background: var(--white); color: var(--text); font-family: inherit; white-space: nowrap; transition: all .15s; }
-    .bxs:hover { border-color: var(--red); color: var(--red); }
+    .bxs {
+      padding: .4rem .8rem; border-radius: 7px;
+      border: 1px solid var(--border2);
+      font-size: .75rem; font-weight: 500;
+      cursor: pointer; background: var(--card2);
+      color: var(--text2); font-family: inherit;
+      white-space: nowrap; transition: all .15s;
+    }
+    .bxs:hover { border-color: var(--accent); color: var(--accent); }
 
     /* ── Output Options ── */
     .og { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
-    .opt { border: 1px solid var(--bdr); border-radius: 8px; padding: .85rem .95rem; cursor: pointer; display: flex; align-items: flex-start; gap: .65rem; transition: all .15s; background: var(--white); }
-    .opt:hover, .opt.sel { border-color: var(--red); background: #fdf9f9; }
+    .opt {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .9rem 1rem; cursor: pointer;
+      display: flex; align-items: flex-start; gap: .7rem;
+      transition: all .2s; position: relative;
+    }
+    .opt:hover { border-color: rgba(231,76,60,.35); background: rgba(231,76,60,.05); }
+    .opt.sel {
+      border-color: var(--accent);
+      background: rgba(231,76,60,.08);
+      box-shadow: 0 0 16px rgba(231,76,60,.1);
+    }
     .oi { flex-shrink: 0; margin-top: .05rem; }
-    .ot { font-size: .83rem; font-weight: 600; margin-bottom: .08rem; }
-    .os { font-size: .72rem; color: var(--muted); line-height: 1.35; }
-    .oc { margin-left: auto; width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid var(--bdr); flex-shrink: 0; align-self: center; transition: all .15s; }
-    .opt.sel .oc { background: var(--red); border-color: var(--red); }
+    .ot { font-size: .83rem; font-weight: 600; color: var(--text); margin-bottom: .08rem; }
+    .os { font-size: .72rem; color: var(--text2); line-height: 1.35; }
+    .oc {
+      margin-left: auto; width: 15px; height: 15px;
+      border-radius: 4px; border: 1.5px solid var(--border2);
+      flex-shrink: 0; align-self: center; transition: all .15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .opt.sel .oc { background: var(--accent); border-color: var(--accent); }
+    .opt.sel .oc::after { content: '✓'; font-size: .58rem; color: white; font-weight: 800; }
 
     /* ── Buttons ── */
-    .br { display: flex; gap: .55rem; flex-wrap: wrap; }
-    .btn { padding: .52rem 1.2rem; border-radius: 6px; font-size: .83rem; font-weight: 500; cursor: pointer; transition: all .15s; font-family: inherit; }
-    .bp2 { background: var(--red); color: white; border: 1px solid var(--red); }
-    .bp2:hover:not(:disabled) { background: #a93226; }
-    .bp2:disabled { background: var(--bdr); border-color: var(--bdr); color: var(--muted); cursor: not-allowed; }
-    .bg { background: var(--white); border: 1px solid var(--bdr); color: var(--text); }
-    .bg:hover { border-color: #bbb; }
+    .br { display: flex; gap: .6rem; flex-wrap: wrap; }
+    .btn {
+      padding: .55rem 1.3rem; border-radius: 8px;
+      font-size: .83rem; font-weight: 500;
+      cursor: pointer; transition: all .2s;
+      font-family: inherit; letter-spacing: -.1px;
+    }
+    .bp {
+      background: var(--accent);
+      color: white; border: 1px solid var(--accent);
+      box-shadow: 0 0 20px rgba(231,76,60,.25);
+    }
+    .bp:hover:not(:disabled) {
+      background: var(--accent2);
+      box-shadow: 0 0 28px rgba(231,76,60,.4);
+      transform: translateY(-1px);
+    }
+    .bp:disabled { background: rgba(255,255,255,.08); border-color: var(--border); color: var(--text3); cursor: not-allowed; box-shadow: none; }
+    .bg {
+      background: var(--card2); border: 1px solid var(--border2);
+      color: var(--text2);
+    }
+    .bg:hover { border-color: var(--border2); color: var(--text); background: rgba(255,255,255,.05); }
 
-    /* ── Result Tabs (Kunden) ── */
-    .cust-tabs { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    /* ── Progress ── */
+    .prog {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .prog-title { font-size: .85rem; font-weight: 600; margin-bottom: .75rem; color: var(--text); }
+    .prog-bg { background: rgba(255,255,255,.06); border-radius: 10px; height: 4px; margin-bottom: .5rem; overflow: hidden; }
+    .prog-bar { background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 10px; height: 4px; transition: width .4s ease; }
+    .prog-status { font-size: .74rem; color: var(--text2); }
+
+    /* ── Tabs ── */
+    .ctabs { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .75rem; }
     .ctab {
-      padding: .38rem .85rem; border-radius: 6px;
-      border: 1px solid var(--bdr); background: var(--white);
-      font-size: .78rem; font-weight: 500; cursor: pointer;
-      transition: all .15s; color: var(--muted);
+      padding: .38rem .9rem; border-radius: 7px;
+      border: 1px solid var(--border);
+      background: var(--card2);
+      font-size: .76rem; font-weight: 500;
+      cursor: pointer; transition: all .15s;
+      color: var(--text2);
     }
-    .ctab.active { border-color: var(--red); color: var(--red); background: #fdf9f9; font-weight: 600; }
-
-    /* ── Result Output Tabs (Formate) ── */
-    .fmt-tabs { display: flex; gap: .35rem; flex-wrap: wrap; margin-bottom: .75rem; }
+    .ctab:hover { border-color: var(--border2); color: var(--text); }
+    .ctab.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(231,76,60,.08);
+      font-weight: 600;
+    }
+    .ftabs { display: flex; gap: .35rem; flex-wrap: wrap; margin-bottom: .75rem; }
     .ftab {
-      padding: .3rem .7rem; border-radius: 5px;
-      border: 1px solid var(--bdr); background: var(--grey);
-      font-size: .74rem; cursor: pointer; transition: all .15s; color: var(--muted);
+      padding: .3rem .75rem; border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      font-size: .73rem; cursor: pointer;
+      transition: all .15s; color: var(--text3);
     }
-    .ftab.active { border-color: var(--dark); color: var(--dark); background: var(--white); font-weight: 600; }
+    .ftab:hover { color: var(--text2); }
+    .ftab.active {
+      border-color: var(--border2);
+      color: var(--text); background: rgba(255,255,255,.05);
+      font-weight: 600;
+    }
 
     /* ── Result Box ── */
     .rbox {
-      background: var(--white); border-radius: 8px;
-      border: 1px solid var(--bdr); border-left: 3px solid var(--red);
-      padding: 1.5rem; white-space: pre-wrap;
-      font-size: .81rem; line-height: 1.75;
-      max-height: 520px; overflow-y: auto; margin-bottom: .85rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem;
+      white-space: pre-wrap;
+      font-size: .81rem;
+      line-height: 1.8;
+      max-height: 520px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      color: var(--text);
+      font-family: 'Segoe UI', monospace;
     }
 
-    /* ── Progress ── */
-    .prog-wrap { background: var(--white); border: 1px solid var(--bdr); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
-    .prog-title { font-size: .82rem; font-weight: 600; margin-bottom: .65rem; }
-    .prog-bar-bg { background: var(--grey); border-radius: 10px; height: 6px; margin-bottom: .5rem; }
-    .prog-bar { background: var(--red); border-radius: 10px; height: 6px; transition: width .4s ease; }
-    .prog-status { font-size: .75rem; color: var(--muted); }
+    /* ── Divider ── */
+    .div { height: 1px; background: var(--border); margin: 1.25rem 0; }
 
-    .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--dark); color: white; padding: .55rem .95rem; border-radius: 6px; font-size: .79rem; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 999; }
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 1.5rem; right: 1.5rem;
+      background: var(--card2);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      padding: .6rem 1rem; border-radius: 8px;
+      font-size: .78rem; opacity: 0; transition: opacity .25s;
+      pointer-events: none; z-index: 999;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    }
     .toast.show { opacity: 1; }
     .hidden { display: none !important; }
 
     @media(max-width:580px) {
       .r2, .og, .tpage, .cust-grid { grid-template-columns: 1fr; }
-      header { padding: .9rem 1.1rem; }
-      main { padding: 0 .9rem; margin: 1.5rem auto; }
+      header { padding: .85rem 1rem; }
+      main { padding: 0 .9rem; margin: 1.25rem auto; }
     }
   </style>
 </head>
@@ -226,16 +442,17 @@
   <div class="hl">
     <div class="lm">UN</div>
     <div>
-      <h1>Handover Assistant</h1>
-      <div class="ver">Unzer Relay · v1.0</div>
+      <div class="h-title">Handover Assistant</div>
+      <div class="h-sub">Unzer Relay · Internal Tool</div>
     </div>
   </div>
   <div class="hr2">
-    <svg class="rsvg" width="20" height="20" viewBox="0 0 100 100" fill="none">
-      <path d="M22 18 L22 58 Q22 80 50 80 Q78 80 78 58 L78 18" stroke="white" stroke-width="13" stroke-linecap="round" fill="none"/>
+    <svg class="relay-ico" width="18" height="18" viewBox="0 0 100 100" fill="none">
+      <path d="M22 18 L22 58 Q22 80 50 80 Q78 80 78 58 L78 18"
+            stroke="white" stroke-width="13" stroke-linecap="round" fill="none"/>
       <circle cx="70" cy="26" r="11" fill="white"/>
     </svg>
-    <span class="rl">RELAY</span>
+    <span class="relay-lbl">Relay</span>
   </div>
 </header>
 
@@ -247,7 +464,8 @@
     <h2>Neue Übergabe erstellen</h2>
     <p>Wähle den Übergabetyp um zu beginnen.</p>
   </div>
-  <div class="card">
+
+  <div class="card card-glow">
     <div class="stop">
       <div class="clbl">Übergabetyp</div>
       <div class="ag">
@@ -258,25 +476,45 @@
     <div class="tpages">
       <div class="tpage active" id="tp-0">
         <div class="tile" onclick="pick('vacation')">
-          <div class="tiw"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8v4h8V3z"/></svg></div>
-          <div class="tb"><div class="tt">Urlaubsübergabe</div><div class="td">Interne Vertretung für Abwesenheitszeitraum</div></div>
+          <div class="tiw">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8v4h8V3z"/></svg>
+          </div>
+          <div class="tb">
+            <div class="tt">Urlaubsübergabe</div>
+            <div class="td">Interne Vertretung für Abwesenheitszeitraum</div>
+          </div>
           <div class="ta">›</div>
         </div>
         <div class="tile" onclick="pick('customer')">
-          <div class="tiw"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-          <div class="tb"><div class="tt">Kundenhandover</div><div class="td">Teamübergreifende Übergabe von Kunden & Opportunities</div></div>
+          <div class="tiw">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="tb">
+            <div class="tt">Kundenhandover</div>
+            <div class="td">Teamübergreifende Übergabe von Kunden & Opportunities</div>
+          </div>
           <div class="ta">›</div>
         </div>
       </div>
       <div class="tpage" id="tp-1">
         <div class="tile" onclick="pick('project')">
-          <div class="tiw"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></div>
-          <div class="tb"><div class="tt">Projektübergabe</div><div class="td">Übergabe laufender Projekte an andere Teams</div></div>
+          <div class="tiw">
+            <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          </div>
+          <div class="tb">
+            <div class="tt">Projektübergabe</div>
+            <div class="td">Übergabe laufender Projekte an andere Teams</div>
+          </div>
           <div class="ta">›</div>
         </div>
         <div class="tile" onclick="pick('custom')">
-          <div class="tiw"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
-          <div class="tb"><div class="tt">Freie Übergabe</div><div class="td">Individueller Übergabetyp – frei konfigurierbar</div></div>
+          <div class="tiw">
+            <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <div class="tb">
+            <div class="tt">Freie Übergabe</div>
+            <div class="td">Individueller Übergabetyp – frei konfigurierbar</div>
+          </div>
           <div class="ta">›</div>
         </div>
       </div>
@@ -303,47 +541,47 @@
   <!-- URLAUB -->
   <div id="f-vacation" class="hidden">
     <div class="card">
-      <div class="sl">Kunden auswählen (Mehrfachauswahl)</div>
-      <div class="cust-grid" id="cust-grid-v">
+      <div class="sl">Kunden auswählen – Mehrfachauswahl</div>
+      <div class="cust-grid">
         <div class="cust-card" onclick="toggleCust('bella_casa','v',this)">
-          <div class="cust-check"></div>
+          <div class="cust-chk"></div>
           <div>
             <div class="cust-name">Bella Casa Living AG</div>
-            <div class="cust-meta"><span class="ht hm">Medium</span> · EUR 31,8 Mio. · DE/AT</div>
+            <div class="cust-meta"><span class="htag hm">Medium</span> · EUR 31,8 Mio. · DE/AT · Finance-fokus</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('fitfuel','v',this)">
-          <div class="cust-check"></div>
+          <div class="cust-chk"></div>
           <div>
             <div class="cust-name">FitFuel Nutrition Europe</div>
-            <div class="cust-meta"><span class="ht hp">Positiv</span> · EUR 14,7 Mio. · EU</div>
+            <div class="cust-meta"><span class="htag hp">Positiv</span> · EUR 14,7 Mio. · EU · Growth</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('nordlicht','v',this)">
-          <div class="cust-check"></div>
+          <div class="cust-chk"></div>
           <div>
             <div class="cust-name">Nordlicht Outdoor GmbH</div>
-            <div class="cust-meta"><span class="ht hm">Medium</span> · EUR 18,4 Mio. · DACH</div>
+            <div class="cust-meta"><span class="htag hm">Medium</span> · EUR 18,4 Mio. · DACH · Mobile-fokus</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('urbancraft','v',this)">
-          <div class="cust-check"></div>
+          <div class="cust-chk"></div>
           <div>
             <div class="cust-name">UrbanCraft Market GmbH</div>
-            <div class="cust-meta"><span class="ht hf">Fragil</span> · EUR 8,9 Mio. · DACH</div>
+            <div class="cust-meta"><span class="htag hf">Fragil</span> · EUR 8,9 Mio. · DACH · Relationship Risk</div>
           </div>
         </div>
       </div>
-      <div class="sel-info" id="v-sel-info"></div>
-
-      <div class="sl" style="margin-top:1rem">Übergabedaten</div>
+      <div class="sel-info" id="v-si"></div>
+      <div class="div"></div>
+      <div class="sl">Übergabedaten</div>
       <div class="r2">
         <div class="fg"><label>Dein Name <span class="req">*</span></label><input type="text" id="v-name" placeholder="Maria Schmidt"/></div>
         <div class="fg"><label>Vertretung <span class="req">*</span></label><input type="text" id="v-sub" placeholder="Max Mustermann"/></div>
       </div>
       <div class="r2">
-        <div class="fg"><label>Von <span class="req">*</span></label><input type="date" id="v-start"/></div>
-        <div class="fg"><label>Bis <span class="req">*</span></label><input type="date" id="v-end"/></div>
+        <div class="fg"><label>Abwesenheit von <span class="req">*</span></label><input type="date" id="v-start"/></div>
+        <div class="fg"><label>Abwesenheit bis <span class="req">*</span></label><input type="date" id="v-end"/></div>
       </div>
       <div class="fg"><label>Weitere Notizen (optional)</label><textarea id="v-notes" placeholder="Zusätzliche Hinweise für die Vertretung..."></textarea></div>
     </div>
@@ -352,40 +590,40 @@
   <!-- KUNDE -->
   <div id="f-customer" class="hidden">
     <div class="card">
-      <div class="sl">Kunden auswählen (Mehrfachauswahl)</div>
-      <div class="cust-grid" id="cust-grid-c">
+      <div class="sl">Kunden auswählen – Mehrfachauswahl</div>
+      <div class="cust-grid">
         <div class="cust-card" onclick="toggleCust('bella_casa','c',this)">
-          <div class="cust-check"></div>
+          <div class="cust-chk"></div>
           <div>
             <div class="cust-name">Bella Casa Living AG</div>
-            <div class="cust-meta"><span class="ht hm">Medium</span> · EUR 31,8 Mio. · DE/AT</div>
+            <div class="cust-meta"><span class="htag hm">Medium</span> · EUR 31,8 Mio. · DE/AT</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('fitfuel','c',this)">
-          <div class="cust-check"></div>
+          <div class="cust-chk"></div>
           <div>
             <div class="cust-name">FitFuel Nutrition Europe</div>
-            <div class="cust-meta"><span class="ht hp">Positiv</span> · EUR 14,7 Mio. · EU</div>
+            <div class="cust-meta"><span class="htag hp">Positiv</span> · EUR 14,7 Mio. · EU</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('nordlicht','c',this)">
-          <div class="cust-check"></div>
+          <div class="cust-chk"></div>
           <div>
             <div class="cust-name">Nordlicht Outdoor GmbH</div>
-            <div class="cust-meta"><span class="ht hm">Medium</span> · EUR 18,4 Mio. · DACH</div>
+            <div class="cust-meta"><span class="htag hm">Medium</span> · EUR 18,4 Mio. · DACH</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('urbancraft','c',this)">
-          <div class="cust-check"></div>
+          <div class="cust-chk"></div>
           <div>
             <div class="cust-name">UrbanCraft Market GmbH</div>
-            <div class="cust-meta"><span class="ht hf">Fragil</span> · EUR 8,9 Mio. · DACH</div>
+            <div class="cust-meta"><span class="htag hf">Fragil</span> · EUR 8,9 Mio. · DACH</div>
           </div>
         </div>
       </div>
-      <div class="sel-info" id="c-sel-info"></div>
-
-      <div class="sl" style="margin-top:1rem">Handover Details</div>
+      <div class="sel-info" id="c-si"></div>
+      <div class="div"></div>
+      <div class="sl">Handover Details</div>
       <div class="r2">
         <div class="fg"><label>Übergabe von <span class="req">*</span></label><input type="text" id="c-from" placeholder="Name + Team"/></div>
         <div class="fg"><label>Übergabe an <span class="req">*</span></label><input type="text" id="c-to" placeholder="Name + Team"/></div>
@@ -402,10 +640,10 @@
         <div class="fg"><label>Projektname <span class="req">*</span></label><input type="text" id="p-name" placeholder="z. B. Migration CRM"/></div>
         <div class="fg"><label>Übergabe an <span class="req">*</span></label><input type="text" id="p-to" placeholder="Name + Team"/></div>
       </div>
-      <div class="fg"><label>Projektstatus & Phase</label><textarea id="p-status" placeholder="Aktueller Stand, abgeschlossene Meilensteine..."></textarea></div>
-      <div class="fg"><label>Offene Aufgaben & Verantwortlichkeiten</label><textarea id="p-todos" placeholder="Wer macht was bis wann?"></textarea></div>
-      <div class="fg"><label>Abhängigkeiten & Risiken</label><textarea id="p-risks" placeholder="Was blockiert das Projekt?"></textarea></div>
-      <div class="fg"><label>Dokumentation & Links</label><textarea id="p-links" placeholder="Confluence, JIRA, SharePoint..."></textarea></div>
+      <div class="fg"><label>Status & Phase</label><textarea id="p-status" placeholder="Aktueller Stand, abgeschlossene Meilensteine..."></textarea></div>
+      <div class="fg"><label>Offene Aufgaben</label><textarea id="p-todos" placeholder="Wer macht was bis wann?"></textarea></div>
+      <div class="fg"><label>Risiken & Abhängigkeiten</label><textarea id="p-risks" placeholder="Was blockiert das Projekt?"></textarea></div>
+      <div class="fg"><label>Links & Dokumentation</label><textarea id="p-links" placeholder="Confluence, JIRA, SharePoint..."></textarea></div>
       <div class="fg">
         <label>Weitere Teilprojekte</label>
         <div class="ti"><input type="text" id="p-ti" placeholder="Teilprojekt..."/><button class="bxs" onclick="addTag('p')">+ Add</button></div>
@@ -434,7 +672,7 @@
 
   <div class="br">
     <button class="btn bg" onclick="go('s-start')">← Zurück</button>
-    <button class="btn bp2" onclick="toOutput()">Weiter →</button>
+    <button class="btn bp" onclick="toOutput()">Weiter →</button>
   </div>
 </div>
 
@@ -450,34 +688,34 @@
     <div class="step"><div class="sn">4</div>Ergebnis</div>
   </div>
   <div class="card">
-    <div class="clbl">Ausgabeformat wählen – Mehrfachauswahl möglich</div>
+    <div class="clbl">Ausgabeformat – Mehrfachauswahl möglich</div>
     <div class="og">
       <div class="opt" onclick="togOpt(this,'short')">
-        <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
         <div style="flex:1"><div class="ot">Short Overview</div><div class="os">Kompakte 1-Seiten-Zusammenfassung</div></div>
         <div class="oc"></div>
       </div>
       <div class="opt" onclick="togOpt(this,'email')">
-        <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
         <div style="flex:1"><div class="ot">E-Mail an Vertretung</div><div class="os">Fertig formuliert, direkt versendbar</div></div>
         <div class="oc"></div>
       </div>
       <div class="opt" onclick="togOpt(this,'deadlines')">
-        <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
         <div style="flex:1"><div class="ot">Deadlines & Termine</div><div class="os">Terminliste + .ics Kalender-Export</div></div>
         <div class="oc"></div>
       </div>
       <div class="opt" onclick="togOpt(this,'bullets')">
-        <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+        <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
         <div style="flex:1"><div class="ot">Stichpunkt-Übergabe</div><div class="os">Strukturierte Bullet-Point-Übersicht</div></div>
         <div class="oc"></div>
       </div>
     </div>
-    <div class="sel-info" id="fmt-sel-info" style="margin-top:.6rem"></div>
+    <div class="sel-info" id="fmt-si" style="margin-top:.6rem"></div>
   </div>
   <div class="br">
     <button class="btn bg" onclick="go('s-form')">← Zurück</button>
-    <button class="btn bp2" id="btn-gen" onclick="generate()" disabled>Übergabe erstellen →</button>
+    <button class="btn bp" id="btn-gen" onclick="generate()" disabled>Übergabe erstellen →</button>
   </div>
 </div>
 
@@ -493,26 +731,19 @@
     <div class="step active"><div class="sn">4</div>Ergebnis</div>
   </div>
 
-  <!-- Progress -->
-  <div id="prog-wrap" class="prog-wrap hidden">
-    <div class="prog-title" id="prog-title">Wird erstellt…</div>
-    <div class="prog-bar-bg"><div class="prog-bar" id="prog-bar" style="width:0%"></div></div>
-    <div class="prog-status" id="prog-status"></div>
+  <div id="prog" class="prog hidden">
+    <div class="prog-title" id="prog-t">Wird erstellt…</div>
+    <div class="prog-bg"><div class="prog-bar" id="prog-b" style="width:0%"></div></div>
+    <div class="prog-status" id="prog-s"></div>
   </div>
 
-  <!-- Kunden-Tabs -->
-  <div id="cust-tabs" class="cust-tabs hidden"></div>
-
-  <!-- Format-Tabs -->
-  <div id="fmt-tabs" class="fmt-tabs hidden"></div>
-
-  <!-- Result Box -->
+  <div id="ctabs" class="ctabs hidden"></div>
+  <div id="ftabs" class="ftabs hidden"></div>
   <div id="rbox" class="rbox hidden"></div>
 
-  <!-- Aktionen -->
-  <div id="ract" class="br hidden" style="margin-top:.75rem">
-    <button class="btn bp2" onclick="copyRes()">Kopieren</button>
-    <button class="btn bg" id="btn-mail" onclick="mailto()">E-Mail öffnen</button>
+  <div id="ract" class="br hidden" style="margin-top:.85rem">
+    <button class="btn bp" onclick="copyRes()">Kopieren</button>
+    <button class="btn bg" id="btn-mail" onclick="doMailto()">E-Mail öffnen</button>
     <button class="btn bg" id="btn-ics" onclick="icsExport()">.ics Export</button>
     <button class="btn bg" onclick="reset()">Neue Übergabe</button>
   </div>
@@ -522,22 +753,28 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════
-// KUNDENDATENBANK [2][3][4][5]
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
+// KUNDENDATENBANK – Alle 4 Kunden
+// ═══════════════════════════════════════
 const DB = {
+
   bella_casa: {
     name: 'Bella Casa Living AG', id: 'CUST-002',
     health: 'medium', segment: 'Mid-Market / Enterprise-like',
-    region: 'DE / AT', tpv: 'EUR 31,8 Mio./Jahr', growth: '+12% YoY',
-    aov: 'EUR 214', payment: 'Cards 39%, Invoice 34%, Installments 17%, Wallets 10%',
-    mobile: '42%', desktop: '58%', churn: 'Medium', growthPot: 'Medium to High',
+    region: 'DE / AT', tpv: 'EUR 31,8 Mio./Jahr',
+    growth: '+12% YoY', aov: 'EUR 214',
+    mobile: '42%', desktop: '58%',
+    payment: 'Cards 39%, Invoice 34%, Installments 17%, Wallets 10%',
+    integration: 'Magento / Adobe Commerce',
+    goLive: '2026-01-16',
+    feeRate: '1,67%',
+    churn: 'Medium', growthPot: 'Medium to High',
     contacts: [
-      { name: 'Katharina Wolf', role: 'Head of Payments', email: 'katharina.wolf@bellacasa-demo.com' },
-      { name: 'Sven Maurer', role: 'Finance Manager', email: 'sven.maurer@bellacasa-demo.com' },
-      { name: 'Elisa Brandt', role: 'E-Commerce Director', email: 'elisa.brandt@bellacasa-demo.com' },
-      { name: 'Tobias Kern', role: 'ERP/Reconciliation Lead', email: 'tobias.kern@bellacasa-demo.com' },
-      { name: 'Martin Seidel', role: 'Managing Director', email: 'martin.seidel@bellacasa-demo.com' }
+      { name: 'Katharina Wolf',  role: 'Head of Payments',        email: 'katharina.wolf@bellacasa-demo.com', primary: true },
+      { name: 'Sven Maurer',     role: 'Finance Manager',          email: 'sven.maurer@bellacasa-demo.com' },
+      { name: 'Elisa Brandt',    role: 'E-Commerce Director',      email: 'elisa.brandt@bellacasa-demo.com' },
+      { name: 'Tobias Kern',     role: 'ERP / Reconciliation Lead', email: 'tobias.kern@bellacasa-demo.com' },
+      { name: 'Martin Seidel',   role: 'Managing Director',        email: 'martin.seidel@bellacasa-demo.com' }
     ],
     issues: [
       'Konsolidierte Beantwortung offener Settlement- und Gebührenfragen',
@@ -546,46 +783,53 @@ const DB = {
       'Kommerziellen Review mit Service-Modell verbinden',
       'Ownership-Struktur über Teams hinweg verbessern'
     ],
-    risks: 'Vertrauensverlust bei Reconciliation/Settlement; widersprüchliche Aussagen; schwieriger werdende Preisgespräche bei mangelnder Service-Qualität',
-    opportunities: 'Strategischer Ausbau; besseres Finance-Reporting; Ausbau weiterer Zahlarten; QBR-Format etablieren',
-    handoverNote: 'Finance-Antworten vollständig und konsolidiert. Konditionsgespräche immer mit Service-Kontext. Kunde eskaliert sachlich aber konsequent bei Unklarheiten.',
+    risks: 'Vertrauensverlust bei Reconciliation/Settlement-Themen; widersprüchliche Aussagen intern; schwieriger werdende Preisgespräche bei mangelnder Service-Qualität',
+    opportunities: 'Strategischer Ausbau bei professioneller Betreuung; besseres Finance-Reporting als Differenzierungsfaktor; QBR-Format etablieren; Ausbau weiterer Zahlarten',
+    handoverNote: 'Finance-Antworten müssen vollständig und konsolidiert sein. Konditionsgespräche ohne Service-Kontext greifen zu kurz. Kunde eskaliert sachlich aber konsequent bei Unklarheiten.',
     actions: [
       'Standardisierte konsolidierte Antwortform für Finance-Themen etablieren',
-      'Gebührenlogik verständlich dokumentieren',
+      'Gebührenlogik verständlich und wiederverwendbar dokumentieren',
       'QBR-Format mit Finance-, Commerce- und Service-Blick aufsetzen',
-      'Zahlungsarten-Ausbau mit klarer ETA versehen',
+      'Zahlungsarten-Ausbau mit klarer ETA und Voraussetzungen versehen',
       'Kommerzielle Diskussionen immer mit Betreuungsmodell koppeln'
     ],
     termine: [
-      { date: '2025-07-15', title: 'Quarterly Business Review', attendees: 'Katharina Wolf, Elisa Brandt', prep: 'Settlement-Übersicht, Fee-Dokumentation vorbereiten', prio: 'high' },
-      { date: '2025-07-31', title: 'Settlement-Monatsabschluss', attendees: 'Sven Maurer, Tobias Kern', prep: 'Auszahlungsreport prüfen', prio: 'high' },
-      { date: '2025-08-05', title: 'Follow-up Gebührenstruktur', attendees: 'Sven Maurer', prep: 'Gebühren-Dokumentation finalisieren', prio: 'medium' }
+      { date: '2026-06-18', time: '10:00', title: 'Abstimmung Settlement-Reporting', attendees: 'Sven Maurer, Tobias Kern', prep: 'Auszahlungslogik-Übersicht und Gebührenbestandteile vorbereiten', prio: 'high' },
+      { date: '2026-06-23', time: '14:00', title: 'Workshop Gebührenstruktur & Transparenz', attendees: 'Katharina Wolf, Sven Maurer', prep: 'Beispieltransaktionen aufbereiten, Gebührenkategorien dokumentieren', prio: 'high' },
+      { date: '2026-06-27', time: '11:00', title: 'Review Freischaltung zusätzlicher Zahlungsmittel', attendees: 'Katharina Wolf, Elisa Brandt', prep: 'ETA und Voraussetzungen klären', prio: 'medium' },
+      { date: '2026-07-02', time: '15:00', title: 'Service- und Ownership-Review', attendees: 'Katharina Wolf, Account Management', prep: 'Zentraler Owner und Eskalationswege definieren', prio: 'medium' },
+      { date: '2026-07-07', time: '10:00', title: 'QBR Kickoff', attendees: 'Katharina Wolf, Elisa Brandt, Sven Maurer', prep: 'Conversion-Daten, Zahlungsarten-Mix, Service-Level-Übersicht', prio: 'high' }
     ]
   },
 
   fitfuel: {
     name: 'FitFuel Nutrition Europe', id: 'CUST-003',
     health: 'positive', segment: 'Growth Merchant',
-    region: 'EU', tpv: 'EUR 14,7 Mio./Jahr', growth: '+41% YoY',
-    aov: 'EUR 62', payment: 'Cards 58%, Apple Pay 16%, Google Pay 13%, Other 13%',
-    mobile: '72%', desktop: '28%', churn: 'Low to Medium', growthPot: 'High',
+    region: 'EU', tpv: 'EUR 14,7 Mio./Jahr',
+    growth: '+41% YoY', aov: 'EUR 62',
+    mobile: '72%', desktop: '28%',
+    payment: 'Cards 58%, Apple Pay 16%, Google Pay 13%, Other 13%',
+    integration: 'Shopify',
+    goLive: '2025-12-08',
+    feeRate: '1,92%',
+    churn: 'Low to Medium', growthPot: 'High',
     contacts: [
-      { name: 'Sarah Klein', role: 'Head of E-Commerce', email: 'sarah.klein@fitfuel-demo.com' },
-      { name: 'Marc Weber', role: 'Growth Lead', email: 'marc.weber@fitfuel-demo.com' },
-      { name: 'Deniz Acar', role: 'Shopify Developer', email: 'deniz.acar@fitfuel-demo.com' },
-      { name: 'Olivia Stern', role: 'Operations Manager', email: 'olivia.stern@fitfuel-demo.com' },
-      { name: 'Daniel Kraus', role: 'Managing Director', email: 'daniel.kraus@fitfuel-demo.com' }
+      { name: 'Sarah Klein',   role: 'Head of E-Commerce',  email: 'sarah.klein@fitfuel-demo.com', primary: true },
+      { name: 'Marc Weber',    role: 'Growth Lead',          email: 'marc.weber@fitfuel-demo.com' },
+      { name: 'Deniz Acar',    role: 'Shopify Developer',    email: 'deniz.acar@fitfuel-demo.com' },
+      { name: 'Olivia Stern',  role: 'Operations Manager',   email: 'olivia.stern@fitfuel-demo.com' },
+      { name: 'Daniel Kraus',  role: 'Managing Director',    email: 'daniel.kraus@fitfuel-demo.com' }
     ],
     issues: [
-      'KPI-Schwankungen nach Shop-Änderungen klarer bewerten',
+      'Klarere Bewertung von KPI-Schwankungen nach Shop-Änderungen',
       'Strukturierten Checkout-Optimierungsansatz aufbauen',
-      'Subscription Retry-Strategien reviewen',
+      'Subscription Retry-Strategien reviewen und optimieren',
       'Regelmäßige KPI-Reviews etablieren',
-      'Technische Changes enger begleiten'
+      'Technische Changes enger begleiten (Theme/App-Updates)'
     ],
-    risks: 'Conversion-Einbruch nach Shop-/Theme-Änderungen; unzureichende KPI-Einordnung; generische Support-Antworten werden nicht akzeptiert',
-    opportunities: 'Starke Growth-Partnerschaft; Mobile Checkout Optimierung; Subscription-Retry-Verbesserung; KPI-basierte Review-Struktur',
-    handoverNote: 'KPI-Fragen immer business-kritisch behandeln. Tempo und konkrete Hypothesen statt technische Status-Meldungen. Mobile 72%, Wallets (Apple Pay + Google Pay) zentral.',
+    risks: 'Conversion-Einbruch nach Shop-/Theme-Änderungen; unzureichende KPI-Einordnung; generische Support-Antworten werden nicht toleriert',
+    opportunities: 'Starke Growth-Partnerschaft; Mobile Checkout & Wallet-Optimierung; Subscription-Retry-Verbesserung; KPI-basierte Review-Struktur',
+    handoverNote: 'KPI-Fragen sind immer business-kritisch. Tempo und konkrete Hypothesen statt technischer Status-Meldungen. Mobile 72%, Wallets (Apple Pay + Google Pay) sind zentral.',
     actions: [
       'Regelmäßigen KPI-Review-Rhythmus etablieren',
       'Subscription Retry-Strategien gemeinsam analysieren',
@@ -594,35 +838,43 @@ const DB = {
       'Wallet- und Conversion-Benchmarking strukturieren'
     ],
     termine: [
-      { date: '2025-07-10', title: 'KPI-Review Call', attendees: 'Marc Weber, Sarah Klein', prep: 'Checkout-Completion-Daten der letzten 4 Wochen aufbereiten', prio: 'high' },
-      { date: '2025-07-20', title: 'Subscription Retry-Analyse', attendees: 'Olivia Stern, Marc Weber', prep: 'Recovery-Rate Auswertung mitbringen', prio: 'medium' },
-      { date: '2025-08-01', title: 'Mobile Checkout Workshop', attendees: 'Sarah Klein, Deniz Acar', prep: 'Wallet-Benchmarking und A/B-Test-Ideen vorbereiten', prio: 'medium' }
+      { date: '2026-06-19', time: '10:00', title: 'KPI Review Session', attendees: 'Marc Weber, Sarah Klein', prep: 'Checkout-Completion-Daten, Mobile Share, Wallet-Uplift aufbereiten', prio: 'high' },
+      { date: '2026-06-23', time: '14:00', title: 'Subscription Recovery Workshop', attendees: 'Olivia Stern, Marc Weber', prep: 'Retry-Logiken analysieren, Recovery-Rate Auswertung', prio: 'high' },
+      { date: '2026-06-27', time: '11:00', title: 'Theme/App Change Risk Check', attendees: 'Deniz Acar, Sarah Klein', prep: 'Test- und Rollback-Checkliste abstimmen', prio: 'medium' },
+      { date: '2026-07-01', time: '15:00', title: 'Wallet Benchmarking Deep Dive', attendees: 'Marc Weber, Sarah Klein', prep: 'Apple Pay / Google Pay Potenziale, Mobile-Uplift Hypothesen', prio: 'medium' },
+      { date: '2026-07-04', time: '10:00', title: 'Growth Planning Meeting', attendees: 'Sarah Klein, Marc Weber', prep: 'Mobile Checkout + Subscription-Themen priorisieren', prio: 'medium' }
     ]
   },
 
   nordlicht: {
     name: 'Nordlicht Outdoor GmbH', id: 'CUST-001',
     health: 'medium', segment: 'Mid-Market',
-    region: 'DACH', tpv: 'EUR 18,4 Mio./Jahr', growth: '+28% YoY',
-    aov: 'EUR 86', payment: 'Cards 51%, Google Pay 13%, Apple Pay 9%, Invoice 27%',
-    mobile: '64%', desktop: '36%', churn: 'Medium', growthPot: 'High',
+    region: 'DACH', tpv: 'EUR 18,4 Mio./Jahr',
+    growth: '+28% YoY', aov: 'EUR 86',
+    mobile: '64%', desktop: '36%',
+    payment: 'Cards 51%, Google Pay 13%, Apple Pay 9%, Invoice 27%',
+    integration: 'Shopware Plugin',
+    goLive: '2024-11-09',
+    feeRate: '1,84%',
+    churn: 'Medium', growthPot: 'High',
     contacts: [
-      { name: 'Lena Hoffmann', role: 'E-Commerce Lead', email: 'lena.hoffmann@nordlicht-outdoor-demo.com' },
-      { name: 'Tim Becker', role: 'Shop Manager', email: 'tim.becker@nordlicht-outdoor-demo.com' },
-      { name: 'Nina Roth', role: 'CRM/Marketing Manager', email: 'nina.roth@nordlicht-outdoor-demo.com' },
-      { name: 'Paul Jensen', role: 'Tech Lead', email: 'paul.jensen@nordlicht-outdoor-demo.com' },
-      { name: 'Florian Berg', role: 'Managing Director', email: 'florian.berg@nordlicht-outdoor-demo.com' }
+      { name: 'Lena Hoffmann', role: 'E-Commerce Lead',       email: 'lena.hoffmann@nordlicht-outdoor-demo.com', primary: true },
+      { name: 'Tim Becker',    role: 'Shop Manager',           email: 'tim.becker@nordlicht-outdoor-demo.com' },
+      { name: 'Nina Roth',     role: 'CRM / Marketing Manager', email: 'nina.roth@nordlicht-outdoor-demo.com' },
+      { name: 'Paul Jensen',   role: 'Tech Lead',               email: 'paul.jensen@nordlicht-outdoor-demo.com' },
+      { name: 'Markus Feld',   role: 'Finance Manager',         email: 'markus.feld@nordlicht-outdoor-demo.com' },
+      { name: 'Florian Berg',  role: 'Managing Director',       email: 'florian.berg@nordlicht-outdoor-demo.com' }
     ],
     issues: [
-      'Belastbaren Release-Prozess mit Rollback-Kriterien definieren',
+      'Dauerhaft belastbaren Release-Prozess mit Rollback-Kriterien definieren',
       'Proaktive Incident-Kommunikation mit Business-Impact ausbauen',
-      'Roadmap für zusätzliche Zahlarten erstellen',
+      'Roadmap für zusätzliche Zahlarten erstellen (BNPL, Klarna, EPS)',
       'Regelmäßigen KPI-Review-Rhythmus etablieren',
       'Trennung zwischen Support- und AM-Kommunikation schärfen'
     ],
-    risks: 'Erneute Wallet- oder Checkout-Ausfälle (Google Pay kritisch); unklare Kommunikation bei technischen Änderungen; verspätete Updates bei laufenden Kampagnen',
-    opportunities: 'Ausbau weiterer Zahlarten; regelmäßige Performance-Reviews; Conversion-Optimierung Workshop; Internationalisierung',
-    handoverNote: 'Wallets geschäftskritisch (64% Mobile, Google Pay 13%). Bei Incidents enges Update-Intervall erwartet. Business-Impact immer adressieren, nicht nur technischen Status.',
+    risks: 'Erneute Wallet- oder Checkout-Ausfälle (Google Pay kritisch, 13%); unklare Kommunikation bei technischen Änderungen; verspätete Updates bei laufenden Kampagnen',
+    opportunities: 'Ausbau weiterer Zahlarten; regelmäßige Performance-Reviews; Mobile Checkout Optimization Workshop; Internationalisierung DACH+',
+    handoverNote: 'Wallets geschäftskritisch (64% Mobile, Google Pay 13%). Bei Incidents enges Update-Intervall mit ETA erwartet. Business-Impact immer adressieren, nicht nur technischen Status.',
     actions: [
       'Monatlichen KPI- und Performance-Review etablieren',
       'Roadmap für zusätzliche Zahlarten vorbereiten',
@@ -631,23 +883,30 @@ const DB = {
       'Preisgespräche mit Service- und Stabilitätsmodell verknüpfen'
     ],
     termine: [
-      { date: '2025-07-08', title: 'Plugin-Update Review', attendees: 'Paul Jensen, Tim Becker', prep: 'Rollback-Kriterien und Testplan vorab abstimmen', prio: 'high' },
-      { date: '2025-07-15', title: 'Monatlicher KPI-Review', attendees: 'Lena Hoffmann, Nina Roth', prep: 'Mobile Conversion und Wallet-Performance-Daten aufbereiten', prio: 'high' },
-      { date: '2025-07-25', title: 'Release-Governance Dokumentation', attendees: 'Paul Jensen', prep: 'Dokument finalisieren und abstimmen', prio: 'medium' }
+      { date: '2025-06-23', time: '10:00', title: 'Workshop Mobile Checkout & Conversion', attendees: 'Lena Hoffmann, Nina Roth', prep: 'Wallet-Split-Daten, Mobile Checkout Flows, Benchmarking vorbereiten', prio: 'high' },
+      { date: '2025-06-26', time: '14:00', title: 'Release-Governance & Rollback-Framework', attendees: 'Paul Jensen, Tim Becker', prep: 'Testkriterien, Rollback-Schwellenwerte, Monitoring-Prozesse finalisieren', prio: 'high' },
+      { date: '2025-06-30', time: '11:00', title: 'Konditionsgespräch & Wachstumsperspektive H2', attendees: 'Lena Hoffmann, Markus Feld', prep: 'Commercial Proposal vorbereiten, Service-Level verknüpfen', prio: 'high' },
+      { date: '2025-07-03', time: '09:30', title: 'Roadmap-Review Zahlarten (BNPL, Klarna, EPS)', attendees: 'Nina Roth, Lena Hoffmann', prep: 'Payment-Expansion-Roadmap, Timeline, Ressourcenplanung', prio: 'medium' },
+      { date: '2025-07-07', time: '15:00', title: 'Monatlicher KPI-Review (Pilotformat)', attendees: 'Lena Hoffmann, Paul Jensen, Tim Becker', prep: 'TPV, Checkout Completion, Auth Rate, Wallet-Nutzung aufbereiten', prio: 'high' }
     ]
   },
 
   urbancraft: {
     name: 'UrbanCraft Market GmbH', id: 'CUST-004',
     health: 'fragile', segment: 'SMB / Small Mid-Market',
-    region: 'DACH', tpv: 'EUR 8,9 Mio./Jahr', growth: '+9% YoY',
-    aov: 'EUR 74', payment: 'Cards 47%, Invoice 35%, Wallets 18%',
-    mobile: '55%', desktop: '45%', churn: 'Medium', growthPot: 'Medium',
+    region: 'DACH', tpv: 'EUR 8,9 Mio./Jahr',
+    growth: '+9% YoY', aov: 'EUR 74',
+    mobile: '55%', desktop: '45%',
+    payment: 'Cards 47%, Invoice 35%, Wallets 18%',
+    integration: 'Custom Integration',
+    goLive: '2025-06-26',
+    feeRate: '1,96%',
+    churn: 'Medium', growthPot: 'Medium',
     contacts: [
-      { name: 'Jana Seifert', role: 'Operations Lead (Hauptkontakt)', email: 'jana.seifert@urbancraft-demo.com' },
-      { name: 'Felix Krüger', role: 'Managing Director (Eskalation)', email: 'felix.krueger@urbancraft-demo.com' },
-      { name: 'Mira Lang', role: 'Customer Support Manager', email: 'mira.lang@urbancraft-demo.com' },
-      { name: 'Adrian Voß', role: 'Technical Project Contact', email: 'adrian.voss@urbancraft-demo.com' }
+      { name: 'Jana Seifert',  role: 'Operations Lead (Hauptkontakt)', email: 'jana.seifert@urbancraft-demo.com', primary: true },
+      { name: 'Felix Krüger',  role: 'Managing Director (Eskalation)', email: 'felix.krueger@urbancraft-demo.com' },
+      { name: 'Mira Lang',     role: 'Customer Support Manager',       email: 'mira.lang@urbancraft-demo.com' },
+      { name: 'Adrian Voß',    role: 'Technical Project Contact',      email: 'adrian.voss@urbancraft-demo.com' }
     ],
     issues: [
       'Zentrale Ownership für alle offenen Themen sichtbar machen',
@@ -656,278 +915,298 @@ const DB = {
       'Billing-, Tech- und Relationship-Themen sauber trennen',
       'Regelmäßigen Statusrhythmus mit Kunde etablieren'
     ],
-    risks: 'Kumulierter Vertrauensverlust durch fehlende Updates; wahrgenommene Nicht-Erreichbarkeit; eskalierende Frustration über offene Support-Fälle ohne Status',
-    opportunities: 'Zentrale Steuerung aller offenen Themen; klare Ansprechpartnerstruktur; mittelfristiger Zahlarten-Ausbau bei stabilerer Beziehung',
-    handoverNote: '⚠️ FRAGILE: Ownership wichtiger als Perfektion. Selbst kleine Themen eskalieren wenn Updates ausbleiben. Felix Krüger erscheint bei Eskalationen – immer verbindlich und strukturiert auftreten.',
+    risks: 'Kumulierter Vertrauensverlust durch fehlende Updates; wahrgenommene Nicht-Erreichbarkeit; eskalierende Frustration über offene Support-Fälle ohne Zwischenstand',
+    opportunities: 'Zentrale Steuerung aller offenen Themen; klare Ansprechpartnerstruktur; mittelfristiger Zahlarten-Ausbau (Apple Pay, BNPL) bei stabilerer Beziehung',
+    handoverNote: '⚠️ FRAGILE: Ownership wichtiger als Perfektion. Selbst kleine Themen eskalieren wenn Updates ausbleiben. Felix Krüger erscheint bei Eskalationen – immer verbindlich und strukturiert.',
     actions: [
       'Dauerhaftes zentrales Ownership-Modell sichtbar etablieren',
       'Wöchentlichen Open-Issues-Rhythmus konsequent beibehalten',
-      'Billing-, Tech- und Support-Themen sauber trennen und separat kommunizieren',
+      'Billing-, Tech- und Support-Themen sauber trennen',
       'Eskalationspfad für kritische Fälle klar dokumentieren',
       'Erst nach nachhaltiger Stabilisierung Ausbau-Themen platzieren'
     ],
     termine: [
-      { date: '2025-07-07', title: 'Wöchentlicher Status-Call', attendees: 'Jana Seifert', prep: 'Open-Issues-Liste aktuell halten', prio: 'high' },
-      { date: '2025-07-14', title: 'Open-Issues-Liste aktualisieren', attendees: 'Jana Seifert, Mira Lang', prep: 'Alle offenen Punkte mit Status versehen', prio: 'high' },
-      { date: '2025-07-21', title: 'Follow-up offene Support-Fälle', attendees: 'Mira Lang', prep: 'Statusübersicht aller offenen Cases', prio: 'medium' }
+      { date: '2025-07-01', time: '10:00', title: 'Bi-Weekly Open Issues Review', attendees: 'Jana Seifert, Account Manager', prep: 'Alle offenen Support-Fälle, konsolidierte Themenliste, Billing-Rückfragen', prio: 'high' },
+      { date: '2025-07-04', time: '14:00', title: 'Technische Deep-Dive-Session', attendees: 'Adrian Voß, Technical Support', prep: 'Checkout-Darstellungsproblematik Wallets auf Mobile analysieren', prio: 'high' },
+      { date: '2025-07-08', time: '11:00', title: 'Quarterly Relationship Review', attendees: 'Felix Krüger, Jana Seifert, AM', prep: 'Governance-Modell bewerten, Q3 Betreuungsstruktur festlegen', prio: 'high' },
+      { date: '2025-07-14', time: '15:30', title: 'Billing-Klärungstermin', attendees: 'Mira Lang, Billing-Team', prep: 'Drei offene Abrechnungspositionen Mai/Juni klären', prio: 'medium' },
+      { date: '2025-07-17', time: '09:30', title: 'Payment Expansion Discovery Workshop', attendees: 'Jana Seifert, Adrian Voß', prep: 'Apple Pay / Google Pay Optimierung, BNPL-Pilot evaluieren', prio: 'medium' }
     ]
   }
 };
 
-// ═══════════════════════════════════════════
-// TEMPLATES – Alle 4 Ausgabeformate
-// ═══════════════════════════════════════════
-function generateShort(c, d) {
-  const hl = { fragile: '🔴 Fragil', medium: '🟡 Medium', positive: '🟢 Positiv' }[c.health];
+// ═══════════════════════════════════════
+// OUTPUT TEMPLATES
+// ═══════════════════════════════════════
+function genShort(c, d) {
+  const hl = { fragile:'🔴 Fragil', medium:'🟡 Medium', positive:'🟢 Positiv' }[c.health];
   const from = d.name || d.fromPerson || 'Übergeber';
   const to   = d.substitute || d.toPerson || 'Empfänger';
   const zeit = d.startDate ? `${d.startDate} – ${d.endDate}` : 'laufend';
+  const primary = c.contacts.find(x => x.primary) || c.contacts[0];
+  const escalation = c.contacts[1] || c.contacts[0];
 
-  return `SHORT OVERVIEW – ${c.name}
-${'═'.repeat(60)}
+  return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SHORT OVERVIEW  ·  ${c.name}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ÜBERGABE
-Von:       ${from}
-An:        ${to}
-Zeitraum:  ${zeit}
-Kunde:     ${c.name} (${c.id})
-Status:    ${hl}
+  Von:           ${from}
+  An:            ${to}
+  Zeitraum:      ${zeit}
+  Erstellt:      ${new Date().toLocaleDateString('de-DE')}
 
-────────────────────────────────────────────────────────────
 KUNDENPROFIL
-────────────────────────────────────────────────────────────
-Segment:        ${c.segment}
-Region:         ${c.region}
-Annual TPV:     ${c.tpv}
-Wachstum:       ${c.growth}
-Ø Warenkorb:    ${c.aov}
-Mobile Share:   ${c.mobile}
-Zahlung:        ${c.payment}
-Churn Risk:     ${c.churn}
-Growth Pot.:    ${c.growthPot}
+  Name:          ${c.name}  (${c.id})
+  Segment:       ${c.segment}  ·  ${c.region}
+  Health:        ${hl}
+  Annual TPV:    ${c.tpv}  ·  Wachstum: ${c.growth}
+  Ø Warenkorb:   ${c.aov}  ·  Mobile: ${c.mobile}
+  Zahlung:       ${c.payment}
+  Integration:   ${c.integration}
+  Fee Rate:      ${c.feeRate}
+  Churn Risk:    ${c.churn}  ·  Growth Potential: ${c.growthPot}
 
-────────────────────────────────────────────────────────────
-WICHTIGSTE THEMEN (TOP 5)
-────────────────────────────────────────────────────────────
-${c.issues.slice(0, 5).map((t, i) => `${i + 1}. ${t}`).join('\n')}
+──────────────────────────────────────────────────────────────
+TOP 5 THEMEN
+──────────────────────────────────────────────────────────────
+${c.issues.map((t, i) => `  ${i+1}. ${t}`).join('\n')}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 KRITISCHE DEADLINES
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 ${c.termine.filter(t => t.prio === 'high').map(t =>
-  `🔴 ${t.date} | ${t.title}\n   Teilnehmer: ${t.attendees}\n   Vorbereitung: ${t.prep}`
+  `  🔴  ${t.date}  ${t.time}  |  ${t.title}\n       Teilnehmer: ${t.attendees}\n       Prep: ${t.prep}`
 ).join('\n\n')}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 SOFORT-TO-DOS FÜR ${to.toUpperCase()}
-────────────────────────────────────────────────────────────
-${c.actions.slice(0, 5).map((a, i) => `${i + 1}. ${a}`).join('\n')}
+──────────────────────────────────────────────────────────────
+${c.actions.map((a, i) => `  ${i+1}. ${a}`).join('\n')}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 ANSPRECHPARTNER
-────────────────────────────────────────────────────────────
-${c.contacts.map(x => `${x.name.padEnd(20)} ${x.role.padEnd(30)} ${x.email}`).join('\n')}
+──────────────────────────────────────────────────────────────
+${c.contacts.map(x =>
+  `  ${(x.name + (x.primary ? ' ★' : '')).padEnd(24)}  ${x.role.padEnd(28)}  ${x.email}`
+).join('\n')}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 ESKALATIONSWEG
-────────────────────────────────────────────────────────────
-Hauptkontakt:  ${c.contacts[0].name} (${c.contacts[0].role})
-               ${c.contacts[0].email}
-Eskalation:    ${c.contacts[1]?.name || c.contacts[0].name} (${c.contacts[1]?.role || 'Eskalation'})
-               ${c.contacts[1]?.email || c.contacts[0].email}
+──────────────────────────────────────────────────────────────
+  Primär:      ${primary.name}  ·  ${primary.email}
+  Eskalation:  ${escalation.name}  ·  ${escalation.email}
 
 ⚠️  HANDOVER-HINWEIS:
-${c.handoverNote}`;
+  ${c.handoverNote}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Unzer Relay Handover Assistant  ·  ${new Date().toLocaleDateString('de-DE')}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 }
 
-function generateEmail(c, d) {
+function genEmail(c, d) {
   const from = d.name || d.fromPerson || 'Übergeber';
   const to   = d.substitute || d.toPerson || 'Empfänger';
   const zeit = d.startDate ? `${d.startDate} – ${d.endDate}` : 'ab sofort';
-  const notes = d.notes || d.v_notes || '';
+  const notes = d.notes || '';
+  const primary = c.contacts.find(x => x.primary) || c.contacts[0];
+  const escalation = c.contacts[1] || c.contacts[0];
 
-  return `Betreff: Übergabe ${c.name} | ${from} → ${to} | ${zeit}
+  return `Betreff: Übergabe ${c.name}  |  ${from} → ${to}  |  ${zeit}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Hallo ${to},
 
-im Rahmen meiner Abwesenheit (${zeit}) übergebe ich dir hiermit alle relevanten Informationen zu ${c.name}. Bitte lies dir die folgenden Punkte sorgfältig durch – insbesondere den Hinweisabschnitt am Ende.
+im Rahmen meiner Abwesenheit (${zeit}) übergebe ich dir alle relevanten Informationen zu ${c.name}. Bitte lies die folgenden Punkte sorgfältig durch – der Hinweisabschnitt am Ende ist besonders wichtig.
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 KUNDENPROFIL: ${c.name.toUpperCase()}
-────────────────────────────────────────────────────────────
-Kunden-ID:      ${c.id}
-Segment:        ${c.segment} | Region: ${c.region}
-Annual TPV:     ${c.tpv} (Wachstum: ${c.growth})
-Ø Warenkorb:    ${c.aov} | Mobile: ${c.mobile}
-Zahlung:        ${c.payment}
+──────────────────────────────────────────────────────────────
+  Kunden-ID:     ${c.id}  ·  Segment: ${c.segment}  ·  Region: ${c.region}
+  Annual TPV:    ${c.tpv}  ·  Wachstum: ${c.growth}
+  Ø Warenkorb:   ${c.aov}  ·  Mobile: ${c.mobile}
+  Zahlung:       ${c.payment}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 WAS DU WISSEN MUSST
-────────────────────────────────────────────────────────────
-${c.issues.map((t, i) => `${i + 1}. ${t}`).join('\n')}
+──────────────────────────────────────────────────────────────
+${c.issues.map((t, i) => `  ${i+1}. ${t}`).join('\n')}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 DEINE WICHTIGSTEN TO-DOS
-────────────────────────────────────────────────────────────
-${c.actions.map((a, i) => `${i + 1}. ${a}`).join('\n')}
+──────────────────────────────────────────────────────────────
+${c.actions.map((a, i) => `  ${i+1}. ${a}`).join('\n')}
 
-────────────────────────────────────────────────────────────
-KRITISCHE TERMINE IN MEINER ABWESENHEIT
-────────────────────────────────────────────────────────────
-${c.termine.map(t => `📅 ${t.date} | ${t.title}
-   Teilnehmer: ${t.attendees}
-   Priorität: ${t.prio === 'high' ? '🔴 Hoch' : '🟡 Mittel'}
-   Vorbereitung: ${t.prep}`).join('\n\n')}
+──────────────────────────────────────────────────────────────
+TERMINE IN MEINER ABWESENHEIT
+──────────────────────────────────────────────────────────────
+${c.termine.map(t =>
+  `  📅  ${t.date}  ${t.time}  –  ${t.title}\n       Teilnehmer: ${t.attendees}\n       Priorität: ${t.prio === 'high' ? '🔴 Hoch' : '🟡 Mittel'}\n       Vorbereitung: ${t.prep}`
+).join('\n\n')}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 ANSPRECHPARTNER BEIM KUNDEN
-────────────────────────────────────────────────────────────
-${c.contacts.map(x => `• ${x.name} (${x.role})\n  ${x.email}`).join('\n')}
+──────────────────────────────────────────────────────────────
+${c.contacts.map(x => `  • ${x.name}${x.primary ? ' (Hauptkontakt)' : ''}\n    ${x.role}\n    ${x.email}`).join('\n')}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 BEI DRINGENDEN FRAGEN
-────────────────────────────────────────────────────────────
-Primär:     ${c.contacts[0].name} | ${c.contacts[0].email}
-Eskalation: ${c.contacts[1]?.name || c.contacts[0].name} | ${c.contacts[1]?.email || c.contacts[0].email}
+──────────────────────────────────────────────────────────────
+  Primär:      ${primary.name}  ·  ${primary.email}
+  Eskalation:  ${escalation.name}  ·  ${escalation.email}
 
 ⚠️  WICHTIGER HINWEIS:
-${c.handoverNote}
-${notes ? `\nZusätzliche Notizen:\n${notes}` : ''}
+  ${c.handoverNote}
+${notes ? `\nZusätzliche Notizen:\n  ${notes}` : ''}
 
 Vielen Dank für deine Unterstützung!
 
 Viele Grüße,
 ${from}
 
----
-Erstellt mit Unzer Relay Handover Assistant`;
+──────────────────────────────────────────────────────────────
+Erstellt mit Unzer Relay Handover Assistant
+${new Date().toLocaleDateString('de-DE')}`;
 }
 
-function generateDeadlines(c, d) {
-  return `DEADLINES & TERMINE – ${c.name}
-${'═'.repeat(60)}
-Zeitraum: ${d.startDate || 'laufend'} – ${d.endDate || ''}
+function genDeadlines(c, d) {
+  const from = d.name || d.fromPerson || 'Übergeber';
+  const zeit = d.startDate ? `${d.startDate} – ${d.endDate}` : 'laufend';
 
-────────────────────────────────────────────────────────────
-TERMINÜBERSICHT
-────────────────────────────────────────────────────────────
-Datum        | Termin                          | Teilnehmer                    | Priorität
--------------|----------------------------------|-------------------------------|----------
+  return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DEADLINES & TERMINE  ·  ${c.name}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Übergabe von: ${from}  ·  Zeitraum: ${zeit}
+
+──────────────────────────────────────────────────────────────
+ALLE TERMINE
+──────────────────────────────────────────────────────────────
 ${c.termine.map(t =>
-  `${t.date.padEnd(12)} | ${t.title.padEnd(32)} | ${t.attendees.substring(0,30).padEnd(30)} | ${t.prio === 'high' ? '🔴 Hoch' : '🟡 Mittel'}`
-).join('\n')}
+  `  ${t.prio === 'high' ? '🔴' : '🟡'}  ${t.date}  ${t.time}\n     Termin:       ${t.title}\n     Teilnehmer:  ${t.attendees}\n     Vorbereitung: ${t.prep}`
+).join('\n\n')}
 
-────────────────────────────────────────────────────────────
-DEADLINES NACH PRIORITÄT
-────────────────────────────────────────────────────────────
-
-🔴 KRITISCH – Sofortige Aufmerksamkeit erforderlich
+──────────────────────────────────────────────────────────────
+🔴 KRITISCH – Sofortige Aufmerksamkeit
+──────────────────────────────────────────────────────────────
 ${c.termine.filter(t => t.prio === 'high').map(t =>
-  `• ${t.date}: ${t.title}\n  Teilnehmer: ${t.attendees}\n  Vorbereitung: ${t.prep}`
+  `  • ${t.date}  ${t.time}  –  ${t.title}\n    → ${t.attendees}\n    → Prep: ${t.prep}`
 ).join('\n\n') || '  Keine kritischen Termine'}
 
-🟡 WICHTIG – Diese Woche / bald
+──────────────────────────────────────────────────────────────
+🟡 WICHTIG
+──────────────────────────────────────────────────────────────
 ${c.termine.filter(t => t.prio === 'medium').map(t =>
-  `• ${t.date}: ${t.title}\n  Teilnehmer: ${t.attendees}\n  Vorbereitung: ${t.prep}`
+  `  • ${t.date}  ${t.time}  –  ${t.title}\n    → ${t.attendees}`
 ).join('\n\n') || '  Keine mittleren Termine'}
 
-────────────────────────────────────────────────────────────
-OFFENE ISSUES MIT DEADLINES
-────────────────────────────────────────────────────────────
-${c.issues.map((t, i) => `${i + 1}. ${t}`).join('\n')}
+──────────────────────────────────────────────────────────────
+OFFENE ISSUES
+──────────────────────────────────────────────────────────────
+${c.issues.map((t, i) => `  ${i+1}. ${t}`).join('\n')}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 EMPFOHLENE NÄCHSTE SCHRITTE
-────────────────────────────────────────────────────────────
-${c.actions.map((a, i) => `${i + 1}. ${a}`).join('\n')}`;
+──────────────────────────────────────────────────────────────
+${c.actions.map((a, i) => `  ${i+1}. ${a}`).join('\n')}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+.ics Kalender-Export verfügbar  ·  ${c.termine.length} Termine
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 }
 
-function generateBullets(c, d) {
+function genBullets(c, d) {
   const from = d.name || d.fromPerson || 'Übergeber';
   const to   = d.substitute || d.toPerson || 'Empfänger';
+  const hl   = { fragile:'🔴 Fragil', medium:'🟡 Medium', positive:'🟢 Positiv' }[c.health];
+  const primary = c.contacts.find(x => x.primary) || c.contacts[0];
+  const escalation = c.contacts[1] || c.contacts[0];
 
-  return `STICHPUNKT-ÜBERGABE – ${c.name}
-${'═'.repeat(60)}
-Von: ${from}  →  An: ${to}
-Zeitraum: ${d.startDate || 'laufend'} – ${d.endDate || ''}
+  return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STICHPUNKT-ÜBERGABE  ·  ${c.name}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Von:       ${from}
+  An:        ${to}
+  Zeitraum:  ${d.startDate ? `${d.startDate} – ${d.endDate}` : 'laufend'}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 KUNDENSTATUS
-────────────────────────────────────────────────────────────
-• Kunde:          ${c.name} (${c.id})
-• Segment:        ${c.segment}
-• Region:         ${c.region}
-• Annual TPV:     ${c.tpv}
-• Wachstum:       ${c.growth}
-• Ø Warenkorb:    ${c.aov}
-• Mobile Share:   ${c.mobile}
-• Zahlung:        ${c.payment}
-• Health:         ${{ fragile: '🔴 Fragil', medium: '🟡 Medium', positive: '🟢 Positiv' }[c.health]}
-• Churn Risk:     ${c.churn}
-• Growth Pot.:    ${c.growthPot}
+──────────────────────────────────────────────────────────────
+  • Kunde:          ${c.name}  (${c.id})
+  • Health:         ${hl}
+  • Segment:        ${c.segment}  ·  ${c.region}
+  • Annual TPV:     ${c.tpv}  ·  Wachstum: ${c.growth}
+  • Ø Warenkorb:    ${c.aov}  ·  Mobile: ${c.mobile}
+  • Zahlung:        ${c.payment}
+  • Fee Rate:       ${c.feeRate}
+  • Churn Risk:     ${c.churn}
+  • Growth Pot.:    ${c.growthPot}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 OFFENE THEMEN & ISSUES
-────────────────────────────────────────────────────────────
-${c.issues.map(t => `• ${t}`).join('\n')}
+──────────────────────────────────────────────────────────────
+${c.issues.map(t => `  • ${t}`).join('\n')}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 ANSTEHENDE TERMINE
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 ${c.termine.map(t =>
-  `• ${t.date} | ${t.prio === 'high' ? '🔴' : '🟡'} ${t.title}\n  → Teilnehmer: ${t.attendees}\n  → Prep: ${t.prep}`
+  `  ${t.prio === 'high' ? '🔴' : '🟡'}  ${t.date}  ${t.time}  –  ${t.title}\n     → ${t.attendees}\n     → Prep: ${t.prep}`
+).join('\n\n')}
+
+──────────────────────────────────────────────────────────────
+ANSPRECHPARTNER
+──────────────────────────────────────────────────────────────
+${c.contacts.map(x =>
+  `  • ${x.name}${x.primary ? ' ★' : ''}\n    ${x.role}  ·  ${x.email}`
 ).join('\n')}
 
-────────────────────────────────────────────────────────────
-ANSPRECHPARTNER
-────────────────────────────────────────────────────────────
-${c.contacts.map(x => `• ${x.name} | ${x.role}\n  ${x.email}`).join('\n')}
-
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 ⚡ TOP 3 PRIORITÄTEN – SOFORT HANDELN
-────────────────────────────────────────────────────────────
-1. ${c.actions[0]}
-2. ${c.actions[1]}
-3. ${c.actions[2]}
+──────────────────────────────────────────────────────────────
+  1. ${c.actions[0]}
+  2. ${c.actions[1]}
+  3. ${c.actions[2]}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 🚨 ESKALATIONSWEG
-────────────────────────────────────────────────────────────
-| Situation           | Kontakt                    | Kanal  |
-|---------------------|---------------------------|--------|
-| Tagesgeschäft       | ${(c.contacts[0].name + ' | ' + c.contacts[0].role).substring(0,25).padEnd(25)} | E-Mail |
-| Eskalation          | ${((c.contacts[1]?.name || c.contacts[0].name) + ' | ' + (c.contacts[1]?.role || 'Eskalation')).substring(0,25).padEnd(25)} | Call   |
-| Notfall             | ${c.contacts[0].name.padEnd(25)} | Direkt |
+──────────────────────────────────────────────────────────────
+  Tagesgeschäft:   ${primary.name}  ·  ${primary.email}
+  Eskalation:      ${escalation.name}  ·  ${escalation.email}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 RISIKEN
-────────────────────────────────────────────────────────────
-${c.risks}
+──────────────────────────────────────────────────────────────
+  ${c.risks}
 
-────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────
 CHANCEN
-────────────────────────────────────────────────────────────
-${c.opportunities}
+──────────────────────────────────────────────────────────────
+  ${c.opportunities}
 
 ⚠️  HANDOVER-HINWEIS:
-${c.handoverNote}`;
+  ${c.handoverNote}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Unzer Relay Handover Assistant  ·  ${new Date().toLocaleDateString('de-DE')}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 }
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 // STATE
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 let mode = null;
 let selCusts = { v: new Set(), c: new Set() };
 let selFmts  = new Set();
 let tags     = { p: [], x: [] };
-let results  = {}; // { custId: { fmt: text } }
-let activeCust = null;
-let activeFmt  = null;
+let results  = {};
+let activeCust = null, activeFmt = null;
 let tilePage = 0;
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 // NAVIGATION
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 function go(id) {
   ['s-start','s-form','s-output','s-result']
     .forEach(s => document.getElementById(s).classList.add('hidden'));
@@ -938,15 +1217,12 @@ function go(id) {
 function pick(m) {
   mode = m;
   ['vacation','customer','project','custom']
-    .forEach(f => document.getElementById('f-' + f).classList.add('hidden'));
-  document.getElementById('f-' + m).classList.remove('hidden');
+    .forEach(f => document.getElementById('f-'+f).classList.add('hidden'));
+  document.getElementById('f-'+m).classList.remove('hidden');
   go('s-form');
 }
 
-function toOutput() {
-  if (!validate()) return;
-  go('s-output');
-}
+function toOutput() { if (!validate()) return; go('s-output'); }
 
 function slide(dir) { goPage(tilePage + dir); }
 function goPage(n) {
@@ -957,37 +1233,33 @@ function goPage(n) {
   document.getElementById('arr-r').disabled = tilePage === 1;
 }
 
-// ═══════════════════════════════════════════
-// CUSTOMER MULTI-SELECT
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
+// MULTI-SELECT KUNDEN
+// ═══════════════════════════════════════
 function toggleCust(id, ctx, el) {
   el.classList.toggle('sel');
   const s = selCusts[ctx];
   s.has(id) ? s.delete(id) : s.add(id);
-  const info = document.getElementById(ctx + '-sel-info');
-  info.textContent = s.size > 0
-    ? `${s.size} Kunde${s.size > 1 ? 'n' : ''} ausgewählt`
-    : '';
+  const si = document.getElementById(ctx + '-si');
+  si.textContent = s.size > 0 ? `${s.size} Kunde${s.size > 1 ? 'n' : ''} ausgewählt` : '';
 }
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 // OUTPUT TOGGLE
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 function togOpt(el, val) {
   el.classList.toggle('sel');
   selFmts.has(val) ? selFmts.delete(val) : selFmts.add(val);
   document.getElementById('btn-gen').disabled = selFmts.size === 0;
-  const info = document.getElementById('fmt-sel-info');
-  info.textContent = selFmts.size > 0
-    ? `${selFmts.size} Format${selFmts.size > 1 ? 'e' : ''} ausgewählt`
-    : '';
+  const si = document.getElementById('fmt-si');
+  si.textContent = selFmts.size > 0 ? `${selFmts.size} Format${selFmts.size > 1 ? 'e' : ''} ausgewählt` : '';
 }
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 // TAGS
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 function addTag(k) {
-  const inp = document.getElementById(k + '-ti');
+  const inp = document.getElementById(k+'-ti');
   const v = inp.value.trim();
   if (!v) return;
   tags[k].push(v); inp.value = '';
@@ -995,167 +1267,144 @@ function addTag(k) {
 }
 function removeTag(k, i) { tags[k].splice(i, 1); renderTags(k); }
 function renderTags(k) {
-  document.getElementById(k + '-tags').innerHTML =
+  document.getElementById(k+'-tags').innerHTML =
     tags[k].map((t, i) => `<div class="tag">${t}<button onclick="removeTag('${k}',${i})">×</button></div>`).join('');
 }
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 // VALIDATION
-// ═══════════════════════════════════════════
-function v(id) { const e = document.getElementById(id); return e ? e.value.trim() : ''; }
+// ═══════════════════════════════════════
+function vv(id) { const e = document.getElementById(id); return e ? e.value.trim() : ''; }
 function validate() {
   if (mode === 'vacation') {
-    const custs = selCusts['v'];
-    if (custs.size === 0 && !v('v-name')) {
-      toast('Bitte mindestens einen Kunden oder Name eingeben.');
-      return false;
-    }
-    if (!v('v-name') || !v('v-sub') || !v('v-start') || !v('v-end')) {
-      toast('Bitte alle Pflichtfelder ausfüllen.');
-      return false;
+    if (!vv('v-name') || !vv('v-sub') || !vv('v-start') || !vv('v-end')) {
+      toast('Bitte alle Pflichtfelder ausfüllen.'); return false;
     }
   }
   if (mode === 'customer') {
-    const custs = selCusts['c'];
-    if (custs.size === 0) { toast('Bitte mindestens einen Kunden wählen.'); return false; }
-    if (!v('c-from') || !v('c-to')) { toast('Bitte Übergabe von/an ausfüllen.'); return false; }
+    if (selCusts['c'].size === 0) { toast('Bitte mindestens einen Kunden wählen.'); return false; }
+    if (!vv('c-from') || !vv('c-to')) { toast('Bitte Übergabe von/an ausfüllen.'); return false; }
   }
-  if (mode === 'project') {
-    if (!v('p-name') || !v('p-to')) { toast('Bitte Pflichtfelder ausfüllen.'); return false; }
+  if (mode === 'project' && (!vv('p-name') || !vv('p-to'))) {
+    toast('Bitte Pflichtfelder ausfüllen.'); return false;
   }
-  if (mode === 'custom') {
-    if (!v('x-title') || !v('x-pers') || !v('x-cont')) { toast('Bitte Pflichtfelder ausfüllen.'); return false; }
+  if (mode === 'custom' && (!vv('x-title') || !vv('x-pers') || !vv('x-cont'))) {
+    toast('Bitte Pflichtfelder ausfüllen.'); return false;
   }
   return true;
 }
 
-// ═══════════════════════════════════════════
-// COLLECT
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
+// COLLECT DATA
+// ═══════════════════════════════════════
 function collectData() {
   if (mode === 'vacation') return {
-    name: v('v-name'), substitute: v('v-sub'),
-    startDate: v('v-start'), endDate: v('v-end'),
-    notes: v('v-notes')
+    name: vv('v-name'), substitute: vv('v-sub'),
+    startDate: vv('v-start'), endDate: vv('v-end'),
+    notes: vv('v-notes')
   };
   if (mode === 'customer') return {
-    fromPerson: v('c-from'), toPerson: v('c-to'),
-    notes: v('c-notes')
+    fromPerson: vv('c-from'), toPerson: vv('c-to'),
+    notes: vv('c-notes')
   };
   if (mode === 'project') return {
-    projectName: v('p-name'), toPerson: v('p-to'),
-    status: v('p-status'), todos: v('p-todos'),
-    risks: v('p-risks'), links: v('p-links')
+    projectName: vv('p-name'), toPerson: vv('p-to'),
+    status: vv('p-status'), todos: vv('p-todos'),
+    risks: vv('p-risks'), links: vv('p-links')
   };
   return {
-    title: v('x-title'), persons: v('x-pers'),
-    content: v('x-cont'), notes: v('x-notes')
+    title: vv('x-title'), persons: vv('x-pers'),
+    content: vv('x-cont'), notes: vv('x-notes')
   };
 }
 
-// ═══════════════════════════════════════════
-// GENERATE – ohne AI, direkt aus Kundendaten
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
+// GENERATE
+// ═══════════════════════════════════════
 function generate() {
   const d = collectData();
   const custIds = Array.from(
     mode === 'vacation' ? selCusts['v'] :
     mode === 'customer' ? selCusts['c'] :
-    Object.keys(DB) // Projekt/Frei: alle als Fallback
+    new Set(['_free'])
   );
-  const fmts = Array.from(selFmts);
 
-  if (custIds.length === 0 && (mode === 'project' || mode === 'custom')) {
-    // Für Projekt/Frei: ohne Kundenbezug direkt generieren
-    generateFree(d, fmts);
-    return;
+  if (custIds.length === 0) {
+    if (mode === 'vacation') {
+      toast('Bitte mindestens einen Kunden wählen oder direkt generieren.');
+    }
+    custIds.push('_free');
   }
 
+  const fmts = Array.from(selFmts);
   results = {};
-  go('s-result');
 
-  // Progress anzeigen
-  const pw = document.getElementById('prog-wrap');
-  const pb = document.getElementById('prog-bar');
-  const pt = document.getElementById('prog-title');
-  const ps = document.getElementById('prog-status');
-  pw.classList.remove('hidden');
-  document.getElementById('cust-tabs').classList.add('hidden');
-  document.getElementById('fmt-tabs').classList.add('hidden');
+  go('s-result');
+  const prog = document.getElementById('prog');
+  const progB = document.getElementById('prog-b');
+  const progT = document.getElementById('prog-t');
+  const progS = document.getElementById('prog-s');
+  prog.classList.remove('hidden');
+  document.getElementById('ctabs').classList.add('hidden');
+  document.getElementById('ftabs').classList.add('hidden');
   document.getElementById('rbox').classList.add('hidden');
   document.getElementById('ract').classList.add('hidden');
 
+  const fmtLabels = { short: 'Short Overview', email: 'E-Mail', deadlines: 'Deadlines', bullets: 'Stichpunkte' };
   const total = custIds.length * fmts.length;
   let done = 0;
-
-  const fmtLabels = { short: 'Short Overview', email: 'E-Mail', deadlines: 'Deadlines & Termine', bullets: 'Stichpunkt-Übergabe' };
 
   custIds.forEach(cid => {
     results[cid] = {};
     const c = DB[cid];
     fmts.forEach(fmt => {
-      if (fmt === 'short')     results[cid][fmt] = generateShort(c, d);
-      if (fmt === 'email')     results[cid][fmt] = generateEmail(c, d);
-      if (fmt === 'deadlines') results[cid][fmt] = generateDeadlines(c, d);
-      if (fmt === 'bullets')   results[cid][fmt] = generateBullets(c, d);
+      if (cid === '_free') {
+        results[cid][fmt] = genFree(fmt, d);
+      } else {
+        if (fmt === 'short')     results[cid][fmt] = genShort(c, d);
+        if (fmt === 'email')     results[cid][fmt] = genEmail(c, d);
+        if (fmt === 'deadlines') results[cid][fmt] = genDeadlines(c, d);
+        if (fmt === 'bullets')   results[cid][fmt] = genBullets(c, d);
+      }
       done++;
       const pct = Math.round((done / total) * 100);
-      pb.style.width = pct + '%';
-      ps.textContent = `${c.name} – ${fmtLabels[fmt]} (${done}/${total})`;
+      progB.style.width = pct + '%';
+      progS.textContent = `${cid !== '_free' ? DB[cid].name : 'Übergabe'} – ${fmtLabels[fmt]} (${done}/${total})`;
     });
   });
 
-  pt.textContent = '✓ Alle Übergaben erstellt';
-  pb.style.width = '100%';
+  progT.textContent = `✓ ${done} Dokument${done > 1 ? 'e' : ''} erstellt`;
+  progB.style.width = '100%';
 
   setTimeout(() => {
-    pw.classList.add('hidden');
-
-    // Kunden-Tabs
+    prog.classList.add('hidden');
     activeCust = custIds[0];
     activeFmt  = fmts[0];
     renderCustTabs(custIds);
     renderFmtTabs(fmts);
     showResult(activeCust, activeFmt);
-
     document.getElementById('ract').classList.remove('hidden');
     document.getElementById('btn-mail').classList.toggle('hidden', !selFmts.has('email'));
     document.getElementById('btn-ics').classList.toggle('hidden', !selFmts.has('deadlines'));
-  }, 400);
+  }, 500);
 }
 
-function generateFree(d, fmts) {
-  // Für Projekt/Frei ohne Kundenbezug
-  results = { '_free': {} };
-  fmts.forEach(fmt => {
-    results['_free'][fmt] = generateFreeText(fmt, d);
-  });
-  go('s-result');
-  document.getElementById('prog-wrap').classList.add('hidden');
-  activeCust = '_free';
-  activeFmt  = fmts[0];
-  renderCustTabs(['_free']);
-  renderFmtTabs(fmts);
-  showResult(activeCust, activeFmt);
-  document.getElementById('ract').classList.remove('hidden');
-}
-
-function generateFreeText(fmt, d) {
+function genFree(fmt, d) {
   const from = d.name || d.fromPerson || d.projectName || d.title || '';
   const to   = d.substitute || d.toPerson || '';
-  if (fmt === 'short') return `SHORT OVERVIEW\n${'═'.repeat(50)}\nTitel: ${d.title || d.projectName || 'Übergabe'}\nVon: ${from} → An: ${to}\n\n${d.content || d.status || d.todos || 'Keine weiteren Angaben.'}`;
-  if (fmt === 'email') return `Betreff: Übergabe ${from} → ${to}\n\nHallo ${to},\n\nhiermit übergebe ich dir folgende Themen:\n\n${d.content || d.status || d.todos || 'Keine weiteren Angaben.'}\n\nViele Grüße,\n${from}`;
-  if (fmt === 'deadlines') return `DEADLINES & TERMINE\n${'═'.repeat(50)}\n\n${d.todos || d.content || 'Keine Termine angegeben.'}`;
-  if (fmt === 'bullets') return `STICHPUNKT-ÜBERGABE\n${'═'.repeat(50)}\nVon: ${from} → An: ${to}\n\n${(d.content || d.status || '').split('\n').map(l => '• ' + l).join('\n')}\n\nRisiken:\n${d.risks || 'Keine Angaben.'}`;
+  if (fmt === 'short')     return `SHORT OVERVIEW\n${'━'.repeat(60)}\n\nTitel: ${d.title||d.projectName||'Übergabe'}\nVon: ${from} → An: ${to}\n\n${d.content||d.status||d.todos||'Keine weiteren Angaben.'}`;
+  if (fmt === 'email')     return `Betreff: Übergabe ${from} → ${to}\n\nHallo ${to},\n\nhiermit übergebe ich dir folgende Themen:\n\n${d.content||d.status||d.todos||'Keine weiteren Angaben.'}\n\nViele Grüße,\n${from}`;
+  if (fmt === 'deadlines') return `DEADLINES & TERMINE\n${'━'.repeat(60)}\n\n${d.todos||d.content||'Keine Termine angegeben.'}`;
+  if (fmt === 'bullets')   return `STICHPUNKT-ÜBERGABE\n${'━'.repeat(60)}\nVon: ${from} → An: ${to}\n\n${(d.content||d.status||'').split('\n').map(l=>'• '+l).join('\n')}\n\nRisiken: ${d.risks||'Keine Angaben.'}`;
   return '';
 }
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 // TABS
-// ═══════════════════════════════════════════
-function renderCustTabs(custIds) {
-  const el = document.getElementById('cust-tabs');
-  el.innerHTML = custIds.map(id => {
+// ═══════════════════════════════════════
+function renderCustTabs(ids) {
+  const el = document.getElementById('ctabs');
+  el.innerHTML = ids.map(id => {
     const name = id === '_free' ? 'Übergabe' : DB[id].name;
     return `<div class="ctab${id === activeCust ? ' active' : ''}" onclick="switchCust('${id}')">${name}</div>`;
   }).join('');
@@ -1164,7 +1413,7 @@ function renderCustTabs(custIds) {
 
 function renderFmtTabs(fmts) {
   const labels = { short: 'Short Overview', email: 'E-Mail', deadlines: 'Deadlines', bullets: 'Stichpunkte' };
-  const el = document.getElementById('fmt-tabs');
+  const el = document.getElementById('ftabs');
   el.innerHTML = fmts.map(f =>
     `<div class="ftab${f === activeFmt ? ' active' : ''}" onclick="switchFmt('${f}')">${labels[f]}</div>`
   ).join('');
@@ -1174,16 +1423,15 @@ function renderFmtTabs(fmts) {
 function switchCust(id) {
   activeCust = id;
   document.querySelectorAll('.ctab').forEach((el, i) => {
-    const ids = Object.keys(results);
-    el.classList.toggle('active', ids[i] === id);
+    el.classList.toggle('active', Object.keys(results)[i] === id);
   });
   showResult(activeCust, activeFmt);
 }
 
 function switchFmt(f) {
   activeFmt = f;
+  const labels = { short: 'Short Overview', email: 'E-Mail', deadlines: 'Deadlines', bullets: 'Stichpunkte' };
   document.querySelectorAll('.ftab').forEach(el => {
-    const labels = { short: 'Short Overview', email: 'E-Mail', deadlines: 'Deadlines', bullets: 'Stichpunkte' };
     el.classList.toggle('active', el.textContent === labels[f]);
   });
   showResult(activeCust, activeFmt);
@@ -1195,15 +1443,15 @@ function showResult(cid, fmt) {
   box.classList.remove('hidden');
 }
 
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 // AKTIONEN
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════
 function copyRes() {
-  const text = (results[activeCust] && results[activeCust][activeFmt]) || '';
-  navigator.clipboard.writeText(text).then(() => toast('Kopiert.'));
+  const t = (results[activeCust] && results[activeCust][activeFmt]) || '';
+  navigator.clipboard.writeText(t).then(() => toast('✓ In Zwischenablage kopiert.'));
 }
 
-function mailto() {
+function doMailto() {
   const emailText = results[activeCust]?.['email'] || Object.values(results[activeCust] || {})[0] || '';
   const cname = activeCust !== '_free' ? DB[activeCust]?.name || '' : '';
   const subj  = encodeURIComponent(`Übergabe ${cname}`);
@@ -1211,21 +1459,25 @@ function mailto() {
 }
 
 function icsExport() {
-  const custIds = Object.keys(results);
+  const custIds = Object.keys(results).filter(id => id !== '_free');
   const allEvents = [];
+
   custIds.forEach(cid => {
-    if (cid === '_free') return;
     const c = DB[cid];
     c.termine.forEach((t, i) => {
-      const dt = t.date.replace(/-/g, '') + 'T100000';
-      const de = t.date.replace(/-/g, '') + 'T110000';
+      const timeParts = t.time ? t.time.replace(':', '') : '1000';
+      const dt = t.date.replace(/-/g, '') + 'T' + timeParts + '00';
+      const [h, m] = t.time ? t.time.split(':') : ['10', '00'];
+      const endH = String(parseInt(h) + 1).padStart(2, '0');
+      const de = t.date.replace(/-/g, '') + 'T' + endH + m + '00';
       allEvents.push(
         'BEGIN:VEVENT',
-        `UID:ho-${cid}-${Date.now()}-${i}@unzer.com`,
+        `UID:relay-${cid}-${i}-${Date.now()}@unzer.com`,
         `DTSTAMP:${new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)}Z`,
         `DTSTART:${dt}`, `DTEND:${de}`,
         `SUMMARY:${c.name}: ${t.title}`,
-        `DESCRIPTION:Teilnehmer: ${t.attendees}\\nVorbereitung: ${t.prep}\\nPriorität: ${t.prio === 'high' ? 'Hoch' : 'Mittel'}`,
+        `DESCRIPTION:Teilnehmer: ${t.attendees}\\nVorbereitung: ${t.prep}\\nPriorität: ${t.prio === 'high' ? 'Hoch 🔴' : 'Mittel 🟡'}`,
+        `LOCATION:`,
         'END:VEVENT'
       );
     });
@@ -1235,24 +1487,28 @@ function icsExport() {
 
   const lines = [
     'BEGIN:VCALENDAR', 'VERSION:2.0',
-    'PRODID:-//Unzer Relay Handover//DE',
-    'X-WR-CALNAME:Handover Termine',
+    'PRODID:-//Unzer Relay Handover Assistant//DE',
+    'X-WR-CALNAME:Unzer Relay – Handover Termine',
     'X-WR-TIMEZONE:Europe/Berlin',
+    'CALSCALE:GREGORIAN',
     ...allEvents,
     'END:VCALENDAR'
   ];
+
   const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar' });
   const a = Object.assign(document.createElement('a'), {
     href: URL.createObjectURL(blob),
-    download: `handover-${Date.now()}.ics`
+    download: `unzer-relay-handover-${Date.now()}.ics`
   });
   a.click(); URL.revokeObjectURL(a.href);
-  toast(`✓ ${Object.keys(results).length} Kunden, ${allEvents.length / 9} Termine exportiert.`);
+  toast(`✓ ${custIds.length} Kunde(n), ${custIds.reduce((s,id) => s + DB[id].termine.length, 0)} Termine exportiert.`);
 }
 
 function reset() {
-  mode = null; selCusts = { v: new Set(), c: new Set() };
-  selFmts.clear(); tags = { p: [], x: [] };
+  mode = null;
+  selCusts = { v: new Set(), c: new Set() };
+  selFmts.clear();
+  tags = { p: [], x: [] };
   results = {}; activeCust = null; activeFmt = null;
   document.querySelectorAll('input,textarea,select').forEach(el => el.value = '');
   document.querySelectorAll('.opt,.cust-card').forEach(el => el.classList.remove('sel'));
