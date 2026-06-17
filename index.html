@@ -40,16 +40,6 @@
       backdrop-filter: blur(10px);
     }
     .hl { display: flex; align-items: center; gap: .85rem; }
-    .lm {
-      width: 32px; height: 32px; background: var(--accent);
-      border-radius: 8px; display: flex; align-items: center;
-      justify-content: center; font-size: .55rem; font-weight: 800;
-      color: white; box-shadow: 0 0 12px rgba(231,76,60,.3);
-      cursor: pointer; transition: all .2s; letter-spacing: -.5px;
-    }
-    .lm:hover { box-shadow: 0 0 20px rgba(231,76,60,.5); transform: scale(1.05); }
-    .h-title { font-size: .92rem; font-weight: 700; color: var(--text); cursor: pointer; letter-spacing: .5px; }
-    .h-title span { color: var(--accent2); }
     .h-sub { font-size: .68rem; color: var(--text3); margin-top: .05rem; }
     .hr2 { display: flex; align-items: center; gap: .6rem; }
 
@@ -112,10 +102,7 @@
       transition: all .2s; font-family: inherit;
     }
     .tts-btn:hover { border-color: var(--teal); color: var(--teal); }
-    .tts-btn.speaking {
-      border-color: var(--teal); color: var(--teal);
-      background: rgba(0,201,177,.1);
-    }
+    .tts-btn.speaking { border-color: var(--teal); color: var(--teal); background: rgba(0,201,177,.1); }
     .tts-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
 
     .home-btn {
@@ -127,8 +114,6 @@
     }
     .home-btn:hover { border-color: var(--accent); color: var(--accent); }
     .home-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
-    .relay-ico { opacity: .5; }
-    .relay-lbl { color: rgba(255,255,255,.35); font-size: .68rem; font-weight: 700; letter-spacing: 2.5px; }
 
     main { max-width: 860px; margin: 2rem auto; padding: 0 1.5rem; }
     .ph { margin-bottom: 2rem; }
@@ -280,27 +265,18 @@
       border-radius: 10px; padding: .75rem 1.1rem;
       display: none; align-items: center; gap: .65rem;
       font-size: .78rem; color: var(--teal);
-      box-shadow: 0 4px 20px rgba(0,201,177,.15);
-      z-index: 998;
+      box-shadow: 0 4px 20px rgba(0,201,177,.15); z-index: 998;
     }
     .tts-overlay.show { display: flex; }
     .tts-wave { display: flex; gap: 3px; align-items: center; }
-    .tts-wave span {
-      width: 3px; border-radius: 2px; background: var(--teal);
-      animation: wave .8s ease-in-out infinite;
-    }
+    .tts-wave span { width: 3px; border-radius: 2px; background: var(--teal); animation: wave .8s ease-in-out infinite; }
     .tts-wave span:nth-child(1){height:8px;animation-delay:0s}
     .tts-wave span:nth-child(2){height:14px;animation-delay:.1s}
     .tts-wave span:nth-child(3){height:10px;animation-delay:.2s}
     .tts-wave span:nth-child(4){height:16px;animation-delay:.15s}
     .tts-wave span:nth-child(5){height:8px;animation-delay:.05s}
     @keyframes wave { 0%,100%{transform:scaleY(1)}50%{transform:scaleY(.4)} }
-    .tts-stop {
-      background: none; border: 1px solid var(--teal);
-      border-radius: 5px; color: var(--teal);
-      font-size: .72rem; padding: .18rem .5rem;
-      cursor: pointer; font-family: inherit;
-    }
+    .tts-stop { background: none; border: 1px solid var(--teal); border-radius: 5px; color: var(--teal); font-size: .72rem; padding: .18rem .5rem; cursor: pointer; font-family: inherit; }
     .tts-stop:hover { background: rgba(0,201,177,.1); }
 
     .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--card2); border: 1px solid var(--border2); color: var(--text); padding: .6rem 1rem; border-radius: 8px; font-size: .78rem; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 999; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
@@ -333,21 +309,31 @@
 
 <header>
   <div class="hl">
+    <!-- H.A.N.S. LOGO -->
     <img src="hans-logo.png"
+         onclick="reset()"
+         title="Home"
+         style="height:36px;cursor:pointer;flex-shrink:0;object-fit:contain;"
+         alt="H.A.N.S."
+         onerror="this.style.display='none';document.getElementById('hans-fallback').style.display='flex'"/>
+    <!-- Fallback falls Logo nicht geladen -->
+    <div id="hans-fallback"
+         onclick="reset()"
+         style="display:none;cursor:pointer;font-size:1rem;font-weight:800;
+                color:#FF0055;letter-spacing:1px;flex-shrink:0;">
+      H.A.N.S.
+    </div>
     <div>
-      <div class="h-title" onclick="reset()">
-        <span>H.A.N.S.</span>
-      </div>
       <div class="h-sub">Handover Assistant · Unzer Relay · Internal Tool</div>
     </div>
   </div>
   <div class="hr2">
-    <!-- Voice Input Toggle -->
+    <!-- Voice Input -->
     <button class="voice-btn" id="global-voice-btn" onclick="toggleGlobalVoice()">
       <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
       <span id="voice-btn-lbl">Voice</span>
     </button>
-    <!-- TTS Toggle -->
+    <!-- TTS -->
     <button class="tts-btn" id="tts-toggle-btn" onclick="toggleTTS()">
       <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
       <span id="tts-btn-lbl">Read Aloud</span>
@@ -362,11 +348,6 @@
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <span id="lbl-home">Home</span>
     </button>
-    <svg class="relay-ico" width="18" height="18" viewBox="0 0 100 100" fill="none">
-      <path d="M22 18 L22 58 Q22 80 50 80 Q78 80 78 58 L78 18" stroke="white" stroke-width="13" stroke-linecap="round" fill="none"/>
-      <circle cx="70" cy="26" r="11" fill="white"/>
-    </svg>
-    <span class="relay-lbl">Relay</span>
   </div>
 </header>
 
@@ -390,28 +371,19 @@
       <div class="tpage active" id="tp-0">
         <div class="tile" onclick="pick('vacation')">
           <div class="tiw"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8v4h8V3z"/></svg></div>
-          <div class="tb">
-            <div class="tt" id="tile-vac-t">Vacation Handover</div>
-            <div class="td" id="tile-vac-d">Internal coverage for absence period</div>
-          </div>
+          <div class="tb"><div class="tt" id="tile-vac-t">Vacation Handover</div><div class="td" id="tile-vac-d">Internal coverage for absence period</div></div>
           <div class="ta">›</div>
         </div>
         <div class="tile" onclick="pick('customer')">
           <div class="tiw"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-          <div class="tb">
-            <div class="tt" id="tile-cust-t">Customer Handover</div>
-            <div class="td" id="tile-cust-d">Cross-team handover of customers & opportunities</div>
-          </div>
+          <div class="tb"><div class="tt" id="tile-cust-t">Customer Handover</div><div class="td" id="tile-cust-d">Cross-team handover of customers & opportunities</div></div>
           <div class="ta">›</div>
         </div>
       </div>
       <div class="tpage" id="tp-1">
         <div class="tile" onclick="pick('project')">
           <div class="tiw"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></div>
-          <div class="tb">
-            <div class="tt" id="tile-proj-t">Project Handover</div>
-            <div class="td" id="tile-proj-d">Transfer of ongoing projects to other teams</div>
-          </div>
+          <div class="tb"><div class="tt" id="tile-proj-t">Project Handover</div><div class="td" id="tile-proj-d">Transfer of ongoing projects to other teams</div></div>
           <div class="ta">›</div>
         </div>
       </div>
@@ -691,9 +663,9 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // TRANSLATIONS
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 const T = {
   en: {
     home:'Home', phTitle:'Create New Handover', phSub:'Select the handover type to get started.',
@@ -718,7 +690,7 @@ const T = {
     deadT:'Deadlines & Appointments', deadD:'Schedule + .ics calendar export',
     bullT:'Bullet Point Handover', bullD:'Structured bullet point overview',
     create:'Create Handover →',
-    copy:'Copy', readAloud:'🔊 Read Aloud', stopRead:'■ Stop Reading',
+    copy:'Copy', readAloud:'🔊 Read Aloud', stopRead:'■ Stop',
     openEmail:'Open Email', icsExp:'.ics Export', newHo:'New Handover',
     generating:'Generating...',
     custSel:(n)=>`${n} customer${n>1?'s':''} selected`,
@@ -734,8 +706,9 @@ const T = {
     voiceOn:'🎤 Listening...', voiceOff:'Voice',
     ttsOn:'■ Stop', ttsOff:'Read Aloud',
     ttsSpeak:'H.A.N.S. is speaking...',
-    voiceHint:'Say a customer name or handover type.',
+    voiceHint:'Speak now...',
     noVoice:'Voice input not supported in this browser.',
+    micDenied:'⚠️ Please allow microphone access in your browser.',
   },
   de: {
     home:'Home', phTitle:'Neue Übergabe erstellen', phSub:'Wähle den Übergabetyp um zu beginnen.',
@@ -776,8 +749,9 @@ const T = {
     voiceOn:'🎤 Hört zu…', voiceOff:'Sprache',
     ttsOn:'■ Stop', ttsOff:'Vorlesen',
     ttsSpeak:'H.A.N.S. spricht…',
-    voiceHint:'Kundenname oder Übergabetyp sprechen.',
+    voiceHint:'Jetzt sprechen…',
     noVoice:'Spracheingabe in diesem Browser nicht unterstützt.',
+    micDenied:'⚠️ Bitte Mikrofon-Berechtigung im Browser erlauben.',
   }
 };
 
@@ -793,7 +767,8 @@ function setLang(l) {
 function applyT() {
   const t = T[lang];
   const s = (id, v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
-  s('lbl-home',t.home); s('ph-title',t.phTitle); s('ph-sub',t.phSub);
+  s('lbl-home',t.home);
+  s('ph-title',t.phTitle); s('ph-sub',t.phSub);
   s('lbl-type',t.lblType);
   s('tile-vac-t',t.tileVacT); s('tile-vac-d',t.tileVacD);
   s('tile-cust-t',t.tileCustT); s('tile-cust-d',t.tileCustD);
@@ -813,28 +788,28 @@ function applyT() {
   s('lbl-pn',t.pn+' *'); s('lbl-pt',t.pt+' *');
   s('lbl-stat',t.stat); s('lbl-tasks',t.tasks);
   s('lbl-risks',t.risks); s('lbl-links',t.links); s('lbl-subp',t.subp);
-  s('btn-back1',t.back); s('btn-back2',t.back);
-  s('btn-cont',t.cont);
+  s('btn-back1',t.back); s('btn-back2',t.back); s('btn-cont',t.cont);
   s('lbl-fmt',t.fmt);
   s('fmt-s-t',t.shortT); s('fmt-s-d',t.shortD);
   s('fmt-e-t',t.emailT); s('fmt-e-d',t.emailD);
   s('fmt-d-t',t.deadT); s('fmt-d-d',t.deadD);
   s('fmt-b-t',t.bullT); s('fmt-b-d',t.bullD);
   s('btn-gen',t.create);
-  s('btn-copy',t.copy); s('btn-read-lbl',t.readAloud);
+  s('btn-copy',t.copy);
+  s('btn-read-lbl', ttsEnabled ? t.stopRead : t.readAloud);
   s('btn-mail',t.openEmail); s('btn-ics',t.icsExp); s('btn-new',t.newHo);
-  s('voice-btn-lbl',voiceActive?t.voiceOn:t.voiceOff);
-  s('tts-btn-lbl',ttsEnabled?t.ttsOn:t.ttsOff);
-  s('tts-overlay-txt',t.ttsSpeak);
+  s('voice-btn-lbl', voiceActive ? t.voiceOn : t.voiceOff);
+  s('tts-btn-lbl', ttsEnabled ? t.ttsOn : t.ttsOff);
+  s('tts-overlay-txt', t.ttsSpeak);
   document.querySelectorAll('.esc-lbl,.esc-lbl2').forEach(e=>e.textContent=t.esc);
   document.querySelectorAll('.pos-lbl,.pos-lbl2').forEach(e=>e.textContent=t.pos);
   document.querySelectorAll('.med-lbl,.med-lbl2').forEach(e=>e.textContent=t.med);
   document.querySelectorAll('.frag-lbl,.frag-lbl2').forEach(e=>e.textContent=t.frag);
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // KUNDENDATENBANK [2][3][4][5]
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 const DB = {
   bella_casa: {
     name:'Bella Casa Living AG', id:'CUST-002', health:'escalated',
@@ -856,18 +831,18 @@ const DB = {
       {name:'Martin Seidel',role:'Managing Director',email:'martin.seidel@bellacasa-demo.com'}
     ],
     issues:{
-      en:['ESCALATION ACTIVE: Deliver consolidated finance solution by 26.06.2026','Formal legal threat – C-Level must be involved immediately','All operational topics blocked until escalation resolution','Consolidated response to open settlement and fee questions required','Improve ownership structure across teams'],
-      de:['ESKALATION AKTIV: Konsolidierte Finance-Lösung bis 26.06.2026 liefern','Formale Klagedrohung – C-Level muss sofort involviert sein','Alle operativen Themen blockiert bis zur Eskalationsauflösung','Konsolidierte Antwort auf offene Settlement- und Gebührenfragen','Ownership-Struktur über Teams hinweg verbessern']
+      en:['ESCALATION ACTIVE: Deliver consolidated finance solution by 26.06.2026','Formal legal threat – C-Level must be involved immediately','All operational topics blocked until escalation resolution','Consolidated response to open settlement and fee questions','Improve ownership structure across teams'],
+      de:['ESKALATION AKTIV: Konsolidierte Finance-Lösung bis 26.06.2026 liefern','Formale Klagedrohung – C-Level sofort involvieren','Alle operativen Themen blockiert','Konsolidierte Antwort auf Settlement- und Gebührenfragen','Ownership-Struktur verbessern']
     },
     risks:{en:'🚨 ACTIVE ESCALATION: Legal threat deadline 26.06.2026.',de:'🚨 AKTIVE ESKALATION: Klagedrohung bis 26.06.2026.'},
     opportunities:{en:'Post-escalation: Strategic expansion; better finance reporting; QBR format',de:'Nach Eskalationsauflösung: Strategischer Ausbau; besseres Finance-Reporting; QBR-Format'},
-    handoverNote:{en:'🚨 ESCALATION ACTIVE (18.06.–26.06.2026): MD Martin Seidel has escalated to C-Level. DEADLINE 26.06.2026. All operational topics blocked.',de:'🚨 ESKALATION AKTIV (18.06.–26.06.2026): GF Martin Seidel C-Level-Eskalation. DEADLINE 26.06.2026. Alle operativen Themen blockiert.'},
+    handoverNote:{en:'🚨 ESCALATION ACTIVE (18.06.–26.06.2026): MD Martin Seidel C-Level escalation. DEADLINE 26.06.2026. All operational topics blocked.',de:'🚨 ESKALATION AKTIV (18.06.–26.06.2026): GF Martin Seidel C-Level-Eskalation. DEADLINE 26.06.2026. Alle Themen blockiert.'},
     actions:{
-      en:['IMMEDIATE: Inform and coordinate C-Level','IMMEDIATE: Present binding timeline for finance resolution','DEADLINE 26.06.2026: Deliver complete consolidated finance solution','Document fee logic clearly','Post-escalation: Set up QBR format'],
-      de:['SOFORT: C-Level informieren','SOFORT: Verbindlichen Zeitplan präsentieren','DEADLINE 26.06.2026: Konsolidierte Finance-Lösung liefern','Gebührenlogik verständlich dokumentieren','Nach Eskalationsauflösung: QBR-Format aufsetzen']
+      en:['IMMEDIATE: Inform and coordinate C-Level','IMMEDIATE: Present binding timeline','DEADLINE 26.06.2026: Deliver complete finance solution','Document fee logic clearly','Post-escalation: Set up QBR format'],
+      de:['SOFORT: C-Level informieren','SOFORT: Verbindlichen Zeitplan präsentieren','DEADLINE 26.06.2026: Finance-Lösung liefern','Gebührenlogik dokumentieren','QBR-Format aufsetzen']
     },
     termine:[
-      {date:'2026-06-18',time:'09:00',title:{en:'🚨 ESCALATION: Start',de:'🚨 ESKALATION: Beginn'},attendees:'Martin Seidel, C-Level, AM',prep:{en:'All finance docs ready',de:'Alle Finance-Unterlagen bereithalten'},prio:'high'},
+      {date:'2026-06-18',time:'09:00',title:{en:'🚨 ESCALATION Start',de:'🚨 ESKALATION Beginn'},attendees:'Martin Seidel, C-Level, AM',prep:{en:'All finance docs ready',de:'Finance-Unterlagen bereithalten'},prio:'high'},
       {date:'2026-06-20',time:'10:00',title:{en:'🚨 C-Level Crisis Meeting',de:'🚨 C-Level-Krisensitzung'},attendees:'Martin Seidel, Katharina Wolf, C-Level',prep:{en:'Present binding timeline',de:'Verbindlichen Zeitplan präsentieren'},prio:'high'},
       {date:'2026-06-26',time:'09:00',title:{en:'🚨 DEADLINE: Legal Threat',de:'🚨 DEADLINE: Klagedrohung'},attendees:'Martin Seidel, Katharina Wolf, Legal',prep:{en:'Complete finance transparency required',de:'Vollständige Finance-Transparenz erforderlich'},prio:'high'},
       {date:'2026-07-02',time:'15:00',title:{en:'Service & Ownership Review',de:'Service- und Ownership-Review'},attendees:'Katharina Wolf, AM',prep:{en:'Define central owner',de:'Zentralen Owner definieren'},prio:'high'},
@@ -890,21 +865,21 @@ const DB = {
       {name:'Daniel Kraus',role:'Managing Director',email:'daniel.kraus@fitfuel-demo.com'}
     ],
     issues:{
-      en:['Clearer evaluation of KPI drops after shop changes','Build structured checkout optimization approach','Review subscription retry strategies','Establish regular KPI reviews','Closer monitoring of technical changes'],
-      de:['Klarere Bewertung von KPI-Schwankungen nach Shop-Änderungen','Strukturierten Checkout-Optimierungsansatz aufbauen','Subscription Retry-Strategien reviewen','Regelmäßige KPI-Reviews etablieren','Technische Changes enger begleiten']
+      en:['Clearer evaluation of KPI drops after shop changes','Build structured checkout optimization','Review subscription retry strategies','Establish regular KPI reviews','Monitor technical changes closely'],
+      de:['Klarere Bewertung von KPI-Schwankungen','Checkout-Optimierungsansatz aufbauen','Subscription Retry-Strategien reviewen','Regelmäßige KPI-Reviews etablieren','Technische Changes enger begleiten']
     },
-    risks:{en:'Conversion drop after shop/theme changes; insufficient KPI interpretation',de:'Conversion-Einbruch nach Shop-Änderungen; unzureichende KPI-Einordnung'},
+    risks:{en:'Conversion drop after shop changes; insufficient KPI interpretation',de:'Conversion-Einbruch nach Shop-Änderungen; unzureichende KPI-Einordnung'},
     opportunities:{en:'Strong growth partnership; mobile checkout & wallet optimization',de:'Starke Growth-Partnerschaft; Mobile Checkout & Wallet-Optimierung'},
-    handoverNote:{en:'KPI questions always business-critical. Speed and hypotheses over technical updates. Mobile 72%, wallets central.',de:'KPI-Fragen immer business-kritisch. Tempo und Hypothesen statt technischer Status. Mobile 72%, Wallets zentral.'},
+    handoverNote:{en:'KPI questions always business-critical. Speed and hypotheses over technical updates. Mobile 72%, wallets central.',de:'KPI-Fragen immer business-kritisch. Tempo und Hypothesen. Mobile 72%, Wallets zentral.'},
     actions:{
-      en:['Establish regular KPI review rhythm','Analyze subscription retry strategies','Set up mobile checkout optimization roadmap','Improve shop-change monitoring','Structure wallet and conversion benchmarking'],
-      de:['Regelmäßigen KPI-Review-Rhythmus etablieren','Subscription Retry-Strategien analysieren','Mobile Checkout Optimization Roadmap aufsetzen','Shop-Change-Begleitung verbessern','Wallet-Benchmarking strukturieren']
+      en:['Establish regular KPI review rhythm','Analyze subscription retry strategies','Set up mobile checkout optimization roadmap','Improve shop-change monitoring','Structure wallet benchmarking'],
+      de:['KPI-Review-Rhythmus etablieren','Subscription Retry-Strategien analysieren','Mobile Checkout Roadmap aufsetzen','Shop-Change-Begleitung verbessern','Wallet-Benchmarking strukturieren']
     },
     termine:[
-      {date:'2026-06-19',time:'10:00',title:{en:'KPI Review Session',de:'KPI Review Session'},attendees:'Marc Weber, Sarah Klein',prep:{en:'Checkout completion, mobile share, wallet uplift',de:'Checkout-Completion, Mobile Share, Wallet-Uplift'},prio:'high'},
+      {date:'2026-06-19',time:'10:00',title:{en:'KPI Review Session',de:'KPI Review Session'},attendees:'Marc Weber, Sarah Klein',prep:{en:'Checkout completion, mobile, wallet uplift',de:'Checkout-Completion, Mobile, Wallet-Uplift'},prio:'high'},
       {date:'2026-06-23',time:'14:00',title:{en:'Subscription Recovery Workshop',de:'Subscription Recovery Workshop'},attendees:'Olivia Stern, Marc Weber',prep:{en:'Analyze retry logic',de:'Retry-Logiken analysieren'},prio:'high'},
       {date:'2026-06-27',time:'11:00',title:{en:'Theme/App Change Risk Check',de:'Theme/App Change Risk Check'},attendees:'Deniz Acar, Sarah Klein',prep:{en:'Test and rollback checklist',de:'Test- und Rollback-Checkliste'},prio:'medium'},
-      {date:'2026-07-01',time:'15:00',title:{en:'Wallet Benchmarking Deep Dive',de:'Wallet Benchmarking Deep Dive'},attendees:'Marc Weber, Sarah Klein',prep:{en:'Apple Pay / Google Pay potential',de:'Apple Pay / Google Pay Potenziale'},prio:'medium'},
+      {date:'2026-07-01',time:'15:00',title:{en:'Wallet Benchmarking',de:'Wallet Benchmarking'},attendees:'Marc Weber, Sarah Klein',prep:{en:'Apple Pay / Google Pay potential',de:'Apple Pay / Google Pay Potenziale'},prio:'medium'},
       {date:'2026-07-04',time:'10:00',title:{en:'Growth Planning Meeting',de:'Growth Planning Meeting'},attendees:'Sarah Klein, Marc Weber',prep:{en:'Prioritize mobile + subscription',de:'Mobile + Subscription priorisieren'},prio:'medium'}
     ]
   },
@@ -925,19 +900,19 @@ const DB = {
       {name:'Florian Berg',role:'Managing Director',email:'florian.berg@nordlicht-outdoor-demo.com'}
     ],
     issues:{
-      en:['Define sustainable release process with rollback criteria','Expand proactive incident communication','Create roadmap for additional payment methods','Establish regular KPI review rhythm','Sharpen support vs. AM communication separation'],
-      de:['Belastbaren Release-Prozess mit Rollback-Kriterien definieren','Proaktive Incident-Kommunikation ausbauen','Roadmap für zusätzliche Zahlarten erstellen','Regelmäßigen KPI-Review-Rhythmus etablieren','Support- und AM-Kommunikation trennen']
+      en:['Define sustainable release process with rollback criteria','Expand proactive incident communication','Create payment methods roadmap','Establish regular KPI review rhythm','Separate support vs. AM communication'],
+      de:['Release-Prozess mit Rollback-Kriterien definieren','Proaktive Incident-Kommunikation ausbauen','Roadmap für Zahlarten erstellen','KPI-Review-Rhythmus etablieren','Support- und AM-Kommunikation trennen']
     },
-    risks:{en:'Recurring wallet/checkout failures (Google Pay 13% critical); unclear communication on technical changes',de:'Erneute Wallet- oder Checkout-Ausfälle (Google Pay 13% kritisch); unklare technische Kommunikation'},
+    risks:{en:'Recurring wallet/checkout failures (Google Pay 13% critical)',de:'Erneute Wallet- oder Checkout-Ausfälle (Google Pay 13% kritisch)'},
     opportunities:{en:'Additional payment methods; performance reviews; mobile checkout optimization',de:'Ausbau weiterer Zahlarten; Performance-Reviews; Mobile Checkout Optimization'},
-    handoverNote:{en:'Wallets business-critical (64% mobile, Google Pay 13%). Tight update intervals expected during incidents.',de:'Wallets geschäftskritisch (64% Mobile, Google Pay 13%). Enges Update-Intervall bei Incidents erwartet.'},
+    handoverNote:{en:'Wallets business-critical (64% mobile, Google Pay 13%). Tight update intervals expected during incidents.',de:'Wallets geschäftskritisch (64% Mobile, Google Pay 13%). Enges Update-Intervall bei Incidents.'},
     actions:{
-      en:['Establish monthly KPI review','Prepare payment methods roadmap','Document release governance with rollback criteria','Define incident communication standard','Link pricing to service and stability model'],
+      en:['Establish monthly KPI review','Prepare payment methods roadmap','Document release governance','Define incident communication standard','Link pricing to stability model'],
       de:['Monatlichen KPI-Review etablieren','Roadmap für Zahlarten vorbereiten','Release-Governance dokumentieren','Incident-Kommunikationsstandard definieren','Preisgespräche mit Stabilitätsmodell verknüpfen']
     },
     termine:[
       {date:'2025-06-23',time:'10:00',title:{en:'Mobile Checkout & Conversion Workshop',de:'Workshop Mobile Checkout & Conversion'},attendees:'Lena Hoffmann, Nina Roth',prep:{en:'Wallet split data, mobile checkout flows',de:'Wallet-Split-Daten, Mobile Checkout Flows'},prio:'high'},
-      {date:'2025-06-26',time:'14:00',title:{en:'Release Governance & Rollback Framework',de:'Release-Governance & Rollback-Framework'},attendees:'Paul Jensen, Tim Becker',prep:{en:'Finalize test criteria and rollback thresholds',de:'Testkriterien und Rollback-Schwellenwerte finalisieren'},prio:'high'},
+      {date:'2025-06-26',time:'14:00',title:{en:'Release Governance & Rollback Framework',de:'Release-Governance & Rollback-Framework'},attendees:'Paul Jensen, Tim Becker',prep:{en:'Finalize test criteria and rollback thresholds',de:'Testkriterien finalisieren'},prio:'high'},
       {date:'2025-06-30',time:'11:00',title:{en:'Commercial Discussion & H2 Growth',de:'Konditionsgespräch & Wachstumsperspektive'},attendees:'Lena Hoffmann, Markus Feld',prep:{en:'Prepare commercial proposal',de:'Commercial Proposal vorbereiten'},prio:'high'},
       {date:'2025-07-03',time:'09:30',title:{en:'Payment Methods Roadmap Review',de:'Roadmap-Review Zahlarten'},attendees:'Nina Roth, Lena Hoffmann',prep:{en:'Payment expansion roadmap',de:'Payment-Expansion-Roadmap'},prio:'medium'},
       {date:'2025-07-07',time:'15:00',title:{en:'Monthly KPI Review (Pilot)',de:'Monatlicher KPI-Review (Pilot)'},attendees:'Lena Hoffmann, Paul Jensen, Tim Becker',prep:{en:'TPV, checkout completion, auth rate',de:'TPV, Checkout Completion, Auth Rate'},prio:'high'}
@@ -958,38 +933,48 @@ const DB = {
       {name:'Adrian Voß',role:'Technical Project Contact',email:'adrian.voss@urbancraft-demo.com'}
     ],
     issues:{
-      en:['Make central ownership visible for all open topics','Track open support cases in consolidated manner','Define clear escalation and response paths','Separate billing, tech, and relationship topics','Establish regular status rhythm with customer'],
-      de:['Zentrale Ownership für alle offenen Themen sichtbar machen','Offene Support-Fälle konsolidiert nachhalten','Klare Eskalations- und Rückmeldewege definieren','Billing-, Tech- und Relationship-Themen trennen','Regelmäßigen Statusrhythmus mit Kunde etablieren']
+      en:['Make central ownership visible for all open topics','Track open support cases consolidated','Define clear escalation and response paths','Separate billing, tech, and relationship topics','Establish regular status rhythm'],
+      de:['Zentrale Ownership für alle Themen sichtbar machen','Offene Support-Fälle konsolidiert nachhalten','Klare Eskalationswege definieren','Billing-, Tech- und Relationship-Themen trennen','Regelmäßigen Statusrhythmus etablieren']
     },
-    risks:{en:'Cumulative trust loss through missing updates; perceived unavailability',de:'Kumulierter Vertrauensverlust durch fehlende Updates; wahrgenommene Nicht-Erreichbarkeit'},
-    opportunities:{en:'Central coordination; clear contact structure; mid-term payment expansion',de:'Zentrale Steuerung; klare Ansprechpartnerstruktur; mittelfristiger Zahlarten-Ausbau'},
-    handoverNote:{en:'⚠️ FRAGILE: Ownership more important than perfection. Small topics escalate when updates missing. Felix Krüger appears during escalations.',de:'⚠️ FRAGILE: Ownership wichtiger als Perfektion. Kleine Themen eskalieren wenn Updates ausbleiben. Felix Krüger erscheint bei Eskalationen.'},
+    risks:{en:'Cumulative trust loss through missing updates; perceived unavailability',de:'Kumulierter Vertrauensverlust durch fehlende Updates'},
+    opportunities:{en:'Central coordination; clear contact structure; mid-term payment expansion',de:'Zentrale Steuerung; klare Ansprechpartnerstruktur; Zahlarten-Ausbau'},
+    handoverNote:{en:'⚠️ FRAGILE: Ownership more important than perfection. Small topics escalate when updates missing. Felix Krüger appears during escalations.',de:'⚠️ FRAGILE: Ownership wichtiger als Perfektion. Felix Krüger erscheint bei Eskalationen.'},
     actions:{
       en:['Establish permanent central ownership model','Maintain weekly open issues rhythm','Separate billing, tech, and support topics','Document escalation path','Place expansion topics only after stabilization'],
       de:['Dauerhaftes Ownership-Modell etablieren','Wöchentlichen Open-Issues-Rhythmus beibehalten','Themen sauber trennen','Eskalationspfad dokumentieren','Erst nach Stabilisierung Ausbau platzieren']
     },
     termine:[
-      {date:'2025-07-01',time:'10:00',title:{en:'Bi-Weekly Open Issues Review',de:'Bi-Weekly Open Issues Review'},attendees:'Jana Seifert, AM',prep:{en:'All open support cases and billing questions',de:'Alle offenen Support-Fälle und Billing-Rückfragen'},prio:'high'},
-      {date:'2025-07-04',time:'14:00',title:{en:'Technical Deep-Dive Session',de:'Technische Deep-Dive-Session'},attendees:'Adrian Voß, Technical Support',prep:{en:'Checkout wallet display issue on mobile',de:'Checkout-Darstellungsproblematik Wallets auf Mobile'},prio:'high'},
-      {date:'2025-07-08',time:'11:00',title:{en:'Quarterly Relationship Review',de:'Quarterly Relationship Review'},attendees:'Felix Krüger, Jana Seifert, AM',prep:{en:'Evaluate governance model, Q3 structure',de:'Governance-Modell bewerten, Q3 Betreuungsstruktur'},prio:'high'},
+      {date:'2025-07-01',time:'10:00',title:{en:'Bi-Weekly Open Issues Review',de:'Bi-Weekly Open Issues Review'},attendees:'Jana Seifert, AM',prep:{en:'All open support cases and billing questions',de:'Alle offenen Support-Fälle'},prio:'high'},
+      {date:'2025-07-04',time:'14:00',title:{en:'Technical Deep-Dive Session',de:'Technische Deep-Dive-Session'},attendees:'Adrian Voß, Technical Support',prep:{en:'Checkout wallet display issue on mobile',de:'Checkout-Darstellungsproblematik Wallets'},prio:'high'},
+      {date:'2025-07-08',time:'11:00',title:{en:'Quarterly Relationship Review',de:'Quarterly Relationship Review'},attendees:'Felix Krüger, Jana Seifert, AM',prep:{en:'Evaluate governance model, Q3 structure',de:'Governance-Modell bewerten'},prio:'high'},
       {date:'2025-07-14',time:'15:30',title:{en:'Billing Clarification Meeting',de:'Billing-Klärungstermin'},attendees:'Mira Lang, Billing Team',prep:{en:'Clarify three open billing positions',de:'Drei offene Abrechnungspositionen klären'},prio:'medium'},
-      {date:'2025-07-17',time:'09:30',title:{en:'Payment Expansion Discovery Workshop',de:'Payment Expansion Discovery Workshop'},attendees:'Jana Seifert, Adrian Voß',prep:{en:'Evaluate Apple Pay / Google Pay, BNPL pilot',de:'Apple Pay / Google Pay, BNPL-Pilot evaluieren'},prio:'medium'}
+      {date:'2025-07-17',time:'09:30',title:{en:'Payment Expansion Discovery',de:'Payment Expansion Discovery'},attendees:'Jana Seifert, Adrian Voß',prep:{en:'Evaluate Apple Pay, BNPL pilot',de:'Apple Pay, BNPL-Pilot evaluieren'},prio:'medium'}
     ]
   }
 };
 
-// ═══════════════════════════════════════
-// VOICE INPUT (Web Speech API)
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
+// VOICE INPUT – GEFIXT
+// ═══════════════════════════════════
 let voiceActive = false;
 let currentRecognition = null;
-let activeFieldId = null;
 let activeFieldBtn = null;
-
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 function toggleGlobalVoice() {
   if (!SpeechRecognition) { toast(T[lang].noVoice); return; }
+
+  // Mikrofon-Berechtigung anfragen
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(() => { activateVoice(); })
+      .catch(() => { toast(T[lang].micDenied); });
+  } else {
+    activateVoice();
+  }
+}
+
+function activateVoice() {
   voiceActive = !voiceActive;
   const btn = document.getElementById('global-voice-btn');
   btn.classList.toggle('listening', voiceActive);
@@ -997,7 +982,6 @@ function toggleGlobalVoice() {
     voiceActive ? T[lang].voiceOn : T[lang].voiceOff;
   if (voiceActive) {
     showVoiceBar(T[lang].voiceHint);
-    toast(T[lang].voiceHint);
   } else {
     hideVoiceBar();
     if (currentRecognition) { currentRecognition.stop(); currentRecognition = null; }
@@ -1007,51 +991,56 @@ function toggleGlobalVoice() {
 
 function startFieldVoice(fieldId, btn) {
   if (!SpeechRecognition) { toast(T[lang].noVoice); return; }
-  if (activeFieldBtn && activeFieldBtn !== btn) {
-    activeFieldBtn.classList.remove('active');
-    if (currentRecognition) currentRecognition.stop();
-  }
-  activeFieldId = fieldId;
-  activeFieldBtn = btn;
-  btn.classList.add('active');
-  showVoiceBar(lang === 'de' ? 'Sprich jetzt…' : 'Speak now...');
 
-  const r = new SpeechRecognition();
-  r.lang = lang === 'de' ? 'de-DE' : 'en-US';
-  r.continuous = false;
-  r.interimResults = false;
-  currentRecognition = r;
-
-  r.onresult = (e) => {
-    const txt = e.results[0][0].transcript;
-    const el = document.getElementById(fieldId);
-    if (el) {
-      el.value = el.value ? el.value + ' ' + txt : txt;
-      el.dispatchEvent(new Event('change'));
+  const doStart = () => {
+    if (activeFieldBtn && activeFieldBtn !== btn) {
+      activeFieldBtn.classList.remove('active');
+      if (currentRecognition) currentRecognition.stop();
     }
-    btn.classList.remove('active');
-    hideVoiceBar();
-    toast('✓ "' + txt + '"');
-    if (fieldId === 'v-start' || fieldId === 'v-end') checkTermine();
+    activeFieldBtn = btn;
+    btn.classList.add('active');
+    showVoiceBar(T[lang].voiceHint);
+
+    const r = new SpeechRecognition();
+    r.lang = lang === 'de' ? 'de-DE' : 'en-US';
+    r.continuous = false;
+    r.interimResults = false;
+    currentRecognition = r;
+
+    r.onresult = (e) => {
+      const txt = e.results[0][0].transcript;
+      const el = document.getElementById(fieldId);
+      if (el) { el.value = el.value ? el.value + ' ' + txt : txt; }
+      btn.classList.remove('active');
+      hideVoiceBar();
+      toast('✓ "' + txt + '"');
+      if (fieldId === 'v-start' || fieldId === 'v-end') checkTermine();
+    };
+    r.onerror = () => { btn.classList.remove('active'); hideVoiceBar(); };
+    r.onend   = () => { btn.classList.remove('active'); hideVoiceBar(); };
+    r.start();
   };
 
-  r.onerror = () => { btn.classList.remove('active'); hideVoiceBar(); };
-  r.onend   = () => { btn.classList.remove('active'); hideVoiceBar(); };
-  r.start();
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(() => doStart())
+      .catch(() => toast(T[lang].micDenied));
+  } else {
+    doStart();
+  }
 }
 
 function showVoiceBar(txt) {
-  const bar = document.getElementById('voice-bar');
   document.getElementById('voice-bar-txt').textContent = txt;
-  bar.classList.add('show');
+  document.getElementById('voice-bar').classList.add('show');
 }
 function hideVoiceBar() {
   document.getElementById('voice-bar').classList.remove('show');
 }
 
-// ═══════════════════════════════════════
-// TEXT TO SPEECH (Web Speech Synthesis)
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
+// TEXT TO SPEECH – GEFIXT
+// ═══════════════════════════════════
 let ttsEnabled = false;
 let currentUtterance = null;
 
@@ -1066,12 +1055,11 @@ function toggleTTS() {
 }
 
 function speak(text) {
-  if (!ttsEnabled || !window.speechSynthesis) return;
+  if (!window.speechSynthesis) return;
   stopSpeech();
   const u = new SpeechSynthesisUtterance(text.substring(0, 3000));
   u.lang = lang === 'de' ? 'de-DE' : 'en-US';
-  u.rate = 0.95;
-  u.pitch = 1;
+  u.rate = 0.95; u.pitch = 1;
   currentUtterance = u;
   document.getElementById('tts-overlay').classList.add('show');
   document.getElementById('tts-overlay-txt').textContent = T[lang].ttsSpeak;
@@ -1094,15 +1082,19 @@ function stopSpeech() {
 
 function readResult() {
   const text = (results[activeCust] && results[activeCust][activeFmt]) || '';
-  if (!text) { toast(lang==='de'?'Kein Inhalt zum Vorlesen.':'No content to read.'); return; }
+  if (!text) { toast(lang==='de'?'Kein Inhalt.':'No content.'); return; }
   if (window.speechSynthesis?.speaking) { stopSpeech(); return; }
-  if (!ttsEnabled) { ttsEnabled = true; document.getElementById('tts-toggle-btn').classList.add('speaking'); }
+  if (!ttsEnabled) {
+    ttsEnabled = true;
+    document.getElementById('tts-toggle-btn').classList.add('speaking');
+    document.getElementById('tts-btn-lbl').textContent = T[lang].ttsOn;
+  }
   speak(text);
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // HELPERS
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function filterTermine(termine, s, e) {
   if (!s || !e) return termine;
   return termine.filter(t => t.date >= s && t.date <= e);
@@ -1124,58 +1116,53 @@ function getEscBanner(c, l) {
   if (!c.eskalation?.aktiv) return '';
   const e = c.eskalation[l];
   const lbl = l==='en' ? 'ESCALATION ACTIVE' : 'ESKALATION AKTIV';
-  return `\n${'!'.repeat(63)}\n🚨 ${lbl} – ${e.stufe}\n${'!'.repeat(63)}\n  ${l==='en'?'Period':'Zeitraum'}:   ${e.zeitraum}\n  DEADLINE: ${e.deadline}\n  ${e.inhalt}\n${'!'.repeat(63)}\n`;
+  return `\n${'!'.repeat(60)}\n🚨 ${lbl} – ${e.stufe}\n${'!'.repeat(60)}\n  ${l==='en'?'Period':'Zeitraum'}: ${e.zeitraum}\n  DEADLINE: ${e.deadline}\n  ${e.inhalt}\n${'!'.repeat(60)}\n`;
 }
 function tT(t) { return typeof t==='object' ? t[lang] : t; }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // OUTPUT TEMPLATES
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function genOutput(c, d, fmt, l) {
   const isDE = l === 'de';
-  const hlMap = {
-    escalated: isDE ? '🚨 Eskalation' : '🚨 Escalation',
-    fragile:   isDE ? '🔴 Fragil'     : '🔴 Fragile',
-    medium:    '🟡 Medium',
-    positive:  isDE ? '🟢 Positiv'    : '🟢 Positive'
-  };
-  const hl = hlMap[c.health] || '🟡 Medium';
-  const from   = d.name || d.fromPerson || (isDE ? 'Übergeber' : 'Sender');
-  const to     = d.substitute || d.toPerson || (isDE ? 'Empfänger' : 'Recipient');
-  const period = d.startDate ? `${d.startDate} – ${d.endDate}` : (isDE ? 'laufend' : 'ongoing');
-  const primary = c.contacts.find(x=>x.primary) || c.contacts[0];
-  const esc    = c.contacts[1] || c.contacts[0];
-  const appts  = getTermine(c, d);
+  const hlMap = {escalated:isDE?'🚨 Eskalation':'🚨 Escalation', fragile:isDE?'🔴 Fragil':'🔴 Fragile', medium:'🟡 Medium', positive:isDE?'🟢 Positiv':'🟢 Positive'};
+  const hl = hlMap[c.health]||'🟡 Medium';
+  const from = d.name||d.fromPerson||(isDE?'Übergeber':'Sender');
+  const to   = d.substitute||d.toPerson||(isDE?'Empfänger':'Recipient');
+  const period = d.startDate?`${d.startDate} – ${d.endDate}`:(isDE?'laufend':'ongoing');
+  const primary = c.contacts.find(x=>x.primary)||c.contacts[0];
+  const esc = c.contacts[1]||c.contacts[0];
+  const appts = getTermine(c, d);
   const banner = getEscBanner(c, l);
   const issues = c.issues[l];
   const actions = c.actions[l];
-  const tpv    = isDE ? c.tpvDE : c.tpv;
-  const noAppt = isDE ? 'Keine Termine im angegebenen Zeitraum.' : 'No appointments in the selected period.';
-  const apptStr = appts.length > 0
-    ? appts.map(t => `  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}  –  ${tT(t.title)}\n     → ${t.attendees}\n     → ${isDE?'Vorbereitung':'Prep'}: ${tT(t.prep)}`).join('\n\n')
+  const tpv = isDE ? c.tpvDE : c.tpv;
+  const noAppt = isDE?'Keine Termine im angegebenen Zeitraum.':'No appointments in the selected period.';
+  const apptStr = appts.length>0
+    ? appts.map(t=>`  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}  –  ${tT(t.title)}\n     → ${t.attendees}\n     → ${isDE?'Vorbereitung':'Prep'}: ${tT(t.prep)}`).join('\n\n')
     : `  ${noAppt}`;
-  const date = new Date().toLocaleDateString(isDE ? 'de-DE' : 'en-GB');
+  const date = new Date().toLocaleDateString(isDE?'de-DE':'en-GB');
 
-  if (fmt === 'short') return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${isDE ? 'SHORT OVERVIEW' : 'SHORT OVERVIEW'}  ·  ${c.name}
+  if (fmt==='short') return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SHORT OVERVIEW  ·  ${c.name}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${banner}
 ${isDE?'ÜBERGABE':'HANDOVER'}
-  ${isDE?'Von':'From'}:        ${from}
-  ${isDE?'An':'To'}:          ${to}
-  ${isDE?'Zeitraum':'Period'}:   ${period}
+  ${isDE?'Von':'From'}:       ${from}
+  ${isDE?'An':'To'}:         ${to}
+  ${isDE?'Zeitraum':'Period'}:  ${period}
 
 ${isDE?'KUNDENPROFIL':'CUSTOMER PROFILE'}
-  ${isDE?'Name':'Name'}:        ${c.name}  (${c.id})
-  ${isDE?'Segment':'Segment'}:  ${c.segment}  ·  ${c.region}
-  ${isDE?'Health':'Health'}:    ${hl}
-  TPV:         ${tpv}  ·  ${isDE?'Wachstum':'Growth'}: ${c.growth}
-  ${isDE?'Ø WK':'Avg. Cart'}:  ${c.aov}  ·  Mobile: ${c.mobile}
+  ${isDE?'Name':'Name'}:       ${c.name}  (${c.id})
+  ${isDE?'Segment':'Segment'}: ${c.segment}  ·  ${c.region}
+  Health:    ${hl}
+  TPV:       ${tpv}  ·  ${isDE?'Wachstum':'Growth'}: ${c.growth}
+  ${isDE?'Ø WK':'Avg. Cart'}: ${c.aov}  ·  Mobile: ${c.mobile}
   ${isDE?'Zahlung':'Payments'}: ${c.payment}
-  Fee Rate:    ${c.feeRate}
+  Fee Rate:  ${c.feeRate}
 
 ──────────────────────────────────────────────────────────────
-${isDE ? 'TOP THEMEN' : 'TOP TOPICS'}
+${isDE?'TOP THEMEN':'TOP TOPICS'}
 ──────────────────────────────────────────────────────────────
 ${issues.map((t,i)=>`  ${i+1}. ${t}`).join('\n')}
 
@@ -1197,7 +1184,7 @@ ${c.contacts.map(x=>`  ${(x.name+(x.primary?' ★':'')).padEnd(24)}  ${x.role.pa
 ──────────────────────────────────────────────────────────────
 ${isDE?'ESKALATIONSWEG':'ESCALATION PATH'}
 ──────────────────────────────────────────────────────────────
-  ${isDE?'Primär':'Primary'}:     ${primary.name}  ·  ${primary.email}
+  ${isDE?'Primär':'Primary'}:    ${primary.name}  ·  ${primary.email}
   ${isDE?'Eskalation':'Escalation'}: ${esc.name}  ·  ${esc.email}
 
 ⚠️  ${isDE?'HANDOVER-HINWEIS':'HANDOVER NOTE'}:
@@ -1207,16 +1194,14 @@ ${isDE?'ESKALATIONSWEG':'ESCALATION PATH'}
 H.A.N.S. – Handover Assistant · Unzer Relay · ${date}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
-  if (fmt === 'email') return `${isDE?'Betreff':'Subject'}: ${isDE?'Übergabe':'Handover'} ${c.name}  |  ${from} → ${to}  |  ${period}${c.eskalation?.aktiv ? (isDE?' 🚨 ESKALATION AKTIV':' 🚨 ESCALATION ACTIVE') : ''}
+  if (fmt==='email') return `${isDE?'Betreff':'Subject'}: ${isDE?'Übergabe':'Handover'} ${c.name}  |  ${from} → ${to}  |  ${period}${c.eskalation?.aktiv?(isDE?' 🚨 ESKALATION AKTIV':' 🚨 ESCALATION ACTIVE'):''}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${banner}
 ${isDE?'Hallo':'Hi'} ${to},
 
-${isDE
-  ? `im Rahmen meiner Abwesenheit (${period}) übergebe ich dir alle relevanten Informationen zu ${c.name}.`
-  : `during my absence (${period}) I am handing over all relevant information regarding ${c.name} to you.`}
-${c.eskalation?.aktiv ? (isDE?'\n⚠️ ACHTUNG: Dieser Kunde befindet sich in einer aktiven Eskalationsphase.\n':'\n⚠️ ATTENTION: This customer is in an active escalation phase.\n') : ''}
+${isDE?`im Rahmen meiner Abwesenheit (${period}) übergebe ich dir alle relevanten Informationen zu ${c.name}.`:`during my absence (${period}) I am handing over all relevant information regarding ${c.name}.`}
+${c.eskalation?.aktiv?(isDE?'\n⚠️ ACHTUNG: Aktive Eskalationsphase – bitte Hinweis oben lesen.\n':'\n⚠️ ATTENTION: Active escalation phase – please read notice above.\n'):''}
 ──────────────────────────────────────────────────────────────
 ${isDE?'KUNDENPROFIL':'CUSTOMER PROFILE'}
 ──────────────────────────────────────────────────────────────
@@ -1239,45 +1224,45 @@ ${isDE?`TERMINE IN MEINER ABWESENHEIT (${period})`:`APPOINTMENTS DURING MY ABSEN
 ${apptStr}
 
 ──────────────────────────────────────────────────────────────
-${isDE?'ANSPRECHPARTNER BEIM KUNDEN':'CUSTOMER CONTACTS'}
+${isDE?'ANSPRECHPARTNER':'CUSTOMER CONTACTS'}
 ──────────────────────────────────────────────────────────────
 ${c.contacts.map(x=>`  • ${x.name}${x.primary?(isDE?' (Hauptkontakt)':' (Main Contact)'):''}\n    ${x.role}  ·  ${x.email}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
 ${isDE?'BEI DRINGENDEN FRAGEN':'FOR URGENT QUESTIONS'}
 ──────────────────────────────────────────────────────────────
-  ${isDE?'Primär':'Primary'}:     ${primary.name}  ·  ${primary.email}
+  ${isDE?'Primär':'Primary'}:    ${primary.name}  ·  ${primary.email}
   ${isDE?'Eskalation':'Escalation'}: ${esc.name}  ·  ${esc.email}
 
 ⚠️  ${isDE?'WICHTIGER HINWEIS':'IMPORTANT NOTE'}:
   ${c.handoverNote[l]}
-${d.notes ? `\n${isDE?'Zusätzliche Notizen':'Additional Notes'}:\n  ${d.notes}` : ''}
+${d.notes?`\n${isDE?'Zusätzliche Notizen':'Additional Notes'}:\n  ${d.notes}`:''}
 
-${isDE?'Vielen Dank und viele Grüße,':'Thank you very much! Best regards,'}
+${isDE?'Vielen Dank und viele Grüße,':'Thank you! Best regards,'}
 ${from}
 
 ──────────────────────────────────────────────────────────────
 H.A.N.S. – Handover Assistant · Unzer Relay · ${date}`;
 
-  if (fmt === 'deadlines') return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  if (fmt==='deadlines') return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${isDE?'DEADLINES & TERMINE':'DEADLINES & APPOINTMENTS'}  ·  ${c.name}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   ${isDE?'Von':'From'}: ${from}  ·  ${isDE?'Zeitraum':'Period'}: ${period}
 ${banner}
 ──────────────────────────────────────────────────────────────
-${isDE?'ALLE TERMINE IM ZEITRAUM':'ALL APPOINTMENTS IN PERIOD'}
+${isDE?'TERMINE IM ZEITRAUM':'ALL APPOINTMENTS IN PERIOD'}
 ──────────────────────────────────────────────────────────────
-${appts.length>0 ? appts.map(t=>`  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}\n     ${isDE?'Termin':'Appointment'}:     ${tT(t.title)}\n     ${isDE?'Teilnehmer':'Attendees'}:  ${t.attendees}\n     ${isDE?'Vorbereitung':'Preparation'}: ${tT(t.prep)}`).join('\n\n') : `  ${noAppt}`}
+${appts.length>0?appts.map(t=>`  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}\n     ${isDE?'Termin':'Appointment'}:    ${tT(t.title)}\n     ${isDE?'Teilnehmer':'Attendees'}: ${t.attendees}\n     ${isDE?'Vorbereitung':'Prep'}:      ${tT(t.prep)}`).join('\n\n'):`  ${noAppt}`}
 
 ──────────────────────────────────────────────────────────────
 🔴 ${isDE?'KRITISCH':'CRITICAL'}
 ──────────────────────────────────────────────────────────────
-${appts.filter(t=>t.prio==='high').map(t=>`  • ${t.date}  ${t.time}  –  ${tT(t.title)}\n    → ${t.attendees}`).join('\n\n') || `  ${isDE?'Keine':'None'}`}
+${appts.filter(t=>t.prio==='high').map(t=>`  • ${t.date}  ${t.time}  –  ${tT(t.title)}\n    → ${t.attendees}`).join('\n\n')||`  ${isDE?'Keine':'None'}`}
 
 ──────────────────────────────────────────────────────────────
 🟡 ${isDE?'WICHTIG':'IMPORTANT'}
 ──────────────────────────────────────────────────────────────
-${appts.filter(t=>t.prio==='medium').map(t=>`  • ${t.date}  ${t.time}  –  ${tT(t.title)}\n    → ${t.attendees}`).join('\n\n') || `  ${isDE?'Keine':'None'}`}
+${appts.filter(t=>t.prio==='medium').map(t=>`  • ${t.date}  ${t.time}  –  ${tT(t.title)}\n    → ${t.attendees}`).join('\n\n')||`  ${isDE?'Keine':'None'}`}
 
 ──────────────────────────────────────────────────────────────
 ${isDE?'OFFENE ISSUES':'OPEN ISSUES'}
@@ -1290,10 +1275,10 @@ ${isDE?'NÄCHSTE SCHRITTE':'NEXT STEPS'}
 ${actions.map((a,i)=>`  ${i+1}. ${a}`).join('\n')}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${appts.length} ${isDE?'Termin(e) im Zeitraum  ·  .ics Export verfügbar':'appointment(s) in period  ·  .ics export available'}
+${appts.length} ${isDE?'Termin(e)  ·  .ics Export verfügbar':'appointment(s)  ·  .ics export available'}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
-  if (fmt === 'bullets') return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  if (fmt==='bullets') return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${isDE?'STICHPUNKT-ÜBERGABE':'BULLET POINT HANDOVER'}  ·  ${c.name}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   ${isDE?'Von':'From'}: ${from}  →  ${isDE?'An':'To'}: ${to}
@@ -1302,12 +1287,12 @@ ${banner}
 ──────────────────────────────────────────────────────────────
 ${isDE?'KUNDENSTATUS':'CUSTOMER STATUS'}
 ──────────────────────────────────────────────────────────────
-  • Health:         ${hl}
-  • ${isDE?'Segment':'Segment'}:         ${c.segment}  ·  ${c.region}
-  • TPV:            ${tpv}  ·  ${isDE?'Wachstum':'Growth'}: ${c.growth}
-  • ${isDE?'Ø WK':'Avg. Cart'}:      ${c.aov}  ·  Mobile: ${c.mobile}
-  • ${isDE?'Zahlung':'Payments'}:        ${c.payment}
-  • Fee Rate:       ${c.feeRate}
+  • Health:      ${hl}
+  • ${isDE?'Segment':'Segment'}:    ${c.segment}  ·  ${c.region}
+  • TPV:         ${tpv}  ·  ${isDE?'Wachstum':'Growth'}: ${c.growth}
+  • ${isDE?'Ø WK':'Avg. Cart'}:  ${c.aov}  ·  Mobile: ${c.mobile}
+  • ${isDE?'Zahlung':'Payments'}: ${c.payment}
+  • Fee Rate:    ${c.feeRate}
 
 ──────────────────────────────────────────────────────────────
 ${isDE?'OFFENE THEMEN':'OPEN TOPICS'}
@@ -1343,31 +1328,28 @@ ${c.contacts.map(x=>`  • ${x.name}${x.primary?' ★':''}\n    ${x.role}  ·  $
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 H.A.N.S. – Handover Assistant · Unzer Relay · ${date}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
-
   return '';
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // STATE
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 let mode=null, selCusts={v:new Set(),c:new Set()}, selFmts=new Set();
 let tags={p:[]}, results={}, activeCust=null, activeFmt=null, tilePage=0;
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // NAVIGATION
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function go(id) {
   ['s-start','s-form','s-output','s-result'].forEach(s=>document.getElementById(s).classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
-  window.scrollTo(0,0);
-  stopSpeech();
+  window.scrollTo(0,0); stopSpeech();
 }
 function pick(m) {
   mode=m;
   ['vacation','customer','project'].forEach(f=>document.getElementById('f-'+f).classList.add('hidden'));
   document.getElementById('f-'+m).classList.remove('hidden');
   go('s-form');
-  if (ttsEnabled) speak(T[lang].s2);
 }
 function toOutput() { if(!validate()) return; go('s-output'); }
 function slide(dir) { goPage(tilePage+dir); }
@@ -1379,30 +1361,30 @@ function goPage(n) {
   document.getElementById('arr-r').disabled=tilePage===1;
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // MULTI-SELECT
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function toggleCust(id, ctx, el) {
   el.classList.toggle('sel');
   const s=selCusts[ctx];
   s.has(id)?s.delete(id):s.add(id);
-  document.getElementById(ctx+'-si').textContent = s.size>0 ? T[lang].custSel(s.size) : '';
+  document.getElementById(ctx+'-si').textContent=s.size>0?T[lang].custSel(s.size):'';
   if(ctx==='v') checkTermine();
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // OUTPUT TOGGLE
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function togOpt(el, val) {
   el.classList.toggle('sel');
   selFmts.has(val)?selFmts.delete(val):selFmts.add(val);
   document.getElementById('btn-gen').disabled=selFmts.size===0;
-  document.getElementById('fmt-si').textContent = selFmts.size>0 ? T[lang].fmtSel(selFmts.size) : '';
+  document.getElementById('fmt-si').textContent=selFmts.size>0?T[lang].fmtSel(selFmts.size):'';
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // TAGS
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function addTag(k) {
   const inp=document.getElementById(k+'-ti');
   const val=inp.value.trim(); if(!val)return;
@@ -1416,9 +1398,9 @@ function removeTag(k,i) {
     tags[k].map((t,i)=>`<div class="tag">${t}<button onclick="removeTag('${k}',${i})">×</button></div>`).join('');
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // VALIDATION
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function vv(id) { const e=document.getElementById(id); return e?e.value.trim():''; }
 function validate() {
   const t=T[lang];
@@ -1433,18 +1415,18 @@ function validate() {
   return true;
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // COLLECT
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function collectData() {
   if(mode==='vacation') return {name:vv('v-name'),substitute:vv('v-sub'),startDate:vv('v-start'),endDate:vv('v-end'),notes:vv('v-notes')};
   if(mode==='customer') return {fromPerson:vv('c-from'),toPerson:vv('c-to'),notes:vv('c-notes')};
   return {projectName:vv('p-name'),toPerson:vv('p-to'),status:vv('p-status'),todos:vv('p-todos'),risks:vv('p-risks'),links:vv('p-links')};
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // GENERATE
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function generate() {
   const d=collectData();
   const custIds=Array.from(mode==='vacation'?selCusts['v']:mode==='customer'?selCusts['c']:new Set());
@@ -1472,7 +1454,7 @@ function generate() {
     results[cid]={};
     const c=DB[cid];
     fmts.forEach(fmt=>{
-      results[cid][fmt] = cid==='_free' ? genFree(fmt,d) : genOutput(c,d,fmt,lang);
+      results[cid][fmt]=cid==='_free'?genFree(fmt,d):genOutput(c,d,fmt,lang);
       done++;
       progB.style.width=Math.round((done/total)*100)+'%';
       progS.textContent=`${c?c.name:'Project'} – ${t.fmtLabels[fmt]} (${done}/${total})`;
@@ -1496,17 +1478,18 @@ function generate() {
 
 function genFree(fmt,d) {
   const isDE=lang==='de';
-  const from=d.projectName||'Project'; const to=d.toPerson||'Recipient';
-  if(fmt==='short')     return `${isDE?'SHORT OVERVIEW':'SHORT OVERVIEW'}\n${'━'.repeat(50)}\n${isDE?'Projekt':'Project'}: ${from} → ${to}\n\nStatus: ${d.status||'–'}\n${isDE?'Aufgaben':'Tasks'}: ${d.todos||'–'}\n${isDE?'Risiken':'Risks'}: ${d.risks||'–'}`;
+  const from=d.projectName||(isDE?'Übergeber':'Project');
+  const to=d.toPerson||(isDE?'Empfänger':'Recipient');
+  if(fmt==='short')     return `SHORT OVERVIEW\n${'━'.repeat(50)}\n${isDE?'Projekt':'Project'}: ${from} → ${to}\nStatus: ${d.status||'–'}\n${isDE?'Aufgaben':'Tasks'}: ${d.todos||'–'}\n${isDE?'Risiken':'Risks'}: ${d.risks||'–'}`;
   if(fmt==='email')     return `${isDE?'Betreff':'Subject'}: ${isDE?'Projektübergabe':'Project Handover'} ${from} → ${to}\n\n${isDE?'Hallo':'Hi'} ${to},\n${isDE?'hiermit übergebe ich das Projekt.':'Please find the handover below.'}\n\nStatus: ${d.status||'–'}\n${isDE?'Aufgaben':'Tasks'}: ${d.todos||'–'}\n\n${isDE?'Viele Grüße':'Best regards'}`;
-  if(fmt==='deadlines') return `${isDE?'DEADLINES & TERMINE':'DEADLINES & APPOINTMENTS'}\n${'━'.repeat(50)}\n${isDE?'Aufgaben':'Tasks'}:\n${d.todos||'–'}\n\n${isDE?'Risiken':'Risks'}:\n${d.risks||'–'}`;
-  if(fmt==='bullets')   return `${isDE?'STICHPUNKT-ÜBERGABE':'BULLET POINT HANDOVER'}\n${'━'.repeat(50)}\n${from} → ${to}\n\n• Status: ${d.status||'–'}\n• ${isDE?'Aufgaben':'Tasks'}: ${d.todos||'–'}\n• ${isDE?'Risiken':'Risks'}: ${d.risks||'–'}`;
+  if(fmt==='deadlines') return `${isDE?'DEADLINES & TERMINE':'DEADLINES'}\n${'━'.repeat(50)}\n${isDE?'Aufgaben':'Tasks'}:\n${d.todos||'–'}`;
+  if(fmt==='bullets')   return `${isDE?'STICHPUNKT-ÜBERGABE':'BULLET POINT HANDOVER'}\n${'━'.repeat(50)}\n${from} → ${to}\n• Status: ${d.status||'–'}\n• ${isDE?'Aufgaben':'Tasks'}: ${d.todos||'–'}\n• ${isDE?'Risiken':'Risks'}: ${d.risks||'–'}`;
   return '';
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // TABS
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function renderCustTabs(ids) {
   const el=document.getElementById('ctabs');
   el.innerHTML=ids.map(id=>{
@@ -1540,9 +1523,9 @@ function showResult(cid,fmt) {
   if(ttsEnabled) speak(results[cid]?.[fmt]||'');
 }
 
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 // ACTIONS
-// ═══════════════════════════════════════
+// ═══════════════════════════════════
 function copyRes() {
   const t=(results[activeCust]&&results[activeCust][activeFmt])||'';
   navigator.clipboard.writeText(t).then(()=>toast(T[lang].copied));
@@ -1564,19 +1547,17 @@ function icsExport() {
       const [h,m]=t.time?t.time.split(':'):['10','00'];
       const eH=String(parseInt(h)+1).padStart(2,'0');
       const de=t.date.replace(/-/g,'')+`T${eH}${m}00`;
-      const titleStr=tT(t.title);
-      const prepStr=tT(t.prep);
       allEvents.push('BEGIN:VEVENT',
         `UID:hans-${cid}-${i}-${Date.now()}@unzer.com`,
         `DTSTAMP:${new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)}Z`,
         `DTSTART:${dt}`,`DTEND:${de}`,
-        `SUMMARY:${DB[cid].name}: ${titleStr}`,
-        `DESCRIPTION:${lang==='de'?'Teilnehmer':'Attendees'}: ${t.attendees}\\n${lang==='de'?'Vorbereitung':'Prep'}: ${prepStr}`,
+        `SUMMARY:${DB[cid].name}: ${tT(t.title)}`,
+        `DESCRIPTION:${lang==='de'?'Teilnehmer':'Attendees'}: ${t.attendees}\\nPrep: ${tT(t.prep)}`,
         'END:VEVENT');
     });
   });
   if(!allEvents.length){toast(T[lang].noExp);return;}
-  const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//H.A.N.S. Unzer Relay//EN',`X-WR-CALNAME:H.A.N.S. Handover`,...allEvents,'END:VCALENDAR'];
+  const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//H.A.N.S. Unzer Relay//EN','X-WR-CALNAME:H.A.N.S. Handover',...allEvents,'END:VCALENDAR'];
   const blob=new Blob([lines.join('\r\n')],{type:'text/calendar'});
   const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:`hans-handover-${Date.now()}.ics`});
   a.click();URL.revokeObjectURL(a.href);
@@ -1598,7 +1579,6 @@ function reset() {
   if(activeFieldBtn){activeFieldBtn.classList.remove('active');activeFieldBtn=null;}
   hideVoiceBar();
   goPage(0); go('s-start');
-  if(ttsEnabled) speak(T[lang].phTitle);
 }
 
 function toast(msg) {
