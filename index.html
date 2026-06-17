@@ -35,7 +35,6 @@
     ::-webkit-scrollbar-track { background: var(--surface); }
     ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 
-    /* ── Header ── */
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
@@ -53,18 +52,14 @@
       cursor: pointer; transition: all .2s;
     }
     .lm:hover { box-shadow: 0 0 20px rgba(231,76,60,.5); transform: scale(1.05); }
-    .h-title {
-      font-size: .92rem; font-weight: 600; color: var(--text);
-      cursor: pointer; transition: color .2s;
-    }
+    .h-title { font-size: .92rem; font-weight: 600; color: var(--text); cursor: pointer; transition: color .2s; }
     .h-title:hover { color: white; }
     .h-sub { font-size: .68rem; color: var(--text3); margin-top: .05rem; }
     .home-btn {
       display: flex; align-items: center; gap: .4rem;
       padding: .35rem .75rem; border-radius: 7px;
-      border: 1px solid var(--border2);
-      background: var(--card2); cursor: pointer;
-      font-size: .74rem; color: var(--text2);
+      border: 1px solid var(--border2); background: var(--card2);
+      cursor: pointer; font-size: .74rem; color: var(--text2);
       transition: all .2s; font-family: inherit;
     }
     .home-btn:hover { border-color: var(--accent); color: var(--accent); }
@@ -73,7 +68,6 @@
     .relay-ico { opacity: .5; }
     .relay-lbl { color: rgba(255,255,255,.35); font-size: .68rem; font-weight: 700; letter-spacing: 2.5px; }
 
-    /* ── Main ── */
     main { max-width: 860px; margin: 2rem auto; padding: 0 1.5rem; }
     .ph { margin-bottom: 2rem; }
     .ph h2 {
@@ -83,24 +77,13 @@
     }
     .ph p { font-size: .82rem; color: var(--text2); }
 
-    /* ── Cards ── */
-    .card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;
-    }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
     .card-glow { box-shadow: 0 0 30px rgba(74,158,255,.05); }
     .clbl { font-size: .65rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text3); margin-bottom: 1rem; }
 
-    /* ── Tile Slider ── */
     .stop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
     .ag { display: flex; gap: .35rem; }
-    .arr {
-      width: 28px; height: 28px; border-radius: 7px;
-      border: 1px solid var(--border2); background: var(--card2);
-      cursor: pointer; font-size: .78rem;
-      display: flex; align-items: center; justify-content: center;
-      transition: all .15s; color: var(--text2);
-    }
+    .arr { width: 28px; height: 28px; border-radius: 7px; border: 1px solid var(--border2); background: var(--card2); cursor: pointer; font-size: .78rem; display: flex; align-items: center; justify-content: center; transition: all .15s; color: var(--text2); }
     .arr:hover { border-color: var(--accent); color: var(--accent); }
     .arr:disabled { opacity: .25; cursor: not-allowed; }
     .tpages { overflow: hidden; }
@@ -111,17 +94,8 @@
     .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border2); cursor: pointer; transition: all .2s; }
     .dot.active { background: var(--accent); width: 16px; border-radius: 2px; }
 
-    /* ── Tiles ── */
-    .tile {
-      background: var(--card2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 1.1rem; cursor: pointer;
-      transition: all .2s; display: flex; align-items: flex-start;
-      gap: .8rem; position: relative; overflow: hidden;
-    }
-    .tile::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
-    }
+    .tile { background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem; cursor: pointer; transition: all .2s; display: flex; align-items: flex-start; gap: .8rem; position: relative; overflow: hidden; }
+    .tile::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); }
     .tile:hover { border-color: rgba(231,76,60,.4); background: rgba(231,76,60,.06); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,.3); }
     .tiw { width: 36px; height: 36px; border-radius: 9px; background: rgba(255,255,255,.05); border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .tiw svg { width: 16px; height: 16px; stroke: var(--text2); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
@@ -132,7 +106,6 @@
     .ta { color: var(--text3); font-size: .85rem; align-self: center; flex-shrink: 0; transition: color .2s; }
     .tile:hover .ta { color: var(--accent2); }
 
-    /* ── Steps ── */
     .steps { display: flex; align-items: center; gap: .4rem; margin-bottom: 1.75rem; font-size: .72rem; }
     .step { display: flex; align-items: center; gap: .3rem; color: var(--text3); }
     .step.active { color: var(--text); font-weight: 600; }
@@ -141,11 +114,9 @@
     .step.done .sn { background: var(--teal); border-color: var(--teal); color: var(--bg); }
     .sep { color: var(--border2); font-size: .7rem; }
 
-    /* ── Section Labels ── */
     .sl { font-size: .64rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text3); margin: 1.25rem 0 .6rem; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
     .sl:first-child { margin-top: 0; }
 
-    /* ── Customer Multi-Select ── */
     .cust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .75rem; }
     .cust-card { background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: .9rem 1rem; cursor: pointer; transition: all .2s; display: flex; align-items: flex-start; gap: .65rem; }
     .cust-card:hover { border-color: rgba(231,76,60,.35); background: rgba(231,76,60,.05); }
@@ -161,7 +132,6 @@
     .hp { background: rgba(0,201,125,.15); color: #00c97d; }
     .sel-info { font-size: .73rem; color: var(--accent2); font-weight: 600; margin-top: .5rem; }
 
-    /* ── Forms ── */
     .r2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
     .fg { margin-bottom: .85rem; }
     label { display: block; font-size: .74rem; font-weight: 500; margin-bottom: .3rem; color: var(--text2); }
@@ -187,7 +157,17 @@
     .bxs:hover { border-color: var(--accent); color: var(--accent); }
     .div { height: 1px; background: var(--border); margin: 1.25rem 0; }
 
-    /* ── Output Options ── */
+    /* Hinweis Banner */
+    .no-termine-banner {
+      background: rgba(245,166,35,.1);
+      border: 1px solid rgba(245,166,35,.3);
+      border-radius: 8px;
+      padding: .75rem 1rem;
+      font-size: .78rem;
+      color: #f5a623;
+      margin-bottom: 1rem;
+    }
+
     .og { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
     .opt { background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: .9rem 1rem; cursor: pointer; display: flex; align-items: flex-start; gap: .7rem; transition: all .2s; }
     .opt:hover { border-color: rgba(231,76,60,.35); background: rgba(231,76,60,.05); }
@@ -199,7 +179,6 @@
     .opt.sel .oc { background: var(--accent); border-color: var(--accent); }
     .opt.sel .oc::after { content: '✓'; font-size: .58rem; color: white; font-weight: 800; }
 
-    /* ── Buttons ── */
     .br { display: flex; gap: .6rem; flex-wrap: wrap; }
     .btn { padding: .55rem 1.3rem; border-radius: 8px; font-size: .83rem; font-weight: 500; cursor: pointer; transition: all .2s; font-family: inherit; }
     .bp { background: var(--accent); color: white; border: 1px solid var(--accent); box-shadow: 0 0 20px rgba(231,76,60,.25); }
@@ -208,14 +187,12 @@
     .bg { background: var(--card2); border: 1px solid var(--border2); color: var(--text2); }
     .bg:hover { color: var(--text); background: rgba(255,255,255,.05); }
 
-    /* ── Progress ── */
     .prog { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
     .prog-title { font-size: .85rem; font-weight: 600; margin-bottom: .75rem; color: var(--text); }
     .prog-bg { background: rgba(255,255,255,.06); border-radius: 10px; height: 4px; margin-bottom: .5rem; overflow: hidden; }
     .prog-bar { background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 10px; height: 4px; transition: width .4s ease; }
     .prog-status { font-size: .74rem; color: var(--text2); }
 
-    /* ── Tabs ── */
     .ctabs { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .75rem; }
     .ctab { padding: .38rem .9rem; border-radius: 7px; border: 1px solid var(--border); background: var(--card2); font-size: .76rem; font-weight: 500; cursor: pointer; transition: all .15s; color: var(--text2); }
     .ctab:hover { color: var(--text); }
@@ -225,10 +202,8 @@
     .ftab:hover { color: var(--text2); }
     .ftab.active { border-color: var(--border2); color: var(--text); background: rgba(255,255,255,.05); font-weight: 600; }
 
-    /* ── Result Box ── */
     .rbox { background: var(--card); border: 1px solid var(--border); border-radius: 12px; border-left: 3px solid var(--accent); padding: 1.5rem; white-space: pre-wrap; font-size: .81rem; line-height: 1.8; max-height: 520px; overflow-y: auto; margin-bottom: 1rem; color: var(--text); font-family: 'Segoe UI', monospace; }
 
-    /* ── Toast ── */
     .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--card2); border: 1px solid var(--border2); color: var(--text); padding: .6rem 1rem; border-radius: 8px; font-size: .78rem; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 999; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
     .toast.show { opacity: 1; }
     .hidden { display: none !important; }
@@ -280,7 +255,6 @@
       </div>
     </div>
     <div class="tpages">
-      <!-- Seite 1 – Urlaub + Kunde -->
       <div class="tpage active" id="tp-0">
         <div class="tile" onclick="pick('vacation')">
           <div class="tiw"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8v4h8V3z"/></svg></div>
@@ -293,7 +267,6 @@
           <div class="ta">›</div>
         </div>
       </div>
-      <!-- Seite 2 – nur Projekt -->
       <div class="tpage" id="tp-1">
         <div class="tile" onclick="pick('project')">
           <div class="tiw"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></div>
@@ -351,8 +324,11 @@
         <div class="fg"><label>Vertretung <span class="req">*</span></label><input type="text" id="v-sub" placeholder="Max Mustermann"/></div>
       </div>
       <div class="r2">
-        <div class="fg"><label>Von <span class="req">*</span></label><input type="date" id="v-start"/></div>
-        <div class="fg"><label>Bis <span class="req">*</span></label><input type="date" id="v-end"/></div>
+        <div class="fg"><label>Von <span class="req">*</span></label><input type="date" id="v-start" onchange="checkTermine()"/></div>
+        <div class="fg"><label>Bis <span class="req">*</span></label><input type="date" id="v-end" onchange="checkTermine()"/></div>
+      </div>
+      <div id="termine-hint" class="no-termine-banner hidden">
+        ℹ️ Für den gewählten Zeitraum sind keine Termine hinterlegt. Im Output wird ein Hinweis ausgegeben.
       </div>
       <div class="fg"><label>Weitere Notizen (optional)</label><textarea id="v-notes" placeholder="Zusätzliche Hinweise für die Vertretung..."></textarea></div>
     </div>
@@ -399,7 +375,7 @@
         <div class="fg"><label>Projektname <span class="req">*</span></label><input type="text" id="p-name" placeholder="z. B. Migration CRM"/></div>
         <div class="fg"><label>Übergabe an <span class="req">*</span></label><input type="text" id="p-to" placeholder="Name + Team"/></div>
       </div>
-      <div class="fg"><label>Status & Phase</label><textarea id="p-status" placeholder="Aktueller Stand, abgeschlossene Meilensteine..."></textarea></div>
+      <div class="fg"><label>Status & Phase</label><textarea id="p-status" placeholder="Aktueller Stand..."></textarea></div>
       <div class="fg"><label>Offene Aufgaben</label><textarea id="p-todos" placeholder="Wer macht was bis wann?"></textarea></div>
       <div class="fg"><label>Risiken & Abhängigkeiten</label><textarea id="p-risks" placeholder="Was blockiert das Projekt?"></textarea></div>
       <div class="fg"><label>Links & Dokumentation</label><textarea id="p-links" placeholder="Confluence, JIRA, SharePoint..."></textarea></div>
@@ -491,6 +467,9 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// ═══════════════════════════════════════
+// KUNDENDATENBANK
+// ═══════════════════════════════════════
 const DB = {
   bella_casa: {
     name:'Bella Casa Living AG', id:'CUST-002', health:'medium',
@@ -514,8 +493,8 @@ const DB = {
       'Kommerziellen Review mit Service-Modell verbinden',
       'Ownership-Struktur über Teams hinweg verbessern'
     ],
-    risks:'Vertrauensverlust bei Reconciliation/Settlement; widersprüchliche Aussagen; schwieriger werdende Preisgespräche bei mangelnder Service-Qualität',
-    opportunities:'Strategischer Ausbau; besseres Finance-Reporting; QBR-Format etablieren; Ausbau weiterer Zahlarten',
+    risks:'Vertrauensverlust bei Reconciliation/Settlement; widersprüchliche Aussagen; schwieriger werdende Preisgespräche',
+    opportunities:'Strategischer Ausbau; besseres Finance-Reporting; QBR-Format; Ausbau weiterer Zahlarten',
     handoverNote:'Finance-Antworten müssen vollständig und konsolidiert sein. Konditionsgespräche ohne Service-Kontext greifen zu kurz. Kunde eskaliert sachlich aber konsequent.',
     actions:[
       'Standardisierte konsolidierte Antwortform für Finance-Themen etablieren',
@@ -554,7 +533,7 @@ const DB = {
       'Regelmäßige KPI-Reviews etablieren',
       'Technische Changes enger begleiten'
     ],
-    risks:'Conversion-Einbruch nach Shop-/Theme-Änderungen; unzureichende KPI-Einordnung; generische Support-Antworten werden nicht toleriert',
+    risks:'Conversion-Einbruch nach Shop-/Theme-Änderungen; unzureichende KPI-Einordnung; generische Antworten werden nicht toleriert',
     opportunities:'Starke Growth-Partnerschaft; Mobile Checkout & Wallet-Optimierung; Subscription-Retry-Verbesserung',
     handoverNote:'KPI-Fragen sind immer business-kritisch. Tempo und konkrete Hypothesen statt technischer Status-Meldungen. Mobile 72%, Wallets zentral.',
     actions:[
@@ -595,8 +574,8 @@ const DB = {
       'Regelmäßigen KPI-Review-Rhythmus etablieren',
       'Trennung zwischen Support- und AM-Kommunikation schärfen'
     ],
-    risks:'Erneute Wallet- oder Checkout-Ausfälle (Google Pay 13% kritisch); unklare Kommunikation bei technischen Änderungen; verspätete Updates bei Kampagnen',
-    opportunities:'Ausbau weiterer Zahlarten; Performance-Reviews; Mobile Checkout Optimization; Internationalisierung DACH+',
+    risks:'Erneute Wallet- oder Checkout-Ausfälle (Google Pay 13% kritisch); unklare Kommunikation bei technischen Änderungen',
+    opportunities:'Ausbau weiterer Zahlarten; Performance-Reviews; Mobile Checkout Optimization; Internationalisierung',
     handoverNote:'Wallets geschäftskritisch (64% Mobile, Google Pay 13%). Bei Incidents enges Update-Intervall mit ETA erwartet. Business-Impact immer adressieren.',
     actions:[
       'Monatlichen KPI- und Performance-Review etablieren',
@@ -609,7 +588,7 @@ const DB = {
       {date:'2025-06-23', time:'10:00', title:'Workshop Mobile Checkout & Conversion', attendees:'Lena Hoffmann, Nina Roth', prep:'Wallet-Split-Daten, Mobile Checkout Flows vorbereiten', prio:'high'},
       {date:'2025-06-26', time:'14:00', title:'Release-Governance & Rollback-Framework', attendees:'Paul Jensen, Tim Becker', prep:'Testkriterien und Rollback-Schwellenwerte finalisieren', prio:'high'},
       {date:'2025-06-30', time:'11:00', title:'Konditionsgespräch & Wachstumsperspektive H2', attendees:'Lena Hoffmann, Markus Feld', prep:'Commercial Proposal vorbereiten', prio:'high'},
-      {date:'2025-07-03', time:'09:30', title:'Roadmap-Review Zahlarten (BNPL, Klarna, EPS)', attendees:'Nina Roth, Lena Hoffmann', prep:'Payment-Expansion-Roadmap erstellen', prio:'medium'},
+      {date:'2025-07-03', time:'09:30', title:'Roadmap-Review Zahlarten', attendees:'Nina Roth, Lena Hoffmann', prep:'Payment-Expansion-Roadmap erstellen', prio:'medium'},
       {date:'2025-07-07', time:'15:00', title:'Monatlicher KPI-Review (Pilotformat)', attendees:'Lena Hoffmann, Paul Jensen, Tim Becker', prep:'TPV, Checkout Completion, Auth Rate aufbereiten', prio:'high'}
     ]
   },
@@ -634,9 +613,9 @@ const DB = {
       'Billing-, Tech- und Relationship-Themen sauber trennen',
       'Regelmäßigen Statusrhythmus mit Kunde etablieren'
     ],
-    risks:'Kumulierter Vertrauensverlust durch fehlende Updates; wahrgenommene Nicht-Erreichbarkeit; eskalierende Frustration über offene Support-Fälle',
+    risks:'Kumulierter Vertrauensverlust durch fehlende Updates; wahrgenommene Nicht-Erreichbarkeit; eskalierende Frustration',
     opportunities:'Zentrale Steuerung; klare Ansprechpartnerstruktur; mittelfristiger Zahlarten-Ausbau bei stabilerer Beziehung',
-    handoverNote:'⚠️ FRAGILE: Ownership wichtiger als Perfektion. Kleine Themen eskalieren wenn Updates ausbleiben. Felix Krüger erscheint bei Eskalationen – immer verbindlich auftreten.',
+    handoverNote:'⚠️ FRAGILE: Ownership wichtiger als Perfektion. Kleine Themen eskalieren wenn Updates ausbleiben. Felix Krüger erscheint bei Eskalationen – immer verbindlich.',
     actions:[
       'Dauerhaftes zentrales Ownership-Modell etablieren',
       'Wöchentlichen Open-Issues-Rhythmus beibehalten',
@@ -655,6 +634,36 @@ const DB = {
 };
 
 // ═══════════════════════════════════════
+// TERMINE FILTERN nach Urlaubszeitraum
+// ═══════════════════════════════════════
+function filterTermine(termine, startDate, endDate) {
+  if (!startDate || !endDate) return termine;
+  return termine.filter(t => t.date >= startDate && t.date <= endDate);
+}
+
+function getTermineForOutput(c, d) {
+  if (d.startDate && d.endDate) {
+    return filterTermine(c.termine, d.startDate, d.endDate);
+  }
+  return c.termine;
+}
+
+// Hinweis wenn keine Termine im Zeitraum
+function checkTermine() {
+  const start = document.getElementById('v-start').value;
+  const end   = document.getElementById('v-end').value;
+  const hint  = document.getElementById('termine-hint');
+  if (!start || !end) { hint.classList.add('hidden'); return; }
+  const custs = Array.from(selCusts['v']);
+  if (custs.length === 0) { hint.classList.add('hidden'); return; }
+  const hasTermine = custs.some(cid => {
+    const filtered = filterTermine(DB[cid].termine, start, end);
+    return filtered.length > 0;
+  });
+  hint.classList.toggle('hidden', hasTermine);
+}
+
+// ═══════════════════════════════════════
 // TEMPLATES
 // ═══════════════════════════════════════
 function genShort(c, d) {
@@ -664,6 +673,8 @@ function genShort(c, d) {
   const zeit = d.startDate ? `${d.startDate} – ${d.endDate}` : 'laufend';
   const primary = c.contacts.find(x => x.primary) || c.contacts[0];
   const esc = c.contacts[1] || c.contacts[0];
+  const termine = getTermineForOutput(c, d);
+
   return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SHORT OVERVIEW  ·  ${c.name}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -688,11 +699,19 @@ TOP 5 THEMEN
 ${c.issues.map((t,i) => `  ${i+1}. ${t}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-KRITISCHE DEADLINES
+TERMINE IM URLAUBSZEITRAUM (${zeit})
 ──────────────────────────────────────────────────────────────
-${c.termine.filter(t=>t.prio==='high').map(t=>
-  `  🔴  ${t.date}  ${t.time}  |  ${t.title}\n       Teilnehmer: ${t.attendees}\n       Prep: ${t.prep}`
-).join('\n\n')}
+${termine.length > 0
+  ? termine.filter(t=>t.prio==='high').map(t=>
+      `  🔴  ${t.date}  ${t.time}  |  ${t.title}\n       Teilnehmer: ${t.attendees}\n       Prep: ${t.prep}`
+    ).join('\n\n') +
+    (termine.filter(t=>t.prio==='medium').length > 0
+      ? '\n\n' + termine.filter(t=>t.prio==='medium').map(t=>
+          `  🟡  ${t.date}  ${t.time}  |  ${t.title}\n       Teilnehmer: ${t.attendees}`
+        ).join('\n\n')
+      : '')
+  : '  Keine Termine im angegebenen Zeitraum.'
+}
 
 ──────────────────────────────────────────────────────────────
 SOFORT-TO-DOS FÜR ${to.toUpperCase()}
@@ -724,6 +743,8 @@ function genEmail(c, d) {
   const zeit = d.startDate ? `${d.startDate} – ${d.endDate}` : 'ab sofort';
   const primary = c.contacts.find(x => x.primary) || c.contacts[0];
   const esc = c.contacts[1] || c.contacts[0];
+  const termine = getTermineForOutput(c, d);
+
   return `Betreff: Übergabe ${c.name}  |  ${from} → ${to}  |  ${zeit}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -750,11 +771,14 @@ DEINE WICHTIGSTEN TO-DOS
 ${c.actions.map((a,i) => `  ${i+1}. ${a}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-TERMINE IN MEINER ABWESENHEIT
+TERMINE IN MEINER ABWESENHEIT (${zeit})
 ──────────────────────────────────────────────────────────────
-${c.termine.map(t=>
-  `  📅  ${t.date}  ${t.time}  –  ${t.title}\n       Teilnehmer: ${t.attendees}\n       Priorität: ${t.prio==='high'?'🔴 Hoch':'🟡 Mittel'}\n       Vorbereitung: ${t.prep}`
-).join('\n\n')}
+${termine.length > 0
+  ? termine.map(t=>
+      `  📅  ${t.date}  ${t.time}  –  ${t.title}\n       Teilnehmer: ${t.attendees}\n       Priorität: ${t.prio==='high'?'🔴 Hoch':'🟡 Mittel'}\n       Vorbereitung: ${t.prep}`
+    ).join('\n\n')
+  : '  Keine Termine im angegebenen Zeitraum.'
+}
 
 ──────────────────────────────────────────────────────────────
 ANSPRECHPARTNER BEIM KUNDEN
@@ -780,31 +804,37 @@ Erstellt mit Unzer Relay Handover Assistant · ${new Date().toLocaleDateString('
 
 function genDeadlines(c, d) {
   const from = d.name || d.fromPerson || 'Übergeber';
+  const zeit = d.startDate ? `${d.startDate} – ${d.endDate}` : 'laufend';
+  const termine = getTermineForOutput(c, d);
+
   return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DEADLINES & TERMINE  ·  ${c.name}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Von: ${from}  ·  Zeitraum: ${d.startDate ? `${d.startDate} – ${d.endDate}` : 'laufend'}
+  Von: ${from}  ·  Urlaubszeitraum: ${zeit}
 
 ──────────────────────────────────────────────────────────────
-ALLE TERMINE
+TERMINE IM URLAUBSZEITRAUM
 ──────────────────────────────────────────────────────────────
-${c.termine.map(t=>
-  `  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}\n     Termin:        ${t.title}\n     Teilnehmer:   ${t.attendees}\n     Vorbereitung:  ${t.prep}`
-).join('\n\n')}
+${termine.length > 0
+  ? termine.map(t=>
+      `  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}\n     Termin:        ${t.title}\n     Teilnehmer:   ${t.attendees}\n     Vorbereitung:  ${t.prep}`
+    ).join('\n\n')
+  : '  Keine Termine im angegebenen Zeitraum.\n  Alle Termine liegen außerhalb des Urlaubszeitraums.'
+}
 
 ──────────────────────────────────────────────────────────────
 🔴 KRITISCH
 ──────────────────────────────────────────────────────────────
-${c.termine.filter(t=>t.prio==='high').map(t=>
-  `  • ${t.date}  ${t.time}  –  ${t.title}\n    → ${t.attendees}`
-).join('\n\n') || '  Keine'}
+${termine.filter(t=>t.prio==='high').map(t=>
+    `  • ${t.date}  ${t.time}  –  ${t.title}\n    → ${t.attendees}`
+  ).join('\n\n') || '  Keine kritischen Termine im Zeitraum.'}
 
 ──────────────────────────────────────────────────────────────
 🟡 WICHTIG
 ──────────────────────────────────────────────────────────────
-${c.termine.filter(t=>t.prio==='medium').map(t=>
-  `  • ${t.date}  ${t.time}  –  ${t.title}\n    → ${t.attendees}`
-).join('\n\n') || '  Keine'}
+${termine.filter(t=>t.prio==='medium').map(t=>
+    `  • ${t.date}  ${t.time}  –  ${t.title}\n    → ${t.attendees}`
+  ).join('\n\n') || '  Keine mittleren Termine im Zeitraum.'}
 
 ──────────────────────────────────────────────────────────────
 OFFENE ISSUES
@@ -817,7 +847,7 @@ NÄCHSTE SCHRITTE
 ${c.actions.map((a,i) => `  ${i+1}. ${a}`).join('\n')}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-.ics Export verfügbar  ·  ${c.termine.length} Termine
+${termine.length} Termin(e) im Zeitraum  ·  .ics Export verfügbar
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 }
 
@@ -827,11 +857,14 @@ function genBullets(c, d) {
   const hl   = {fragile:'🔴 Fragil', medium:'🟡 Medium', positive:'🟢 Positiv'}[c.health];
   const primary = c.contacts.find(x => x.primary) || c.contacts[0];
   const esc = c.contacts[1] || c.contacts[0];
+  const termine = getTermineForOutput(c, d);
+  const zeit = d.startDate ? `${d.startDate} – ${d.endDate}` : 'laufend';
+
   return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 STICHPUNKT-ÜBERGABE  ·  ${c.name}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Von: ${from}  →  An: ${to}
-  Zeitraum: ${d.startDate ? `${d.startDate} – ${d.endDate}` : 'laufend'}
+  Zeitraum: ${zeit}
 
 ──────────────────────────────────────────────────────────────
 KUNDENSTATUS
@@ -842,7 +875,6 @@ KUNDENSTATUS
   • Ø WK:        ${c.aov}  ·  Mobile: ${c.mobile}
   • Zahlung:     ${c.payment}
   • Fee Rate:    ${c.feeRate}
-  • Churn Risk:  ${c.churn}  ·  Growth Pot.: ${c.growthPot}
 
 ──────────────────────────────────────────────────────────────
 OFFENE THEMEN
@@ -850,11 +882,14 @@ OFFENE THEMEN
 ${c.issues.map(t => `  • ${t}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-ANSTEHENDE TERMINE
+TERMINE IM URLAUBSZEITRAUM (${zeit})
 ──────────────────────────────────────────────────────────────
-${c.termine.map(t=>
-  `  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}  –  ${t.title}\n     → ${t.attendees}\n     → Prep: ${t.prep}`
-).join('\n\n')}
+${termine.length > 0
+  ? termine.map(t=>
+      `  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}  –  ${t.title}\n     → ${t.attendees}\n     → Prep: ${t.prep}`
+    ).join('\n\n')
+  : '  Keine Termine im angegebenen Urlaubszeitraum.'
+}
 
 ──────────────────────────────────────────────────────────────
 ANSPRECHPARTNER
@@ -873,16 +908,6 @@ ${c.contacts.map(x=>`  • ${x.name}${x.primary?' ★':''}\n    ${x.role}  ·  $
 ──────────────────────────────────────────────────────────────
   Tagesgeschäft:  ${primary.name}  ·  ${primary.email}
   Eskalation:     ${esc.name}  ·  ${esc.email}
-
-──────────────────────────────────────────────────────────────
-RISIKEN
-──────────────────────────────────────────────────────────────
-  ${c.risks}
-
-──────────────────────────────────────────────────────────────
-CHANCEN
-──────────────────────────────────────────────────────────────
-  ${c.opportunities}
 
 ⚠️  HANDOVER-HINWEIS:
   ${c.handoverNote}
@@ -933,6 +958,7 @@ function toggleCust(id, ctx, el) {
   s.has(id)?s.delete(id):s.add(id);
   const si=document.getElementById(ctx+'-si');
   si.textContent=s.size>0?`${s.size} Kunde${s.size>1?'n':''} ausgewählt`:'';
+  if(ctx==='v') checkTermine();
 }
 
 // ═══════════════════════════════════════
@@ -968,13 +994,17 @@ function removeTag(k,i) {
 function vv(id) { const e=document.getElementById(id); return e?e.value.trim():''; }
 function validate() {
   if(mode==='vacation') {
-    if(!vv('v-name')||!vv('v-sub')||!vv('v-start')||!vv('v-end')) { toast('Bitte alle Pflichtfelder ausfüllen.'); return false; }
+    if(!vv('v-name')||!vv('v-sub')||!vv('v-start')||!vv('v-end')) {
+      toast('Bitte alle Pflichtfelder ausfüllen.'); return false;
+    }
   }
   if(mode==='customer') {
     if(selCusts['c'].size===0) { toast('Bitte mindestens einen Kunden wählen.'); return false; }
     if(!vv('c-from')||!vv('c-to')) { toast('Bitte Übergabe von/an ausfüllen.'); return false; }
   }
-  if(mode==='project' && (!vv('p-name')||!vv('p-to'))) { toast('Bitte Pflichtfelder ausfüllen.'); return false; }
+  if(mode==='project' && (!vv('p-name')||!vv('p-to'))) {
+    toast('Bitte Pflichtfelder ausfüllen.'); return false;
+  }
   return true;
 }
 
@@ -1025,7 +1055,7 @@ function generate() {
       }
       done++;
       progB.style.width=Math.round((done/total)*100)+'%';
-      progS.textContent=`${cid!=='_free'?DB[cid]?.name||'Projekt':'Projekt'} – ${fmtLabels[fmt]} (${done}/${total})`;
+      progS.textContent=`${c?c.name:'Projekt'} – ${fmtLabels[fmt]} (${done}/${total})`;
     });
   });
 
@@ -1044,12 +1074,12 @@ function generate() {
 }
 
 function genFree(fmt,d) {
-  const from=d.projectName||d.name||'Übergeber';
+  const from=d.projectName||'Übergeber';
   const to=d.toPerson||'Empfänger';
-  if(fmt==='short')     return `SHORT OVERVIEW\n${'━'.repeat(50)}\nProjekt: ${from} → An: ${to}\n\nStatus: ${d.status||'–'}\nAufgaben: ${d.todos||'–'}\nRisiken: ${d.risks||'–'}\nLinks: ${d.links||'–'}`;
-  if(fmt==='email')     return `Betreff: Projektübergabe ${from} → ${to}\n\nHallo ${to},\nhiermit übergebe ich das Projekt ${from}.\n\nStatus: ${d.status||'–'}\nOffene Aufgaben: ${d.todos||'–'}\nRisiken: ${d.risks||'–'}\nLinks: ${d.links||'–'}\n\nViele Grüße`;
-  if(fmt==='deadlines') return `DEADLINES & TERMINE\n${'━'.repeat(50)}\nProjekt: ${from}\n\nOffene Aufgaben:\n${d.todos||'–'}\n\nRisiken:\n${d.risks||'–'}`;
-  if(fmt==='bullets')   return `STICHPUNKT-ÜBERGABE\n${'━'.repeat(50)}\n${from} → ${to}\n\n• Status: ${d.status||'–'}\n• Aufgaben: ${d.todos||'–'}\n• Risiken: ${d.risks||'–'}\n• Links: ${d.links||'–'}`;
+  if(fmt==='short')     return `SHORT OVERVIEW\n${'━'.repeat(50)}\nProjekt: ${from} → An: ${to}\n\nStatus: ${d.status||'–'}\nAufgaben: ${d.todos||'–'}\nRisiken: ${d.risks||'–'}`;
+  if(fmt==='email')     return `Betreff: Projektübergabe ${from} → ${to}\n\nHallo ${to},\nhiermit übergebe ich das Projekt.\n\nStatus: ${d.status||'–'}\nAufgaben: ${d.todos||'–'}\nRisiken: ${d.risks||'–'}\n\nViele Grüße`;
+  if(fmt==='deadlines') return `DEADLINES & TERMINE\n${'━'.repeat(50)}\nProjekt: ${from}\n\nAufgaben:\n${d.todos||'–'}\n\nRisiken:\n${d.risks||'–'}`;
+  if(fmt==='bullets')   return `STICHPUNKT-ÜBERGABE\n${'━'.repeat(50)}\n${from} → ${to}\n\n• Status: ${d.status||'–'}\n• Aufgaben: ${d.todos||'–'}\n• Risiken: ${d.risks||'–'}`;
   return '';
 }
 
@@ -1072,13 +1102,15 @@ function renderFmtTabs(fmts) {
 }
 function switchCust(id) {
   activeCust=id;
-  document.querySelectorAll('.ctab').forEach((el,i)=>el.classList.toggle('active',Object.keys(results)[i]===id));
+  document.querySelectorAll('.ctab').forEach((el,i)=>
+    el.classList.toggle('active',Object.keys(results)[i]===id));
   showResult(activeCust,activeFmt);
 }
 function switchFmt(f) {
   activeFmt=f;
   const labels={short:'Short Overview',email:'E-Mail',deadlines:'Deadlines',bullets:'Stichpunkte'};
-  document.querySelectorAll('.ftab').forEach(el=>el.classList.toggle('active',el.textContent===labels[f]));
+  document.querySelectorAll('.ftab').forEach(el=>
+    el.classList.toggle('active',el.textContent===labels[f]));
   showResult(activeCust,activeFmt);
 }
 function showResult(cid,fmt) {
@@ -1100,10 +1132,12 @@ function doMailto() {
   window.location.href=`mailto:?subject=${encodeURIComponent('Übergabe '+cname)}&body=${encodeURIComponent(emailText)}`;
 }
 function icsExport() {
+  const d=collectData();
   const ids=Object.keys(results).filter(id=>id!=='_free'&&DB[id]);
   const allEvents=[];
   ids.forEach(cid=>{
-    DB[cid].termine.forEach((t,i)=>{
+    const termine = getTermineForOutput(DB[cid], d);
+    termine.forEach((t,i)=>{
       const tp=t.time?t.time.replace(':',''):'1000';
       const dt=t.date.replace(/-/g,'')+`T${tp}00`;
       const [h,m]=t.time?t.time.split(':'):['10','00'];
@@ -1118,35 +1152,16 @@ function icsExport() {
         'END:VEVENT');
     });
   });
-  if(!allEvents.length){toast('Keine Termine für Export.');return;}
+  if(!allEvents.length){toast('Keine Termine im Zeitraum für Export.');return;}
   const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Unzer Relay//DE','X-WR-CALNAME:Unzer Relay Handover',...allEvents,'END:VCALENDAR'];
   const blob=new Blob([lines.join('\r\n')],{type:'text/calendar'});
   const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:`relay-handover-${Date.now()}.ics`});
   a.click(); URL.revokeObjectURL(a.href);
-  toast(`✓ ${ids.length} Kunde(n) exportiert.`);
+  toast(`✓ ${allEvents.length/9} Termin(e) im Zeitraum exportiert.`);
 }
 
 function reset() {
   mode=null; selCusts={v:new Set(),c:new Set()}; selFmts.clear();
   tags={p:[]}; results={}; activeCust=null; activeFmt=null;
   document.querySelectorAll('input,textarea,select').forEach(el=>el.value='');
-  document.querySelectorAll('.opt,.cust-card').forEach(el=>el.classList.remove('sel'));
-  document.querySelectorAll('.tr').forEach(el=>el.innerHTML='');
-  document.querySelectorAll('.sel-info').forEach(el=>el.textContent='');
-  document.getElementById('btn-gen').disabled=true;
-  goPage(0); go('s-start');
-}
-
-function toast(msg) {
-  const el=document.getElementById('toast');
-  el.textContent=msg; el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'),3500);
-}
-
-document.addEventListener('keydown',e=>{
-  if(e.key!=='Enter')return;
-  if(e.target.id==='p-ti')addTag('p');
-});
-</script>
-</body>
-</html>
+  document.quer
