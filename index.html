@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -213,7 +213,7 @@
 
 <header>
   <div class="hl">
-    <div class="lm" onclick="reset()" title="Startseite">UN</div>
+    <div class="lm" onclick="reset()" title="Home">UN</div>
     <div>
       <div class="h-title" onclick="reset()">Handover Assistant</div>
       <div class="h-sub">Unzer Relay · Internal Tool</div>
@@ -237,12 +237,12 @@
 <!-- ══ S1: START ══ -->
 <div id="s-start">
   <div class="ph">
-    <h2>Neue Übergabe erstellen</h2>
-    <p>Wähle den Übergabetyp um zu beginnen.</p>
+    <h2>Create New Handover</h2>
+    <p>Select the handover type to get started.</p>
   </div>
   <div class="card card-glow">
     <div class="stop">
-      <div class="clbl">Übergabetyp</div>
+      <div class="clbl">Handover Type</div>
       <div class="ag">
         <button class="arr" id="arr-l" onclick="slide(-1)" disabled>‹</button>
         <button class="arr" id="arr-r" onclick="slide(1)">›</button>
@@ -252,19 +252,19 @@
       <div class="tpage active" id="tp-0">
         <div class="tile" onclick="pick('vacation')">
           <div class="tiw"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8v4h8V3z"/></svg></div>
-          <div class="tb"><div class="tt">Urlaubsübergabe</div><div class="td">Interne Vertretung für Abwesenheitszeitraum</div></div>
+          <div class="tb"><div class="tt">Vacation Handover</div><div class="td">Internal coverage for absence period</div></div>
           <div class="ta">›</div>
         </div>
         <div class="tile" onclick="pick('customer')">
           <div class="tiw"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-          <div class="tb"><div class="tt">Kundenhandover</div><div class="td">Teamübergreifende Übergabe von Kunden & Opportunities</div></div>
+          <div class="tb"><div class="tt">Customer Handover</div><div class="td">Cross-team handover of customers & opportunities</div></div>
           <div class="ta">›</div>
         </div>
       </div>
       <div class="tpage" id="tp-1">
         <div class="tile" onclick="pick('project')">
           <div class="tiw"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></div>
-          <div class="tb"><div class="tt">Projektübergabe</div><div class="td">Übergabe laufender Projekte an andere Teams</div></div>
+          <div class="tb"><div class="tt">Project Handover</div><div class="td">Transfer of ongoing projects to other teams</div></div>
           <div class="ta">›</div>
         </div>
       </div>
@@ -279,98 +279,98 @@
 <!-- ══ S2: FORM ══ -->
 <div id="s-form" class="hidden">
   <div class="steps">
-    <div class="step done"><div class="sn">✓</div>Typ</div>
+    <div class="step done"><div class="sn">✓</div>Type</div>
     <div class="sep">›</div>
-    <div class="step active"><div class="sn">2</div>Eingaben</div>
+    <div class="step active"><div class="sn">2</div>Details</div>
     <div class="sep">›</div>
     <div class="step"><div class="sn">3</div>Format</div>
     <div class="sep">›</div>
-    <div class="step"><div class="sn">4</div>Ergebnis</div>
+    <div class="step"><div class="sn">4</div>Result</div>
   </div>
 
-  <!-- URLAUB -->
+  <!-- VACATION -->
   <div id="f-vacation" class="hidden">
     <div class="card">
-      <div class="sl">Kunden auswählen – Mehrfachauswahl</div>
+      <div class="sl">Select Customers – Multiple Selection</div>
       <div class="cust-grid">
         <div class="cust-card" onclick="toggleCust('bella_casa','v',this)">
           <div class="cust-chk"></div>
           <div>
             <div class="cust-name">Bella Casa Living AG</div>
-            <div class="cust-meta"><span class="htag he">🚨 Eskalation</span> · EUR 31,8 Mio. · DE/AT</div>
+            <div class="cust-meta"><span class="htag he">🚨 Escalation</span> · EUR 31.8M · DE/AT</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('fitfuel','v',this)">
           <div class="cust-chk"></div>
           <div>
             <div class="cust-name">FitFuel Nutrition Europe</div>
-            <div class="cust-meta"><span class="htag hp">Positiv</span> · EUR 14,7 Mio. · EU</div>
+            <div class="cust-meta"><span class="htag hp">Positive</span> · EUR 14.7M · EU</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('nordlicht','v',this)">
           <div class="cust-chk"></div>
           <div>
             <div class="cust-name">Nordlicht Outdoor GmbH</div>
-            <div class="cust-meta"><span class="htag hm">Medium</span> · EUR 18,4 Mio. · DACH</div>
+            <div class="cust-meta"><span class="htag hm">Medium</span> · EUR 18.4M · DACH</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('urbancraft','v',this)">
           <div class="cust-chk"></div>
           <div>
             <div class="cust-name">UrbanCraft Market GmbH</div>
-            <div class="cust-meta"><span class="htag hf">Fragil</span> · EUR 8,9 Mio. · DACH</div>
+            <div class="cust-meta"><span class="htag hf">Fragile</span> · EUR 8.9M · DACH</div>
           </div>
         </div>
       </div>
       <div class="sel-info" id="v-si"></div>
       <div class="div"></div>
-      <div class="sl">Übergabedaten</div>
+      <div class="sl">Handover Details</div>
       <div class="r2">
-        <div class="fg"><label>Dein Name <span class="req">*</span></label><input type="text" id="v-name" placeholder="Maria Schmidt"/></div>
-        <div class="fg"><label>Vertretung <span class="req">*</span></label><input type="text" id="v-sub" placeholder="Max Mustermann"/></div>
+        <div class="fg"><label>Your Name <span class="req">*</span></label><input type="text" id="v-name" placeholder="Maria Schmidt"/></div>
+        <div class="fg"><label>Coverage By <span class="req">*</span></label><input type="text" id="v-sub" placeholder="Max Mustermann"/></div>
       </div>
       <div class="r2">
-        <div class="fg"><label>Von <span class="req">*</span></label><input type="date" id="v-start" onchange="checkTermine()"/></div>
-        <div class="fg"><label>Bis <span class="req">*</span></label><input type="date" id="v-end" onchange="checkTermine()"/></div>
+        <div class="fg"><label>From <span class="req">*</span></label><input type="date" id="v-start" onchange="checkTermine()"/></div>
+        <div class="fg"><label>Until <span class="req">*</span></label><input type="date" id="v-end" onchange="checkTermine()"/></div>
       </div>
       <div id="termine-hint" class="no-termine-banner hidden">
-        ℹ️ Für den gewählten Zeitraum sind keine Termine hinterlegt.
+        ℹ️ No appointments found for the selected period.
       </div>
-      <div class="fg"><label>Weitere Notizen (optional)</label><textarea id="v-notes" placeholder="Zusätzliche Hinweise für die Vertretung..."></textarea></div>
+      <div class="fg"><label>Additional Notes (optional)</label><textarea id="v-notes" placeholder="Additional information for coverage..."></textarea></div>
     </div>
   </div>
 
-  <!-- KUNDE -->
+  <!-- CUSTOMER -->
   <div id="f-customer" class="hidden">
     <div class="card">
-      <div class="sl">Kunden auswählen – Mehrfachauswahl</div>
+      <div class="sl">Select Customers – Multiple Selection</div>
       <div class="cust-grid">
         <div class="cust-card" onclick="toggleCust('bella_casa','c',this)">
           <div class="cust-chk"></div>
           <div>
             <div class="cust-name">Bella Casa Living AG</div>
-            <div class="cust-meta"><span class="htag he">🚨 Eskalation</span> · EUR 31,8 Mio. · DE/AT</div>
+            <div class="cust-meta"><span class="htag he">🚨 Escalation</span> · EUR 31.8M · DE/AT</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('fitfuel','c',this)">
           <div class="cust-chk"></div>
           <div>
             <div class="cust-name">FitFuel Nutrition Europe</div>
-            <div class="cust-meta"><span class="htag hp">Positiv</span> · EUR 14,7 Mio. · EU</div>
+            <div class="cust-meta"><span class="htag hp">Positive</span> · EUR 14.7M · EU</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('nordlicht','c',this)">
           <div class="cust-chk"></div>
           <div>
             <div class="cust-name">Nordlicht Outdoor GmbH</div>
-            <div class="cust-meta"><span class="htag hm">Medium</span> · EUR 18,4 Mio. · DACH</div>
+            <div class="cust-meta"><span class="htag hm">Medium</span> · EUR 18.4M · DACH</div>
           </div>
         </div>
         <div class="cust-card" onclick="toggleCust('urbancraft','c',this)">
           <div class="cust-chk"></div>
           <div>
             <div class="cust-name">UrbanCraft Market GmbH</div>
-            <div class="cust-meta"><span class="htag hf">Fragil</span> · EUR 8,9 Mio. · DACH</div>
+            <div class="cust-meta"><span class="htag hf">Fragile</span> · EUR 8.9M · DACH</div>
           </div>
         </div>
       </div>
@@ -378,95 +378,95 @@
       <div class="div"></div>
       <div class="sl">Handover Details</div>
       <div class="r2">
-        <div class="fg"><label>Übergabe von <span class="req">*</span></label><input type="text" id="c-from" placeholder="Name + Team"/></div>
-        <div class="fg"><label>Übergabe an <span class="req">*</span></label><input type="text" id="c-to" placeholder="Name + Team"/></div>
+        <div class="fg"><label>Handover From <span class="req">*</span></label><input type="text" id="c-from" placeholder="Name + Team"/></div>
+        <div class="fg"><label>Handover To <span class="req">*</span></label><input type="text" id="c-to" placeholder="Name + Team"/></div>
       </div>
-      <div class="fg"><label>Weitere Hinweise (optional)</label><textarea id="c-notes" placeholder="Zusätzliche Informationen zur Übergabe..."></textarea></div>
+      <div class="fg"><label>Additional Notes (optional)</label><textarea id="c-notes" placeholder="Additional information about the handover..."></textarea></div>
     </div>
   </div>
 
-  <!-- PROJEKT -->
+  <!-- PROJECT -->
   <div id="f-project" class="hidden">
     <div class="card">
-      <div class="sl">Projektdaten</div>
+      <div class="sl">Project Details</div>
       <div class="r2">
-        <div class="fg"><label>Projektname <span class="req">*</span></label><input type="text" id="p-name" placeholder="z. B. Migration CRM"/></div>
-        <div class="fg"><label>Übergabe an <span class="req">*</span></label><input type="text" id="p-to" placeholder="Name + Team"/></div>
+        <div class="fg"><label>Project Name <span class="req">*</span></label><input type="text" id="p-name" placeholder="e.g. CRM Migration"/></div>
+        <div class="fg"><label>Handover To <span class="req">*</span></label><input type="text" id="p-to" placeholder="Name + Team"/></div>
       </div>
-      <div class="fg"><label>Status & Phase</label><textarea id="p-status" placeholder="Aktueller Stand..."></textarea></div>
-      <div class="fg"><label>Offene Aufgaben</label><textarea id="p-todos" placeholder="Wer macht was bis wann?"></textarea></div>
-      <div class="fg"><label>Risiken & Abhängigkeiten</label><textarea id="p-risks" placeholder="Was blockiert das Projekt?"></textarea></div>
-      <div class="fg"><label>Links & Dokumentation</label><textarea id="p-links" placeholder="Confluence, JIRA, SharePoint..."></textarea></div>
+      <div class="fg"><label>Status & Phase</label><textarea id="p-status" placeholder="Current status, completed milestones..."></textarea></div>
+      <div class="fg"><label>Open Tasks</label><textarea id="p-todos" placeholder="Who does what by when?"></textarea></div>
+      <div class="fg"><label>Risks & Dependencies</label><textarea id="p-risks" placeholder="What is blocking the project?"></textarea></div>
+      <div class="fg"><label>Links & Documentation</label><textarea id="p-links" placeholder="Confluence, JIRA, SharePoint..."></textarea></div>
       <div class="fg">
-        <label>Weitere Teilprojekte</label>
-        <div class="ti"><input type="text" id="p-ti" placeholder="Teilprojekt..."/><button class="bxs" onclick="addTag('p')">+ Add</button></div>
+        <label>Additional Sub-Projects</label>
+        <div class="ti"><input type="text" id="p-ti" placeholder="Sub-project..."/><button class="bxs" onclick="addTag('p')">+ Add</button></div>
         <div class="tr" id="p-tags"></div>
       </div>
     </div>
   </div>
 
   <div class="br">
-    <button class="btn bg" onclick="go('s-start')">← Zurück</button>
-    <button class="btn bp" onclick="toOutput()">Weiter →</button>
+    <button class="btn bg" onclick="go('s-start')">← Back</button>
+    <button class="btn bp" onclick="toOutput()">Continue →</button>
   </div>
 </div>
 
 <!-- ══ S3: OUTPUT ══ -->
 <div id="s-output" class="hidden">
   <div class="steps">
-    <div class="step done"><div class="sn">✓</div>Typ</div>
+    <div class="step done"><div class="sn">✓</div>Type</div>
     <div class="sep">›</div>
-    <div class="step done"><div class="sn">✓</div>Eingaben</div>
+    <div class="step done"><div class="sn">✓</div>Details</div>
     <div class="sep">›</div>
     <div class="step active"><div class="sn">3</div>Format</div>
     <div class="sep">›</div>
-    <div class="step"><div class="sn">4</div>Ergebnis</div>
+    <div class="step"><div class="sn">4</div>Result</div>
   </div>
   <div class="card">
-    <div class="clbl">Ausgabeformat – Mehrfachauswahl möglich</div>
+    <div class="clbl">Output Format – Multiple Selection Possible</div>
     <div class="og">
       <div class="opt" onclick="togOpt(this,'short')">
         <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-        <div style="flex:1"><div class="ot">Short Overview</div><div class="os">Kompakte 1-Seiten-Zusammenfassung</div></div>
+        <div style="flex:1"><div class="ot">Short Overview</div><div class="os">Compact 1-page summary</div></div>
         <div class="oc"></div>
       </div>
       <div class="opt" onclick="togOpt(this,'email')">
         <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-        <div style="flex:1"><div class="ot">E-Mail an Vertretung</div><div class="os">Fertig formuliert, direkt versendbar</div></div>
+        <div style="flex:1"><div class="ot">Email to Coverage</div><div class="os">Ready to send, fully formatted</div></div>
         <div class="oc"></div>
       </div>
       <div class="opt" onclick="togOpt(this,'deadlines')">
         <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-        <div style="flex:1"><div class="ot">Deadlines & Termine</div><div class="os">Terminliste + .ics Kalender-Export</div></div>
+        <div style="flex:1"><div class="ot">Deadlines & Appointments</div><div class="os">Schedule list + .ics calendar export</div></div>
         <div class="oc"></div>
       </div>
       <div class="opt" onclick="togOpt(this,'bullets')">
         <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
-        <div style="flex:1"><div class="ot">Stichpunkt-Übergabe</div><div class="os">Strukturierte Bullet-Point-Übersicht</div></div>
+        <div style="flex:1"><div class="ot">Bullet Point Handover</div><div class="os">Structured bullet point overview</div></div>
         <div class="oc"></div>
       </div>
     </div>
     <div class="sel-info" id="fmt-si" style="margin-top:.6rem"></div>
   </div>
   <div class="br">
-    <button class="btn bg" onclick="go('s-form')">← Zurück</button>
-    <button class="btn bp" id="btn-gen" onclick="generate()" disabled>Übergabe erstellen →</button>
+    <button class="btn bg" onclick="go('s-form')">← Back</button>
+    <button class="btn bp" id="btn-gen" onclick="generate()" disabled>Create Handover →</button>
   </div>
 </div>
 
 <!-- ══ S4: RESULT ══ -->
 <div id="s-result" class="hidden">
   <div class="steps">
-    <div class="step done"><div class="sn">✓</div>Typ</div>
+    <div class="step done"><div class="sn">✓</div>Type</div>
     <div class="sep">›</div>
-    <div class="step done"><div class="sn">✓</div>Eingaben</div>
+    <div class="step done"><div class="sn">✓</div>Details</div>
     <div class="sep">›</div>
     <div class="step done"><div class="sn">✓</div>Format</div>
     <div class="sep">›</div>
-    <div class="step active"><div class="sn">4</div>Ergebnis</div>
+    <div class="step active"><div class="sn">4</div>Result</div>
   </div>
   <div id="prog" class="prog hidden">
-    <div class="prog-title" id="prog-t">Wird erstellt…</div>
+    <div class="prog-title" id="prog-t">Generating...</div>
     <div class="prog-bg"><div class="prog-bar" id="prog-b" style="width:0%"></div></div>
     <div class="prog-status" id="prog-s"></div>
   </div>
@@ -474,10 +474,10 @@
   <div id="ftabs" class="ftabs hidden"></div>
   <div id="rbox" class="rbox hidden"></div>
   <div id="ract" class="br hidden" style="margin-top:.85rem">
-    <button class="btn bp" onclick="copyRes()">Kopieren</button>
-    <button class="btn bg" id="btn-mail" onclick="doMailto()">E-Mail öffnen</button>
+    <button class="btn bp" onclick="copyRes()">Copy</button>
+    <button class="btn bg" id="btn-mail" onclick="doMailto()">Open Email</button>
     <button class="btn bg" id="btn-ics" onclick="icsExport()">.ics Export</button>
-    <button class="btn bg" onclick="reset()">Neue Übergabe</button>
+    <button class="btn bg" onclick="reset()">New Handover</button>
   </div>
 </div>
 
@@ -485,26 +485,22 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════
-// KUNDENDATENBANK
-// ═══════════════════════════════════════
 const DB = {
-
   bella_casa: {
     name:'Bella Casa Living AG', id:'CUST-002',
     health:'escalated',
     segment:'Mid-Market / Enterprise-like', region:'DE / AT',
-    tpv:'EUR 31,8 Mio./Jahr', growth:'+12% YoY', aov:'EUR 214',
-    mobile:'42%', desktop:'58%', feeRate:'1,67%',
+    tpv:'EUR 31.8M/year', growth:'+12% YoY', aov:'EUR 214',
+    mobile:'42%', desktop:'58%', feeRate:'1.67%',
     payment:'Cards 39%, Invoice 34%, Installments 17%, Wallets 10%',
     integration:'Magento / Adobe Commerce', goLive:'2026-01-16',
     churn:'Medium', growthPot:'Medium to High',
     eskalation: {
       aktiv: true,
-      stufe: 'C-Level & Formale Androhung',
+      stufe: 'C-Level & Formal Legal Threat',
       zeitraum: '18.06.2026 – 26.06.2026',
       deadline: '26.06.2026',
-      inhalt: 'GF Martin Seidel hat C-Level-Eskalation vollzogen. Förmliches Schreiben mit Androhung rechtlicher Schritte (Klage auf vertragliche Erfüllung & Schadensersatz) bei Ausbleiben konsolidierter Finance-Lösung bis 26.06.2026. Alle operativen Themen blockiert bis zur C-Level-Klärung.'
+      inhalt: 'MD Martin Seidel has escalated to C-Level. Formal letter threatening legal action (breach of contract & damages) if consolidated finance solution not delivered by 26.06.2026. All operational topics blocked until C-Level resolution.'
     },
     contacts:[
       {name:'Katharina Wolf', role:'Head of Payments', email:'katharina.wolf@bellacasa-demo.com', primary:true},
@@ -514,56 +510,36 @@ const DB = {
       {name:'Martin Seidel', role:'Managing Director', email:'martin.seidel@bellacasa-demo.com'}
     ],
     issues:[
-      'ESKALATION AKTIV: Konsolidierte Finance-Lösung bis 26.06.2026 liefern',
-      'Förmliche Klagedrohung – C-Level muss involviert sein',
-      'Alle operativen Themen blockiert bis zur Eskalationsauflösung',
-      'Konsolidierte Beantwortung offener Settlement- und Gebührenfragen',
-      'Ownership-Struktur über Teams hinweg verbessern'
+      'ESCALATION ACTIVE: Deliver consolidated finance solution by 26.06.2026',
+      'Formal legal threat – C-Level must be involved immediately',
+      'All operational topics blocked until escalation resolution',
+      'Consolidated response to open settlement and fee questions required',
+      'Improve ownership structure across teams'
     ],
-    risks:'🚨 AKTIVE ESKALATION: Klagedrohung bis 26.06.2026. Vertrauensverlust bei Reconciliation/Settlement; widersprüchliche Aussagen; schwieriger werdende Preisgespräche.',
-    opportunities:'Nach Eskalationsauflösung: Strategischer Ausbau; besseres Finance-Reporting; QBR-Format; Ausbau weiterer Zahlarten',
-    handoverNote:'🚨 ESKALATION AKTIV (18.06.–26.06.2026): GF Martin Seidel hat C-Level-Eskalation mit förmlicher Klagedrohung vollzogen. DEADLINE 26.06.2026. Alle operativen Themen blockiert. Sofortige Eskalation an C-Level bei neuen Entwicklungen. Finance-Antworten müssen vollständig und konsolidiert sein.',
+    risks:'🚨 ACTIVE ESCALATION: Legal threat deadline 26.06.2026. Trust loss on reconciliation/settlement; contradictory statements; deteriorating commercial negotiations.',
+    opportunities:'Post-escalation: Strategic expansion; better finance reporting; QBR format; additional payment methods',
+    handoverNote:'🚨 ESCALATION ACTIVE (18.06.–26.06.2026): MD Martin Seidel has escalated to C-Level with formal legal threat. DEADLINE 26.06.2026. All operational topics blocked. Escalate immediately to C-Level for any new developments.',
     actions:[
-      'SOFORT: C-Level informieren und koordinieren',
-      'SOFORT: Verbindlichen Zeitplan zur Finance-Aufarbeitung präsentieren',
-      'DEADLINE 26.06.2026: Vollständige konsolidierte Finance-Lösung liefern',
-      'Gebührenlogik verständlich und wiederverwendbar dokumentieren',
-      'Nach Eskalationsauflösung: QBR-Format aufsetzen'
+      'IMMEDIATE: Inform and coordinate C-Level',
+      'IMMEDIATE: Present binding timeline for finance resolution',
+      'DEADLINE 26.06.2026: Deliver complete consolidated finance solution',
+      'Document fee logic in clear, reusable format',
+      'Post-escalation: Set up QBR format'
     ],
     termine:[
-      {date:'2026-06-18', time:'09:00',
-       title:'🚨 ESKALATION: Beginn Eskalationsphase',
-       attendees:'Martin Seidel (GF), C-Level, Account Management',
-       prep:'Offizielle Eskalation durch GF Martin Seidel. Alle Finance-Unterlagen und Settlement-Dokumentation bereithalten.',
-       prio:'high'},
-      {date:'2026-06-20', time:'10:00',
-       title:'🚨 C-Level-Krisensitzung',
-       attendees:'Martin Seidel, Katharina Wolf, C-Level Unzer',
-       prep:'Verbindlichen Zeitplan zur lückenlosen Aufarbeitung aller Finanzdaten präsentieren. Keine allgemeinen Aussagen.',
-       prio:'high'},
-      {date:'2026-06-26', time:'09:00',
-       title:'🚨 DEADLINE: Formale Klagedrohung',
-       attendees:'Martin Seidel, Katharina Wolf, Legal, C-Level',
-       prep:'Vollständige Finance-Transparenz muss vorliegen. Entscheidung über Fortführung der Zusammenarbeit.',
-       prio:'high'},
-      {date:'2026-07-02', time:'15:00',
-       title:'Service- und Ownership-Review',
-       attendees:'Katharina Wolf, Account Management',
-       prep:'Zentraler Owner und Eskalationswege definieren.',
-       prio:'high'},
-      {date:'2026-07-07', time:'10:00',
-       title:'QBR Kickoff',
-       attendees:'Katharina Wolf, Elisa Brandt, Sven Maurer',
-       prep:'Conversion-Daten, Zahlungsarten-Mix, Service-Level aufbereiten.',
-       prio:'medium'}
+      {date:'2026-06-18', time:'09:00', title:'🚨 ESCALATION: Start of Escalation Phase', attendees:'Martin Seidel (MD), C-Level, Account Management', prep:'Formal escalation by MD Martin Seidel. All finance documents and settlement documentation ready.', prio:'high'},
+      {date:'2026-06-20', time:'10:00', title:'🚨 C-Level Crisis Meeting', attendees:'Martin Seidel, Katharina Wolf, Unzer C-Level', prep:'Present binding timeline for complete financial data resolution. No general statements.', prio:'high'},
+      {date:'2026-06-26', time:'09:00', title:'🚨 DEADLINE: Formal Legal Threat', attendees:'Martin Seidel, Katharina Wolf, Legal, C-Level', prep:'Complete finance transparency must be in place. Decision on continuation of cooperation.', prio:'high'},
+      {date:'2026-07-02', time:'15:00', title:'Service & Ownership Review', attendees:'Katharina Wolf, Account Management', prep:'Define central owner and escalation paths.', prio:'high'},
+      {date:'2026-07-07', time:'10:00', title:'QBR Kickoff', attendees:'Katharina Wolf, Elisa Brandt, Sven Maurer', prep:'Prepare conversion data, payment mix, service level overview.', prio:'medium'}
     ]
   },
 
   fitfuel: {
     name:'FitFuel Nutrition Europe', id:'CUST-003', health:'positive',
     segment:'Growth Merchant', region:'EU',
-    tpv:'EUR 14,7 Mio./Jahr', growth:'+41% YoY', aov:'EUR 62',
-    mobile:'72%', desktop:'28%', feeRate:'1,92%',
+    tpv:'EUR 14.7M/year', growth:'+41% YoY', aov:'EUR 62',
+    mobile:'72%', desktop:'28%', feeRate:'1.92%',
     payment:'Cards 58%, Apple Pay 16%, Google Pay 13%, Other 13%',
     integration:'Shopify', goLive:'2025-12-08',
     churn:'Low to Medium', growthPot:'High',
@@ -576,36 +552,36 @@ const DB = {
       {name:'Daniel Kraus', role:'Managing Director', email:'daniel.kraus@fitfuel-demo.com'}
     ],
     issues:[
-      'Klarere Bewertung von KPI-Schwankungen nach Shop-Änderungen',
-      'Strukturierten Checkout-Optimierungsansatz aufbauen',
-      'Subscription Retry-Strategien reviewen',
-      'Regelmäßige KPI-Reviews etablieren',
-      'Technische Changes enger begleiten'
+      'Clearer evaluation of KPI drops after shop changes',
+      'Build structured checkout optimization approach',
+      'Review subscription retry strategies',
+      'Establish regular KPI reviews',
+      'Closer monitoring of technical changes'
     ],
-    risks:'Conversion-Einbruch nach Shop-/Theme-Änderungen; unzureichende KPI-Einordnung; generische Antworten werden nicht toleriert',
-    opportunities:'Starke Growth-Partnerschaft; Mobile Checkout & Wallet-Optimierung; Subscription-Retry-Verbesserung',
-    handoverNote:'KPI-Fragen sind immer business-kritisch. Tempo und konkrete Hypothesen statt technischer Status-Meldungen. Mobile 72%, Wallets zentral.',
+    risks:'Conversion drop after shop/theme changes; insufficient KPI interpretation; generic support responses not accepted',
+    opportunities:'Strong growth partnership; mobile checkout & wallet optimization; subscription retry improvement',
+    handoverNote:'KPI questions are always business-critical. Speed and concrete hypotheses over technical status updates. Mobile 72%, wallets central.',
     actions:[
-      'Regelmäßigen KPI-Review-Rhythmus etablieren',
-      'Subscription Retry-Strategien gemeinsam analysieren',
-      'Mobile Checkout Optimization Roadmap aufsetzen',
-      'Shop-Change-Begleitung verbessern',
-      'Wallet- und Conversion-Benchmarking strukturieren'
+      'Establish regular KPI review rhythm',
+      'Analyze subscription retry strategies together',
+      'Set up mobile checkout optimization roadmap',
+      'Improve shop-change monitoring for theme/app updates',
+      'Structure wallet and conversion benchmarking'
     ],
     termine:[
-      {date:'2026-06-19', time:'10:00', title:'KPI Review Session', attendees:'Marc Weber, Sarah Klein', prep:'Checkout-Completion, Mobile Share, Wallet-Uplift aufbereiten', prio:'high'},
-      {date:'2026-06-23', time:'14:00', title:'Subscription Recovery Workshop', attendees:'Olivia Stern, Marc Weber', prep:'Retry-Logiken analysieren', prio:'high'},
-      {date:'2026-06-27', time:'11:00', title:'Theme/App Change Risk Check', attendees:'Deniz Acar, Sarah Klein', prep:'Test- und Rollback-Checkliste abstimmen', prio:'medium'},
-      {date:'2026-07-01', time:'15:00', title:'Wallet Benchmarking Deep Dive', attendees:'Marc Weber, Sarah Klein', prep:'Apple Pay / Google Pay Potenziale', prio:'medium'},
-      {date:'2026-07-04', time:'10:00', title:'Growth Planning Meeting', attendees:'Sarah Klein, Marc Weber', prep:'Mobile Checkout + Subscription priorisieren', prio:'medium'}
+      {date:'2026-06-19', time:'10:00', title:'KPI Review Session', attendees:'Marc Weber, Sarah Klein', prep:'Prepare checkout completion, mobile share, wallet uplift data', prio:'high'},
+      {date:'2026-06-23', time:'14:00', title:'Subscription Recovery Workshop', attendees:'Olivia Stern, Marc Weber', prep:'Analyze retry logic', prio:'high'},
+      {date:'2026-06-27', time:'11:00', title:'Theme/App Change Risk Check', attendees:'Deniz Acar, Sarah Klein', prep:'Align test and rollback checklist', prio:'medium'},
+      {date:'2026-07-01', time:'15:00', title:'Wallet Benchmarking Deep Dive', attendees:'Marc Weber, Sarah Klein', prep:'Apple Pay / Google Pay potential', prio:'medium'},
+      {date:'2026-07-04', time:'10:00', title:'Growth Planning Meeting', attendees:'Sarah Klein, Marc Weber', prep:'Prioritize mobile checkout + subscription topics', prio:'medium'}
     ]
   },
 
   nordlicht: {
     name:'Nordlicht Outdoor GmbH', id:'CUST-001', health:'medium',
     segment:'Mid-Market', region:'DACH',
-    tpv:'EUR 18,4 Mio./Jahr', growth:'+28% YoY', aov:'EUR 86',
-    mobile:'64%', desktop:'36%', feeRate:'1,84%',
+    tpv:'EUR 18.4M/year', growth:'+28% YoY', aov:'EUR 86',
+    mobile:'64%', desktop:'36%', feeRate:'1.84%',
     payment:'Cards 51%, Google Pay 13%, Apple Pay 9%, Invoice 27%',
     integration:'Shopware Plugin', goLive:'2024-11-09',
     churn:'Medium', growthPot:'High',
@@ -619,75 +595,75 @@ const DB = {
       {name:'Florian Berg', role:'Managing Director', email:'florian.berg@nordlicht-outdoor-demo.com'}
     ],
     issues:[
-      'Dauerhaft belastbaren Release-Prozess mit Rollback-Kriterien definieren',
-      'Proaktive Incident-Kommunikation mit Business-Impact ausbauen',
-      'Roadmap für zusätzliche Zahlarten erstellen',
-      'Regelmäßigen KPI-Review-Rhythmus etablieren',
-      'Trennung zwischen Support- und AM-Kommunikation schärfen'
+      'Define sustainable release process with rollback criteria',
+      'Expand proactive incident communication with business impact',
+      'Create roadmap for additional payment methods',
+      'Establish regular KPI review rhythm',
+      'Sharpen separation between support and AM communication'
     ],
-    risks:'Erneute Wallet- oder Checkout-Ausfälle (Google Pay 13% kritisch); unklare Kommunikation bei technischen Änderungen',
-    opportunities:'Ausbau weiterer Zahlarten; Performance-Reviews; Mobile Checkout Optimization; Internationalisierung',
-    handoverNote:'Wallets geschäftskritisch (64% Mobile, Google Pay 13%). Bei Incidents enges Update-Intervall mit ETA erwartet. Business-Impact immer adressieren.',
+    risks:'Recurring wallet or checkout failures (Google Pay 13% critical); unclear communication on technical changes; delayed updates during campaigns',
+    opportunities:'Additional payment methods; performance reviews; mobile checkout optimization; DACH+ internationalization',
+    handoverNote:'Wallets business-critical (64% mobile, Google Pay 13%). Tight update intervals with ETA expected during incidents. Always address business impact.',
     actions:[
-      'Monatlichen KPI- und Performance-Review etablieren',
-      'Roadmap für zusätzliche Zahlarten vorbereiten',
-      'Release-Governance mit Tests und Rollback-Kriterien dokumentieren',
-      'Incident-Kommunikationsstandard mit ETA-Pflicht einführen',
-      'Preisgespräche mit Service- und Stabilitätsmodell verknüpfen'
+      'Establish monthly KPI and performance review',
+      'Prepare roadmap for additional payment methods',
+      'Document release governance with tests and rollback criteria',
+      'Introduce incident communication standard with mandatory ETA',
+      'Link pricing discussions to service and stability model'
     ],
     termine:[
-      {date:'2025-06-23', time:'10:00', title:'Workshop Mobile Checkout & Conversion', attendees:'Lena Hoffmann, Nina Roth', prep:'Wallet-Split-Daten, Mobile Checkout Flows vorbereiten', prio:'high'},
-      {date:'2025-06-26', time:'14:00', title:'Release-Governance & Rollback-Framework', attendees:'Paul Jensen, Tim Becker', prep:'Testkriterien und Rollback-Schwellenwerte finalisieren', prio:'high'},
-      {date:'2025-06-30', time:'11:00', title:'Konditionsgespräch & Wachstumsperspektive H2', attendees:'Lena Hoffmann, Markus Feld', prep:'Commercial Proposal vorbereiten', prio:'high'},
-      {date:'2025-07-03', time:'09:30', title:'Roadmap-Review Zahlarten', attendees:'Nina Roth, Lena Hoffmann', prep:'Payment-Expansion-Roadmap erstellen', prio:'medium'},
-      {date:'2025-07-07', time:'15:00', title:'Monatlicher KPI-Review (Pilotformat)', attendees:'Lena Hoffmann, Paul Jensen, Tim Becker', prep:'TPV, Checkout Completion, Auth Rate aufbereiten', prio:'high'}
+      {date:'2025-06-23', time:'10:00', title:'Mobile Checkout & Conversion Workshop', attendees:'Lena Hoffmann, Nina Roth', prep:'Prepare wallet split data, mobile checkout flows', prio:'high'},
+      {date:'2025-06-26', time:'14:00', title:'Release Governance & Rollback Framework', attendees:'Paul Jensen, Tim Becker', prep:'Finalize test criteria and rollback thresholds', prio:'high'},
+      {date:'2025-06-30', time:'11:00', title:'Commercial Discussion & H2 Growth Outlook', attendees:'Lena Hoffmann, Markus Feld', prep:'Prepare commercial proposal', prio:'high'},
+      {date:'2025-07-03', time:'09:30', title:'Payment Methods Roadmap Review', attendees:'Nina Roth, Lena Hoffmann', prep:'Create payment expansion roadmap', prio:'medium'},
+      {date:'2025-07-07', time:'15:00', title:'Monthly KPI Review (Pilot Format)', attendees:'Lena Hoffmann, Paul Jensen, Tim Becker', prep:'Prepare TPV, checkout completion, auth rate', prio:'high'}
     ]
   },
 
   urbancraft: {
     name:'UrbanCraft Market GmbH', id:'CUST-004', health:'fragile',
     segment:'SMB / Small Mid-Market', region:'DACH',
-    tpv:'EUR 8,9 Mio./Jahr', growth:'+9% YoY', aov:'EUR 74',
-    mobile:'55%', desktop:'45%', feeRate:'1,96%',
+    tpv:'EUR 8.9M/year', growth:'+9% YoY', aov:'EUR 74',
+    mobile:'55%', desktop:'45%', feeRate:'1.96%',
     payment:'Cards 47%, Invoice 35%, Wallets 18%',
     integration:'Custom Integration', goLive:'2025-06-26',
     churn:'Medium', growthPot:'Medium',
     eskalation: null,
     contacts:[
-      {name:'Jana Seifert', role:'Operations Lead (Hauptkontakt)', email:'jana.seifert@urbancraft-demo.com', primary:true},
-      {name:'Felix Krüger', role:'Managing Director (Eskalation)', email:'felix.krueger@urbancraft-demo.com'},
+      {name:'Jana Seifert', role:'Operations Lead (Main Contact)', email:'jana.seifert@urbancraft-demo.com', primary:true},
+      {name:'Felix Krüger', role:'Managing Director (Escalation)', email:'felix.krueger@urbancraft-demo.com'},
       {name:'Mira Lang', role:'Customer Support Manager', email:'mira.lang@urbancraft-demo.com'},
       {name:'Adrian Voß', role:'Technical Project Contact', email:'adrian.voss@urbancraft-demo.com'}
     ],
     issues:[
-      'Zentrale Ownership für alle offenen Themen sichtbar machen',
-      'Offene Support-Fälle konsolidiert nachhalten',
-      'Klare Eskalations- und Rückmeldewege definieren',
-      'Billing-, Tech- und Relationship-Themen sauber trennen',
-      'Regelmäßigen Statusrhythmus mit Kunde etablieren'
+      'Make central ownership visible for all open topics',
+      'Track open support cases in consolidated manner',
+      'Define clear escalation and response paths',
+      'Separate billing, tech, and relationship topics',
+      'Establish regular status rhythm with customer'
     ],
-    risks:'Kumulierter Vertrauensverlust durch fehlende Updates; wahrgenommene Nicht-Erreichbarkeit; eskalierende Frustration',
-    opportunities:'Zentrale Steuerung; klare Ansprechpartnerstruktur; mittelfristiger Zahlarten-Ausbau bei stabilerer Beziehung',
-    handoverNote:'⚠️ FRAGILE: Ownership wichtiger als Perfektion. Kleine Themen eskalieren wenn Updates ausbleiben. Felix Krüger erscheint bei Eskalationen – immer verbindlich.',
+    risks:'Cumulative trust loss through missing updates; perceived unavailability; escalating frustration over open support cases',
+    opportunities:'Central coordination; clear contact structure; mid-term payment expansion at stabilized relationship',
+    handoverNote:'⚠️ FRAGILE: Ownership more important than perfection. Small topics escalate when updates are missing. Felix Krüger appears during escalations – always act with commitment.',
     actions:[
-      'Dauerhaftes zentrales Ownership-Modell etablieren',
-      'Wöchentlichen Open-Issues-Rhythmus beibehalten',
-      'Billing-, Tech- und Support-Themen sauber trennen',
-      'Eskalationspfad dokumentieren',
-      'Erst nach Stabilisierung Ausbau-Themen platzieren'
+      'Establish permanent central ownership model',
+      'Maintain weekly open issues rhythm consistently',
+      'Cleanly separate billing, tech, and support topics',
+      'Document escalation path for critical cases',
+      'Place expansion topics only after stabilization'
     ],
     termine:[
-      {date:'2025-07-01', time:'10:00', title:'Bi-Weekly Open Issues Review', attendees:'Jana Seifert, Account Manager', prep:'Alle offenen Support-Fälle und Billing-Rückfragen', prio:'high'},
-      {date:'2025-07-04', time:'14:00', title:'Technische Deep-Dive-Session', attendees:'Adrian Voß, Technical Support', prep:'Checkout-Darstellungsproblematik Wallets auf Mobile', prio:'high'},
-      {date:'2025-07-08', time:'11:00', title:'Quarterly Relationship Review', attendees:'Felix Krüger, Jana Seifert, AM', prep:'Governance-Modell bewerten, Q3 Betreuungsstruktur', prio:'high'},
-      {date:'2025-07-14', time:'15:30', title:'Billing-Klärungstermin', attendees:'Mira Lang, Billing-Team', prep:'Drei offene Abrechnungspositionen Mai/Juni klären', prio:'medium'},
-      {date:'2025-07-17', time:'09:30', title:'Payment Expansion Discovery Workshop', attendees:'Jana Seifert, Adrian Voß', prep:'Apple Pay / Google Pay, BNPL-Pilot evaluieren', prio:'medium'}
+      {date:'2025-07-01', time:'10:00', title:'Bi-Weekly Open Issues Review', attendees:'Jana Seifert, Account Manager', prep:'All open support cases and billing questions', prio:'high'},
+      {date:'2025-07-04', time:'14:00', title:'Technical Deep-Dive Session', attendees:'Adrian Voß, Technical Support', prep:'Checkout display issue with wallets on mobile', prio:'high'},
+      {date:'2025-07-08', time:'11:00', title:'Quarterly Relationship Review', attendees:'Felix Krüger, Jana Seifert, AM', prep:'Evaluate governance model, define Q3 support structure', prio:'high'},
+      {date:'2025-07-14', time:'15:30', title:'Billing Clarification Meeting', attendees:'Mira Lang, Billing Team', prep:'Clarify three open billing positions from May/June', prio:'medium'},
+      {date:'2025-07-17', time:'09:30', title:'Payment Expansion Discovery Workshop', attendees:'Jana Seifert, Adrian Voß', prep:'Evaluate Apple Pay / Google Pay, BNPL pilot', prio:'medium'}
     ]
   }
 };
 
 // ═══════════════════════════════════════
-// TERMINE FILTERN
+// FILTER APPOINTMENTS
 // ═══════════════════════════════════════
 function filterTermine(termine, startDate, endDate) {
   if (!startDate || !endDate) return termine;
@@ -695,9 +671,7 @@ function filterTermine(termine, startDate, endDate) {
 }
 
 function getTermine(c, d) {
-  if (d.startDate && d.endDate) {
-    return filterTermine(c.termine, d.startDate, d.endDate);
-  }
+  if (d.startDate && d.endDate) return filterTermine(c.termine, d.startDate, d.endDate);
   return c.termine;
 }
 
@@ -713,275 +687,279 @@ function checkTermine() {
 }
 
 // ═══════════════════════════════════════
-// ESKALATIONS-BANNER
+// ESCALATION BANNER
 // ═══════════════════════════════════════
-function getEskalationsBanner(c) {
+function getEscBanner(c) {
   if (!c.eskalation || !c.eskalation.aktiv) return '';
   return `
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-🚨 ESKALATION AKTIV – ${c.eskalation.stufe}
+🚨 ESCALATION ACTIVE – ${c.eskalation.stufe}
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  Zeitraum:  ${c.eskalation.zeitraum}
+  Period:    ${c.eskalation.zeitraum}
   DEADLINE:  ${c.eskalation.deadline}
-  Status:    Eskalationsphase aktiv
-  
+  Status:    Escalation phase active
+
   ${c.eskalation.inhalt}
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 `;
 }
 
 // ═══════════════════════════════════════
-// TEMPLATES
+// OUTPUT TEMPLATES
 // ═══════════════════════════════════════
 function genShort(c, d) {
-  const hlMap = {escalated:'🚨 Eskalation', fragile:'🔴 Fragil', medium:'🟡 Medium', positive:'🟢 Positiv'};
+  const hlMap = {escalated:'🚨 Escalation', fragile:'🔴 Fragile', medium:'🟡 Medium', positive:'🟢 Positive'};
   const hl = hlMap[c.health] || '🟡 Medium';
-  const from = d.name || d.fromPerson || 'Übergeber';
-  const to   = d.substitute || d.toPerson || 'Empfänger';
-  const zeit = d.startDate ? `${d.startDate} – ${d.endDate}` : 'laufend';
+  const from = d.name || d.fromPerson || 'Handover From';
+  const to   = d.substitute || d.toPerson || 'Handover To';
+  const period = d.startDate ? `${d.startDate} – ${d.endDate}` : 'ongoing';
   const primary = c.contacts.find(x => x.primary) || c.contacts[0];
   const esc = c.contacts[1] || c.contacts[0];
   const termine = getTermine(c, d);
-  const esBanner = getEskalationsBanner(c);
+  const esBanner = getEscBanner(c);
 
   return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SHORT OVERVIEW  ·  ${c.name}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${esBanner}
-ÜBERGABE
-  Von:        ${from}
-  An:         ${to}
-  Zeitraum:   ${zeit}
+HANDOVER
+  From:       ${from}
+  To:         ${to}
+  Period:     ${period}
 
-KUNDENPROFIL
+CUSTOMER PROFILE
   Name:       ${c.name}  (${c.id})
   Segment:    ${c.segment}  ·  ${c.region}
   Health:     ${hl}
-  TPV:        ${c.tpv}  ·  Wachstum: ${c.growth}
-  Ø WK:       ${c.aov}  ·  Mobile: ${c.mobile}
-  Zahlung:    ${c.payment}
+  TPV:        ${c.tpv}  ·  Growth: ${c.growth}
+  Avg. Cart:  ${c.aov}  ·  Mobile: ${c.mobile}
+  Payments:   ${c.payment}
   Fee Rate:   ${c.feeRate}
 
 ──────────────────────────────────────────────────────────────
-TOP THEMEN
+TOP TOPICS
 ──────────────────────────────────────────────────────────────
 ${c.issues.map((t,i) => `  ${i+1}. ${t}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-TERMINE IM ZEITRAUM (${zeit})
+APPOINTMENTS IN PERIOD (${period})
 ──────────────────────────────────────────────────────────────
 ${termine.length > 0
   ? termine.map(t =>
-      `  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}  |  ${t.title}\n       Teilnehmer: ${t.attendees}\n       Prep: ${t.prep}`
+      `  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}  |  ${t.title}\n       Attendees: ${t.attendees}\n       Prep: ${t.prep}`
     ).join('\n\n')
-  : '  Keine Termine im angegebenen Zeitraum.'
+  : '  No appointments in the selected period.'
 }
 
 ──────────────────────────────────────────────────────────────
-SOFORT-TO-DOS FÜR ${to.toUpperCase()}
+IMMEDIATE TO-DOS FOR ${to.toUpperCase()}
 ──────────────────────────────────────────────────────────────
 ${c.actions.map((a,i) => `  ${i+1}. ${a}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-ANSPRECHPARTNER
+KEY CONTACTS
 ──────────────────────────────────────────────────────────────
 ${c.contacts.map(x=>`  ${(x.name+(x.primary?' ★':'')).padEnd(24)}  ${x.role.padEnd(28)}  ${x.email}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-ESKALATIONSWEG
+ESCALATION PATH
 ──────────────────────────────────────────────────────────────
-  Primär:      ${primary.name}  ·  ${primary.email}
-  Eskalation:  ${esc.name}  ·  ${esc.email}
+  Primary:     ${primary.name}  ·  ${primary.email}
+  Escalation:  ${esc.name}  ·  ${esc.email}
 
-⚠️  HANDOVER-HINWEIS:
+⚠️  HANDOVER NOTE:
   ${c.handoverNote}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Unzer Relay Handover Assistant  ·  ${new Date().toLocaleDateString('de-DE')}
+Unzer Relay Handover Assistant  ·  ${new Date().toLocaleDateString('en-GB')}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 }
 
 function genEmail(c, d) {
-  const from = d.name || d.fromPerson || 'Übergeber';
-  const to   = d.substitute || d.toPerson || 'Empfänger';
-  const zeit = d.startDate ? `${d.startDate} – ${d.endDate}` : 'ab sofort';
+  const from = d.name || d.fromPerson || 'Sender';
+  const to   = d.substitute || d.toPerson || 'Recipient';
+  const period = d.startDate ? `${d.startDate} – ${d.endDate}` : 'as of now';
   const primary = c.contacts.find(x => x.primary) || c.contacts[0];
   const esc = c.contacts[1] || c.contacts[0];
   const termine = getTermine(c, d);
-  const esBanner = getEskalationsBanner(c);
+  const esBanner = getEscBanner(c);
 
-  return `Betreff: Übergabe ${c.name}  |  ${from} → ${to}  |  ${zeit}${c.eskalation?.aktiv ? '  🚨 ESKALATION AKTIV' : ''}
+  return `Subject: Handover ${c.name}  |  ${from} → ${to}  |  ${period}${c.eskalation?.aktiv ? '  🚨 ESCALATION ACTIVE' : ''}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ${esBanner}
-Hallo ${to},
+Hi ${to},
 
-im Rahmen meiner Abwesenheit (${zeit}) übergebe ich dir alle relevanten Informationen zu ${c.name}.
-${c.eskalation?.aktiv ? '\n⚠️ ACHTUNG: Dieser Kunde befindet sich in einer aktiven Eskalationsphase. Bitte lies den Eskalationshinweis am Anfang sehr sorgfältig.\n' : ''}
+during my absence (${period}) I am handing over all relevant information regarding ${c.name} to you.
+${c.eskalation?.aktiv ? '\n⚠️ ATTENTION: This customer is currently in an active escalation phase. Please read the escalation notice at the top very carefully.\n' : ''}
 ──────────────────────────────────────────────────────────────
-KUNDENPROFIL
+CUSTOMER PROFILE
 ──────────────────────────────────────────────────────────────
   ${c.name}  (${c.id})  ·  ${c.segment}  ·  ${c.region}
-  TPV: ${c.tpv}  ·  Wachstum: ${c.growth}  ·  Ø WK: ${c.aov}
-  Zahlung: ${c.payment}
+  TPV: ${c.tpv}  ·  Growth: ${c.growth}  ·  Avg. Cart: ${c.aov}
+  Payments: ${c.payment}
 
 ──────────────────────────────────────────────────────────────
-WAS DU WISSEN MUSST
+WHAT YOU NEED TO KNOW
 ──────────────────────────────────────────────────────────────
 ${c.issues.map((t,i) => `  ${i+1}. ${t}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-DEINE WICHTIGSTEN TO-DOS
+YOUR KEY TO-DOS
 ──────────────────────────────────────────────────────────────
 ${c.actions.map((a,i) => `  ${i+1}. ${a}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-TERMINE IN MEINER ABWESENHEIT (${zeit})
+APPOINTMENTS DURING MY ABSENCE (${period})
 ──────────────────────────────────────────────────────────────
 ${termine.length > 0
   ? termine.map(t =>
-      `  📅  ${t.date}  ${t.time}  –  ${t.title}\n       Teilnehmer: ${t.attendees}\n       Priorität: ${t.prio==='high'?'🔴 Hoch':'🟡 Mittel'}\n       Vorbereitung: ${t.prep}`
+      `  📅  ${t.date}  ${t.time}  –  ${t.title}\n       Attendees: ${t.attendees}\n       Priority: ${t.prio==='high'?'🔴 High':'🟡 Medium'}\n       Preparation: ${t.prep}`
     ).join('\n\n')
-  : '  Keine Termine im angegebenen Zeitraum.'
+  : '  No appointments in the selected period.'
 }
 
 ──────────────────────────────────────────────────────────────
-ANSPRECHPARTNER BEIM KUNDEN
+CUSTOMER CONTACTS
 ──────────────────────────────────────────────────────────────
-${c.contacts.map(x=>`  • ${x.name}${x.primary?' (Hauptkontakt)':''}\n    ${x.role}  ·  ${x.email}`).join('\n')}
+${c.contacts.map(x=>`  • ${x.name}${x.primary?' (Main Contact)':''}\n    ${x.role}  ·  ${x.email}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-BEI DRINGENDEN FRAGEN
+FOR URGENT QUESTIONS
 ──────────────────────────────────────────────────────────────
-  Primär:      ${primary.name}  ·  ${primary.email}
-  Eskalation:  ${esc.name}  ·  ${esc.email}
+  Primary:     ${primary.name}  ·  ${primary.email}
+  Escalation:  ${esc.name}  ·  ${esc.email}
 
-⚠️  WICHTIGER HINWEIS:
+⚠️  IMPORTANT NOTE:
   ${c.handoverNote}
-${d.notes ? `\nZusätzliche Notizen:\n  ${d.notes}` : ''}
+${d.notes ? `\nAdditional Notes:\n  ${d.notes}` : ''}
 
-Vielen Dank und viele Grüße,
+Thank you very much for your support!
+
+Best regards,
 ${from}
 
 ──────────────────────────────────────────────────────────────
-Erstellt mit Unzer Relay Handover Assistant · ${new Date().toLocaleDateString('de-DE')}`;
+Created with Unzer Relay Handover Assistant · ${new Date().toLocaleDateString('en-GB')}`;
 }
 
 function genDeadlines(c, d) {
-  const from = d.name || d.fromPerson || 'Übergeber';
-  const zeit = d.startDate ? `${d.startDate} – ${d.endDate}` : 'laufend';
+  const from = d.name || d.fromPerson || 'Sender';
+  const period = d.startDate ? `${d.startDate} – ${d.endDate}` : 'ongoing';
   const termine = getTermine(c, d);
-  const esBanner = getEskalationsBanner(c);
+  const esBanner = getEscBanner(c);
 
   return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-DEADLINES & TERMINE  ·  ${c.name}
+DEADLINES & APPOINTMENTS  ·  ${c.name}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Von: ${from}  ·  Zeitraum: ${zeit}
+  From: ${from}  ·  Period: ${period}
 ${esBanner}
 ──────────────────────────────────────────────────────────────
-TERMINE IM ZEITRAUM
+APPOINTMENTS IN PERIOD
 ──────────────────────────────────────────────────────────────
 ${termine.length > 0
   ? termine.map(t =>
-      `  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}\n     Termin:        ${t.title}\n     Teilnehmer:   ${t.attendees}\n     Vorbereitung:  ${t.prep}`
+      `  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}\n     Appointment:   ${t.title}\n     Attendees:     ${t.attendees}\n     Preparation:   ${t.prep}`
     ).join('\n\n')
-  : '  Keine Termine im angegebenen Zeitraum.'
+  : '  No appointments in the selected period.'
 }
 
 ──────────────────────────────────────────────────────────────
-🔴 KRITISCH
+🔴 CRITICAL
 ──────────────────────────────────────────────────────────────
 ${termine.filter(t=>t.prio==='high').map(t=>
     `  • ${t.date}  ${t.time}  –  ${t.title}\n    → ${t.attendees}`
-  ).join('\n\n') || '  Keine kritischen Termine im Zeitraum.'}
+  ).join('\n\n') || '  No critical appointments in period.'}
 
 ──────────────────────────────────────────────────────────────
-🟡 WICHTIG
+🟡 IMPORTANT
 ──────────────────────────────────────────────────────────────
 ${termine.filter(t=>t.prio==='medium').map(t=>
     `  • ${t.date}  ${t.time}  –  ${t.title}\n    → ${t.attendees}`
-  ).join('\n\n') || '  Keine mittleren Termine im Zeitraum.'}
+  ).join('\n\n') || '  No medium priority appointments in period.'}
 
 ──────────────────────────────────────────────────────────────
-OFFENE ISSUES
+OPEN ISSUES
 ──────────────────────────────────────────────────────────────
 ${c.issues.map((t,i) => `  ${i+1}. ${t}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-NÄCHSTE SCHRITTE
+NEXT STEPS
 ──────────────────────────────────────────────────────────────
 ${c.actions.map((a,i) => `  ${i+1}. ${a}`).join('\n')}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${termine.length} Termin(e) im Zeitraum  ·  .ics Export verfügbar
+${termine.length} appointment(s) in period  ·  .ics export available
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 }
 
 function genBullets(c, d) {
-  const from = d.name || d.fromPerson || 'Übergeber';
-  const to   = d.substitute || d.toPerson || 'Empfänger';
-  const hlMap = {escalated:'🚨 Eskalation', fragile:'🔴 Fragil', medium:'🟡 Medium', positive:'🟢 Positiv'};
+  const from = d.name || d.fromPerson || 'Sender';
+  const to   = d.substitute || d.toPerson || 'Recipient';
+  const hlMap = {escalated:'🚨 Escalation', fragile:'🔴 Fragile', medium:'🟡 Medium', positive:'🟢 Positive'};
   const hl = hlMap[c.health] || '🟡 Medium';
   const primary = c.contacts.find(x => x.primary) || c.contacts[0];
   const esc = c.contacts[1] || c.contacts[0];
   const termine = getTermine(c, d);
-  const zeit = d.startDate ? `${d.startDate} – ${d.endDate}` : 'laufend';
-  const esBanner = getEskalationsBanner(c);
+  const period = d.startDate ? `${d.startDate} – ${d.endDate}` : 'ongoing';
+  const esBanner = getEscBanner(c);
 
   return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-STICHPUNKT-ÜBERGABE  ·  ${c.name}
+BULLET POINT HANDOVER  ·  ${c.name}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Von: ${from}  →  An: ${to}
-  Zeitraum: ${zeit}
+  From: ${from}  →  To: ${to}
+  Period: ${period}
 ${esBanner}
 ──────────────────────────────────────────────────────────────
-KUNDENSTATUS
+CUSTOMER STATUS
 ──────────────────────────────────────────────────────────────
-  • Health:      ${hl}
-  • Segment:     ${c.segment}  ·  ${c.region}
-  • TPV:         ${c.tpv}  ·  Wachstum: ${c.growth}
-  • Ø WK:        ${c.aov}  ·  Mobile: ${c.mobile}
-  • Zahlung:     ${c.payment}
-  • Fee Rate:    ${c.feeRate}
+  • Health:       ${hl}
+  • Segment:      ${c.segment}  ·  ${c.region}
+  • TPV:          ${c.tpv}  ·  Growth: ${c.growth}
+  • Avg. Cart:    ${c.aov}  ·  Mobile: ${c.mobile}
+  • Payments:     ${c.payment}
+  • Fee Rate:     ${c.feeRate}
+  • Churn Risk:   ${c.churn}
+  • Growth Pot.:  ${c.growthPot}
 
 ──────────────────────────────────────────────────────────────
-OFFENE THEMEN
+OPEN TOPICS
 ──────────────────────────────────────────────────────────────
 ${c.issues.map(t => `  • ${t}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-TERMINE IM ZEITRAUM (${zeit})
+APPOINTMENTS IN PERIOD (${period})
 ──────────────────────────────────────────────────────────────
 ${termine.length > 0
   ? termine.map(t =>
       `  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}  –  ${t.title}\n     → ${t.attendees}\n     → Prep: ${t.prep}`
     ).join('\n\n')
-  : '  Keine Termine im angegebenen Urlaubszeitraum.'
+  : '  No appointments in the selected period.'
 }
 
 ──────────────────────────────────────────────────────────────
-ANSPRECHPARTNER
+KEY CONTACTS
 ──────────────────────────────────────────────────────────────
 ${c.contacts.map(x=>`  • ${x.name}${x.primary?' ★':''}\n    ${x.role}  ·  ${x.email}`).join('\n')}
 
 ──────────────────────────────────────────────────────────────
-⚡ TOP 3 PRIORITÄTEN
+⚡ TOP 3 PRIORITIES
 ──────────────────────────────────────────────────────────────
   1. ${c.actions[0]}
   2. ${c.actions[1]}
   3. ${c.actions[2]}
 
 ──────────────────────────────────────────────────────────────
-🚨 ESKALATIONSWEG
+🚨 ESCALATION PATH
 ──────────────────────────────────────────────────────────────
-  Tagesgeschäft:  ${primary.name}  ·  ${primary.email}
-  Eskalation:     ${esc.name}  ·  ${esc.email}
+  Day-to-day:   ${primary.name}  ·  ${primary.email}
+  Escalation:   ${esc.name}  ·  ${esc.email}
 
-⚠️  HANDOVER-HINWEIS:
+⚠️  HANDOVER NOTE:
   ${c.handoverNote}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Unzer Relay Handover Assistant  ·  ${new Date().toLocaleDateString('de-DE')}
+Unzer Relay Handover Assistant  ·  ${new Date().toLocaleDateString('en-GB')}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 }
 
@@ -1033,7 +1011,7 @@ function toggleCust(id, ctx, el) {
   const s = selCusts[ctx];
   s.has(id) ? s.delete(id) : s.add(id);
   const si = document.getElementById(ctx+'-si');
-  si.textContent = s.size > 0 ? `${s.size} Kunde${s.size>1?'n':''} ausgewählt` : '';
+  si.textContent = s.size > 0 ? `${s.size} customer${s.size>1?'s':''} selected` : '';
   if (ctx === 'v') checkTermine();
 }
 
@@ -1045,7 +1023,7 @@ function togOpt(el, val) {
   selFmts.has(val) ? selFmts.delete(val) : selFmts.add(val);
   document.getElementById('btn-gen').disabled = selFmts.size === 0;
   const si = document.getElementById('fmt-si');
-  si.textContent = selFmts.size > 0 ? `${selFmts.size} Format${selFmts.size>1?'e':''} ausgewählt` : '';
+  si.textContent = selFmts.size > 0 ? `${selFmts.size} format${selFmts.size>1?'s':''} selected` : '';
 }
 
 // ═══════════════════════════════════════
@@ -1072,15 +1050,15 @@ function vv(id) { const e = document.getElementById(id); return e ? e.value.trim
 function validate() {
   if (mode === 'vacation') {
     if (!vv('v-name')||!vv('v-sub')||!vv('v-start')||!vv('v-end')) {
-      toast('Bitte alle Pflichtfelder ausfüllen.'); return false;
+      toast('Please fill in all required fields.'); return false;
     }
   }
   if (mode === 'customer') {
-    if (selCusts['c'].size === 0) { toast('Bitte mindestens einen Kunden wählen.'); return false; }
-    if (!vv('c-from')||!vv('c-to')) { toast('Bitte Übergabe von/an ausfüllen.'); return false; }
+    if (selCusts['c'].size === 0) { toast('Please select at least one customer.'); return false; }
+    if (!vv('c-from')||!vv('c-to')) { toast('Please fill in handover from/to.'); return false; }
   }
   if (mode === 'project' && (!vv('p-name')||!vv('p-to'))) {
-    toast('Bitte Pflichtfelder ausfüllen.'); return false;
+    toast('Please fill in all required fields.'); return false;
   }
   return true;
 }
@@ -1115,7 +1093,7 @@ function generate() {
   document.getElementById('rbox').classList.add('hidden');
   document.getElementById('ract').classList.add('hidden');
 
-  const fmtLabels = { short:'Short Overview', email:'E-Mail', deadlines:'Deadlines', bullets:'Stichpunkte' };
+  const fmtLabels = { short:'Short Overview', email:'Email', deadlines:'Deadlines', bullets:'Bullet Points' };
   const total = custIds.length * fmts.length;
   let done = 0;
 
@@ -1132,11 +1110,11 @@ function generate() {
       }
       done++;
       progB.style.width = Math.round((done/total)*100) + '%';
-      progS.textContent = `${c ? c.name : 'Projekt'} – ${fmtLabels[fmt]} (${done}/${total})`;
+      progS.textContent = `${c ? c.name : 'Project'} – ${fmtLabels[fmt]} (${done}/${total})`;
     });
   });
 
-  progT.textContent = `✓ ${done} Dokument${done>1?'e':''} erstellt`;
+  progT.textContent = `✓ ${done} document${done>1?'s':''} created`;
   progB.style.width = '100%';
 
   setTimeout(() => {
@@ -1153,12 +1131,12 @@ function generate() {
 }
 
 function genFree(fmt, d) {
-  const from = d.projectName || 'Übergeber';
-  const to   = d.toPerson || 'Empfänger';
-  if (fmt==='short')     return `SHORT OVERVIEW\n${'━'.repeat(50)}\nProjekt: ${from} → An: ${to}\n\nStatus: ${d.status||'–'}\nAufgaben: ${d.todos||'–'}\nRisiken: ${d.risks||'–'}`;
-  if (fmt==='email')     return `Betreff: Projektübergabe ${from} → ${to}\n\nHallo ${to},\nhiermit übergebe ich das Projekt.\n\nStatus: ${d.status||'–'}\nAufgaben: ${d.todos||'–'}\nRisiken: ${d.risks||'–'}\n\nViele Grüße`;
-  if (fmt==='deadlines') return `DEADLINES & TERMINE\n${'━'.repeat(50)}\nProjekt: ${from}\n\nAufgaben:\n${d.todos||'–'}\n\nRisiken:\n${d.risks||'–'}`;
-  if (fmt==='bullets')   return `STICHPUNKT-ÜBERGABE\n${'━'.repeat(50)}\n${from} → ${to}\n\n• Status: ${d.status||'–'}\n• Aufgaben: ${d.todos||'–'}\n• Risiken: ${d.risks||'–'}`;
+  const from = d.projectName || 'Project';
+  const to   = d.toPerson || 'Recipient';
+  if (fmt==='short')     return `SHORT OVERVIEW\n${'━'.repeat(50)}\nProject: ${from} → To: ${to}\n\nStatus: ${d.status||'–'}\nTasks: ${d.todos||'–'}\nRisks: ${d.risks||'–'}`;
+  if (fmt==='email')     return `Subject: Project Handover ${from} → ${to}\n\nHi ${to},\nplease find the project handover below.\n\nStatus: ${d.status||'–'}\nOpen Tasks: ${d.todos||'–'}\nRisks: ${d.risks||'–'}\n\nBest regards`;
+  if (fmt==='deadlines') return `DEADLINES & APPOINTMENTS\n${'━'.repeat(50)}\nProject: ${from}\n\nTasks:\n${d.todos||'–'}\n\nRisks:\n${d.risks||'–'}`;
+  if (fmt==='bullets')   return `BULLET POINT HANDOVER\n${'━'.repeat(50)}\n${from} → ${to}\n\n• Status: ${d.status||'–'}\n• Tasks: ${d.todos||'–'}\n• Risks: ${d.risks||'–'}`;
   return '';
 }
 
@@ -1168,7 +1146,7 @@ function genFree(fmt, d) {
 function renderCustTabs(ids) {
   const el = document.getElementById('ctabs');
   el.innerHTML = ids.map(id => {
-    const name = id === '_free' ? 'Projekt' : DB[id]?.name || id;
+    const name = id === '_free' ? 'Project' : DB[id]?.name || id;
     const hasEsk = id !== '_free' && DB[id]?.eskalation?.aktiv;
     return `<div class="ctab${id===activeCust?' active':''}" onclick="switchCust('${id}')">${hasEsk?'🚨 ':''}${name}</div>`;
   }).join('');
@@ -1176,7 +1154,7 @@ function renderCustTabs(ids) {
 }
 
 function renderFmtTabs(fmts) {
-  const labels = { short:'Short Overview', email:'E-Mail', deadlines:'Deadlines', bullets:'Stichpunkte' };
+  const labels = { short:'Short Overview', email:'Email', deadlines:'Deadlines', bullets:'Bullet Points' };
   const el = document.getElementById('ftabs');
   el.innerHTML = fmts.map(f =>
     `<div class="ftab${f===activeFmt?' active':''}" onclick="switchFmt('${f}')">${labels[f]}</div>`
@@ -1193,7 +1171,7 @@ function switchCust(id) {
 
 function switchFmt(f) {
   activeFmt = f;
-  const labels = { short:'Short Overview', email:'E-Mail', deadlines:'Deadlines', bullets:'Stichpunkte' };
+  const labels = { short:'Short Overview', email:'Email', deadlines:'Deadlines', bullets:'Bullet Points' };
   document.querySelectorAll('.ftab').forEach(el =>
     el.classList.toggle('active', el.textContent === labels[f]));
   showResult(activeCust, activeFmt);
@@ -1206,17 +1184,17 @@ function showResult(cid, fmt) {
 }
 
 // ═══════════════════════════════════════
-// AKTIONEN
+// ACTIONS
 // ═══════════════════════════════════════
 function copyRes() {
   const t = (results[activeCust] && results[activeCust][activeFmt]) || '';
-  navigator.clipboard.writeText(t).then(() => toast('✓ Kopiert.'));
+  navigator.clipboard.writeText(t).then(() => toast('✓ Copied.'));
 }
 
 function doMailto() {
   const emailText = results[activeCust]?.['email'] || Object.values(results[activeCust]||{})[0] || '';
   const cname = activeCust !== '_free' ? DB[activeCust]?.name || '' : '';
-  window.location.href = `mailto:?subject=${encodeURIComponent('Übergabe '+cname)}&body=${encodeURIComponent(emailText)}`;
+  window.location.href = `mailto:?subject=${encodeURIComponent('Handover '+cname)}&body=${encodeURIComponent(emailText)}`;
 }
 
 function icsExport() {
@@ -1237,17 +1215,17 @@ function icsExport() {
         `DTSTAMP:${new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)}Z`,
         `DTSTART:${dt}`, `DTEND:${de}`,
         `SUMMARY:${DB[cid].name}: ${t.title}`,
-        `DESCRIPTION:Teilnehmer: ${t.attendees}\\nPrep: ${t.prep}\\nPrio: ${t.prio==='high'?'🔴 Hoch':'🟡 Mittel'}`,
+        `DESCRIPTION:Attendees: ${t.attendees}\\nPrep: ${t.prep}\\nPriority: ${t.prio==='high'?'🔴 High':'🟡 Medium'}`,
         'END:VEVENT'
       );
     });
   });
-  if (!allEvents.length) { toast('Keine Termine im Zeitraum für Export.'); return; }
-  const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Unzer Relay//DE','X-WR-CALNAME:Unzer Relay Handover',...allEvents,'END:VCALENDAR'];
+  if (!allEvents.length) { toast('No appointments in period for export.'); return; }
+  const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Unzer Relay//EN','X-WR-CALNAME:Unzer Relay Handover',...allEvents,'END:VCALENDAR'];
   const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar' });
   const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: `relay-handover-${Date.now()}.ics` });
   a.click(); URL.revokeObjectURL(a.href);
-  toast(`✓ ${allEvents.length} Termin(e) exportiert.`);
+  toast(`✓ ${allEvents.length} appointment(s) exported.`);
 }
 
 function reset() {
