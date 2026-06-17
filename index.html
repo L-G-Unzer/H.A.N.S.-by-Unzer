@@ -1164,4 +1164,24 @@ function reset() {
   mode=null; selCusts={v:new Set(),c:new Set()}; selFmts.clear();
   tags={p:[]}; results={}; activeCust=null; activeFmt=null;
   document.querySelectorAll('input,textarea,select').forEach(el=>el.value='');
-  document.quer
+  document.querySelectorAll('.opt,.cust-card').forEach(el=>el.classList.remove('sel'));
+  document.querySelectorAll('.tr').forEach(el=>el.innerHTML='');
+  document.querySelectorAll('.sel-info').forEach(el=>el.textContent='');
+  document.getElementById('termine-hint')?.classList.add('hidden');
+  document.getElementById('btn-gen').disabled=true;
+  goPage(0); go('s-start');
+}
+
+function toast(msg) {
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),3500);
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter')return;
+  if(e.target.id==='p-ti')addTag('p');
+});
+</script>
+</body>
+</html>
