@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -8,31 +7,18 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:      #0d0d1a;
-      --surface: #13132a;
-      --card:    #1a1a35;
-      --card2:   #1f1f3d;
-      --accent:  #c0392b;
-      --accent2: #e74c3c;
-      --border:  rgba(255,255,255,.07);
-      --border2: rgba(255,255,255,.12);
-      --text:    #f0f0f8;
-      --text2:   #9898b8;
-      --text3:   #6060a0;
-      --teal:    #00c9b1;
-      --green:   #00c97d;
-      --yellow:  #f5a623;
+      --bg: #0d0d1a; --surface: #13132a; --card: #1a1a35; --card2: #1f1f3d;
+      --accent: #c0392b; --accent2: #e74c3c;
+      --border: rgba(255,255,255,.07); --border2: rgba(255,255,255,.12);
+      --text: #f0f0f8; --text2: #9898b8; --text3: #6060a0;
+      --teal: #00c9b1; --green: #00c97d; --yellow: #f5a623;
     }
-    body {
-      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg); color: var(--text);
-      min-height: 100vh; font-size: 14px;
-    }
+    body { font-family: 'Segoe UI', -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; }
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--surface); }
     ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
 
-    /* ── Splash Screen ── */
+    /* ── SPLASH ── */
     #splash {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background: #0d0d1a;
@@ -41,94 +27,62 @@
       z-index: 9999; gap: 2rem;
       animation: splashOut .6s ease 2.8s forwards;
     }
-    @keyframes splashOut {
-      0%   { opacity: 1; pointer-events: all; }
-      100% { opacity: 0; pointer-events: none; }
-    }
+    @keyframes splashOut { 0%{opacity:1;pointer-events:all} 100%{opacity:0;pointer-events:none} }
     .splash-hans {
-      height: 120px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 30px rgba(255,0,85,.4));
+      height: 160px; object-fit: contain;
+      filter: drop-shadow(0 0 50px rgba(255,0,85,.6));
       animation: splashIn .8s ease forwards;
     }
     .splash-by {
-      font-size: .95rem;
-      font-weight: 700;
-      color: rgba(255,255,255,.5);
-      letter-spacing: 4px;
-      text-transform: uppercase;
+      font-size: 1.1rem; font-weight: 700;
+      color: rgba(255,255,255,.55);
+      letter-spacing: 6px; text-transform: uppercase;
       animation: splashIn .8s ease .2s both;
     }
     .splash-unzer {
-      height: 60px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 20px rgba(255,0,85,.3));
+      height: 80px; object-fit: contain;
+      filter: drop-shadow(0 0 30px rgba(255,0,85,.4));
       animation: splashIn .8s ease .4s both;
     }
-    .splash-divider {
-      width: 40px; height: 1px;
-      background: rgba(255,255,255,.15);
-    }
-    @keyframes splashIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    .splash-div { width: 50px; height: 1px; background: rgba(255,255,255,.2); }
+    @keyframes splashIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 
-    /* ── Header ── */
+    /* ── HEADER ── */
     header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: .85rem 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      position: sticky; top: 0; z-index: 100;
-      backdrop-filter: blur(10px);
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: .85rem 2rem; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
     }
     .hl { display: flex; align-items: center; gap: .85rem; }
     .h-sub { font-size: .68rem; color: var(--text3); margin-top: .05rem; }
     .hr2 { display: flex; align-items: center; gap: .6rem; }
-
-    /* ── Voice Bar ── */
     .voice-bar { background: rgba(192,57,43,.1); border-bottom: 1px solid rgba(192,57,43,.2); padding: .4rem 2rem; display: none; align-items: center; gap: .65rem; font-size: .76rem; color: var(--accent2); }
     .voice-bar.show { display: flex; }
     .vdot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent2); animation: vdot .7s ease-in-out infinite; }
     @keyframes vdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.6)} }
-
-    /* ── Lang Toggle ── */
     .lang-toggle { display: flex; align-items: center; background: var(--card2); border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; }
     .lang-btn { padding: .32rem .65rem; font-size: .72rem; font-weight: 700; cursor: pointer; border: none; background: transparent; color: var(--text3); font-family: inherit; transition: all .15s; }
     .lang-btn.active { background: var(--accent); color: white; }
     .lang-btn:hover:not(.active) { color: var(--text); }
+    .hbtn { display: flex; align-items: center; gap: .4rem; padding: .35rem .75rem; border-radius: 7px; border: 1px solid var(--border2); background: var(--card2); cursor: pointer; font-size: .74rem; color: var(--text2); transition: all .2s; font-family: inherit; }
+    .hbtn:hover { border-color: var(--accent); color: var(--accent); }
+    .hbtn.teal:hover { border-color: var(--teal); color: var(--teal); }
+    .hbtn.listening { border-color: var(--accent); color: var(--accent); background: rgba(192,57,43,.1); }
+    .hbtn.speaking { border-color: var(--teal); color: var(--teal); background: rgba(0,201,177,.1); }
+    .hbtn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
 
-    /* ── Header Buttons ── */
-    .voice-btn, .tts-btn, .home-btn {
-      display: flex; align-items: center; gap: .4rem;
-      padding: .35rem .75rem; border-radius: 7px;
-      border: 1px solid var(--border2); background: var(--card2);
-      cursor: pointer; font-size: .74rem; color: var(--text2);
-      transition: all .2s; font-family: inherit;
-    }
-    .voice-btn:hover, .home-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .tts-btn:hover { border-color: var(--teal); color: var(--teal); }
-    .voice-btn.listening { border-color: var(--accent); color: var(--accent); background: rgba(192,57,43,.1); animation: pulse-btn 1.5s infinite; }
-    .tts-btn.speaking { border-color: var(--teal); color: var(--teal); background: rgba(0,201,177,.1); }
-    @keyframes pulse-btn { 0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,.3)} 50%{box-shadow:0 0 0 5px rgba(192,57,43,.08)} }
-    .voice-btn svg, .tts-btn svg, .home-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
-
-    /* ── Main ── */
     main { max-width: 1000px; margin: 2rem auto; padding: 0 1.5rem; }
     .ph { margin-bottom: 2rem; }
-    .ph h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -.3px; margin-bottom: .3rem; background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,.6) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .ph h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: .3rem; background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,.6) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .ph p { font-size: .82rem; color: var(--text2); }
 
-    /* ── HOME Grid ── */
+    /* ── HOME ── */
     .home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     .home-section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: all .2s; position: relative; overflow: hidden; }
     .home-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
     .home-section.handover::before { background: var(--accent); }
     .home-section.controller::before { background: var(--teal); }
     .home-section:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
-    .home-section.handover:hover { border-color: rgba(231,76,60,.3); }
-    .home-section.controller:hover { border-color: rgba(0,201,177,.3); }
     .hs-icon { font-size: 2rem; margin-bottom: .75rem; }
     .hs-title { font-size: 1.1rem; font-weight: 700; margin-bottom: .4rem; }
     .handover .hs-title { color: var(--accent2); }
@@ -144,7 +98,6 @@
     .controller .hs-cta { background: rgba(0,201,177,.15); color: var(--teal); border: 1px solid var(--teal); }
     .controller .hs-cta:hover { background: rgba(0,201,177,.25); }
 
-    /* ── Cards ── */
     .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
     .card-glow { box-shadow: 0 0 30px rgba(74,158,255,.05); }
     .clbl { font-size: .65rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text3); margin-bottom: 1rem; }
@@ -157,61 +110,56 @@
     .apc-card.fragile { border-color: rgba(245,166,35,.3); }
     .apc-card.positive { border-color: rgba(0,201,125,.3); }
     .apc-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: .75rem; }
-    .apc-name { font-size: .88rem; font-weight: 700; color: var(--text); }
+    .apc-name { font-size: .88rem; font-weight: 700; }
     .apc-id { font-size: .66rem; color: var(--text3); margin-top: .15rem; }
-    .health-badge { display: inline-flex; align-items: center; padding: .18rem .55rem; border-radius: 5px; font-size: .67rem; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; }
-    .h-escalated { background: rgba(231,76,60,.2); color: #ff4444; animation: pulse-health 1.5s infinite; }
+    .health-badge { display: inline-flex; padding: .18rem .55rem; border-radius: 5px; font-size: .67rem; font-weight: 700; text-transform: uppercase; }
+    .h-escalated { background: rgba(231,76,60,.2); color: #ff4444; animation: ph 1.5s infinite; }
     .h-fragile { background: rgba(245,166,35,.15); color: #f5a623; }
     .h-medium { background: rgba(255,255,255,.08); color: var(--text2); }
     .h-positive { background: rgba(0,201,125,.15); color: #00c97d; }
-    @keyframes pulse-health { 0%,100%{opacity:1}50%{opacity:.6} }
+    @keyframes ph { 0%,100%{opacity:1}50%{opacity:.6} }
     .apc-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .5rem; margin-bottom: .75rem; }
     .kpi-box { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 7px; padding: .5rem .6rem; text-align: center; }
-    .kpi-val { font-size: .86rem; font-weight: 700; color: var(--text); }
+    .kpi-val { font-size: .86rem; font-weight: 700; }
     .kpi-lbl { font-size: .63rem; color: var(--text3); margin-top: .1rem; }
-    .apc-issues { margin-bottom: .75rem; }
     .issue-item { display: flex; align-items: flex-start; gap: .4rem; font-size: .73rem; color: var(--text2); margin-bottom: .3rem; line-height: 1.4; }
     .issue-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: .35rem; }
-    .apc-footer { display: flex; align-items: center; justify-content: space-between; }
+    .apc-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .75rem; }
     .apc-trend { font-size: .71rem; color: var(--text3); }
     .apc-btn { padding: .28rem .7rem; border-radius: 5px; font-size: .71rem; font-weight: 600; border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; font-family: inherit; transition: all .15s; }
     .apc-btn:hover { border-color: var(--teal); color: var(--teal); }
 
-    /* ── Detail ── */
+    /* ── DETAIL ── */
     .detail-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
     .detail-back { padding: .4rem .85rem; border-radius: 7px; border: 1px solid var(--border2); background: var(--card2); cursor: pointer; font-size: .78rem; color: var(--text2); font-family: inherit; transition: all .15s; }
     .detail-back:hover { border-color: var(--accent); color: var(--accent); }
     .detail-title { font-size: 1.2rem; font-weight: 700; }
     .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; margin-bottom: 1rem; }
     .stat-box { background: var(--card2); border: 1px solid var(--border); border-radius: 9px; padding: .9rem 1rem; }
-    .stat-val { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .stat-val { font-size: 1.1rem; font-weight: 700; }
     .stat-lbl { font-size: .68rem; color: var(--text3); margin-top: .2rem; }
     .tabs-row { display: flex; gap: .4rem; margin-bottom: 1rem; flex-wrap: wrap; }
     .tab-btn { padding: .38rem .9rem; border-radius: 7px; border: 1px solid var(--border); background: var(--card2); font-size: .76rem; cursor: pointer; transition: all .15s; color: var(--text2); font-family: inherit; }
     .tab-btn.active { border-color: var(--teal); color: var(--teal); background: rgba(0,201,177,.08); font-weight: 600; }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
-
-    /* ── Timeline ── */
     .timeline { position: relative; padding-left: 1.5rem; }
     .timeline::before { content: ''; position: absolute; left: .4rem; top: 0; bottom: 0; width: 1px; background: var(--border); }
     .tl-item { position: relative; margin-bottom: 1.1rem; }
     .tl-dot { position: absolute; left: -1.15rem; top: .25rem; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--border2); background: var(--card2); }
     .tl-item.positive .tl-dot { border-color: var(--green); background: rgba(0,201,125,.2); }
     .tl-item.negative .tl-dot { border-color: var(--accent); background: rgba(231,76,60,.2); }
-    .tl-item.escalated .tl-dot { border-color: #ff0000; background: rgba(255,0,0,.2); animation: pulse-health 1s infinite; }
+    .tl-item.escalated .tl-dot { border-color: #ff0000; background: rgba(255,0,0,.2); animation: ph 1s infinite; }
     .tl-date { font-size: .67rem; color: var(--text3); margin-bottom: .2rem; }
-    .tl-title { font-size: .8rem; font-weight: 600; color: var(--text); margin-bottom: .2rem; }
+    .tl-title { font-size: .8rem; font-weight: 600; margin-bottom: .2rem; }
     .tl-body { font-size: .76rem; color: var(--text2); line-height: 1.5; }
-
-    /* ── Add Entry ── */
     .add-entry-form { background: var(--card2); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem; margin-bottom: 1rem; }
     .ae-title { font-size: .78rem; font-weight: 600; color: var(--teal); margin-bottom: .75rem; }
     .ae-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .6rem; }
     .ae-field { display: flex; flex-direction: column; gap: .28rem; }
     .ae-label { font-size: .71rem; color: var(--text2); }
 
-    /* ── Steps ── */
+    /* ── STEPS ── */
     .steps { display: flex; align-items: center; gap: .4rem; margin-bottom: 1.75rem; font-size: .72rem; }
     .step { display: flex; align-items: center; gap: .3rem; color: var(--text3); }
     .step.active { color: var(--text); font-weight: 600; }
@@ -220,7 +168,7 @@
     .step.done .sn { background: var(--teal); border-color: var(--teal); color: var(--bg); }
     .sep { color: var(--border2); font-size: .7rem; }
 
-    /* ── Forms ── */
+    /* ── FORMS ── */
     .sl { font-size: .64rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text3); margin: 1.25rem 0 .6rem; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
     .sl:first-child { margin-top: 0; }
     .cust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .75rem; }
@@ -230,9 +178,9 @@
     .cust-chk { width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid var(--border2); flex-shrink: 0; margin-top: .1rem; transition: all .15s; display: flex; align-items: center; justify-content: center; }
     .cust-card.sel .cust-chk { background: var(--accent); border-color: var(--accent); }
     .cust-card.sel .cust-chk::after { content: '✓'; font-size: .6rem; color: white; font-weight: 800; }
-    .cust-name { font-size: .83rem; font-weight: 600; color: var(--text); margin-bottom: .2rem; }
+    .cust-name { font-size: .83rem; font-weight: 600; margin-bottom: .2rem; }
     .cust-meta { font-size: .71rem; color: var(--text2); line-height: 1.4; }
-    .htag { display: inline-block; padding: .08rem .45rem; border-radius: 4px; font-size: .63rem; font-weight: 700; letter-spacing: .3px; text-transform: uppercase; }
+    .htag { display: inline-block; padding: .08rem .45rem; border-radius: 4px; font-size: .63rem; font-weight: 700; text-transform: uppercase; }
     .hf { background: rgba(231,76,60,.15); color: #ff6b6b; }
     .hm { background: rgba(245,166,35,.15); color: #f5a623; }
     .hp { background: rgba(0,201,125,.15); color: #00c97d; }
@@ -240,23 +188,15 @@
     @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.5} }
     .sel-info { font-size: .73rem; color: var(--accent2); font-weight: 600; margin-top: .5rem; }
 
-    /* ── Recipient Multi-Select ── */
+    /* ── RECIPIENT MULTI-SELECT ── */
     .recipient-wrap { margin-bottom: .85rem; }
-    .recipient-input-row { display: flex; gap: .5rem; margin-bottom: .45rem; }
-    .recipient-input-row input { flex: 1; }
-    .recipient-tags { display: flex; flex-wrap: wrap; gap: .35rem; min-height: 28px; }
-    .recipient-tag {
-      background: rgba(0,201,177,.1);
-      border: 1px solid rgba(0,201,177,.3);
-      border-radius: 5px;
-      padding: .2rem .6rem;
-      font-size: .76rem;
-      display: flex; align-items: center; gap: .35rem;
-      color: var(--teal);
-    }
-    .recipient-tag button { background: none; border: none; cursor: pointer; color: rgba(0,201,177,.6); font-size: .8rem; padding: 0; line-height: 1; }
-    .recipient-tag button:hover { color: var(--accent2); }
-    .recipient-hint { font-size: .7rem; color: var(--text3); margin-top: .3rem; }
+    .recipient-row { display: flex; gap: .5rem; margin-bottom: .45rem; }
+    .recipient-row input { flex: 1; }
+    .recipient-tags { display: flex; flex-wrap: wrap; gap: .35rem; min-height: 28px; margin-bottom: .3rem; }
+    .rtag { background: rgba(0,201,177,.1); border: 1px solid rgba(0,201,177,.3); border-radius: 5px; padding: .2rem .6rem; font-size: .76rem; display: flex; align-items: center; gap: .35rem; color: var(--teal); }
+    .rtag button { background: none; border: none; cursor: pointer; color: rgba(0,201,177,.6); font-size: .8rem; padding: 0; line-height: 1; }
+    .rtag button:hover { color: var(--accent2); }
+    .rec-hint { font-size: .69rem; color: var(--text3); }
 
     .field-wrap { position: relative; }
     .mic-btn { position: absolute; right: .5rem; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--border2); background: var(--card); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; color: var(--text3); }
@@ -270,33 +210,26 @@
     label { display: block; font-size: .74rem; font-weight: 500; margin-bottom: .3rem; color: var(--text2); }
     label .req { color: var(--accent2); }
     input[type=text], input[type=date], textarea, select {
-      width: 100%; padding: .52rem .8rem;
-      background: var(--card2); border: 1px solid var(--border2);
-      border-radius: 8px; font-size: .83rem; color: var(--text);
-      font-family: inherit; transition: border-color .15s, box-shadow .15s; -webkit-appearance: none;
+      width: 100%; padding: .52rem .8rem; background: var(--card2); border: 1px solid var(--border2);
+      border-radius: 8px; font-size: .83rem; color: var(--text); font-family: inherit;
+      transition: border-color .15s, box-shadow .15s; -webkit-appearance: none;
     }
     input::placeholder, textarea::placeholder { color: var(--text3); }
     input:focus, textarea:focus, select:focus { outline: none; border-color: rgba(231,76,60,.5); box-shadow: 0 0 0 3px rgba(231,76,60,.1); }
     textarea { min-height: 80px; resize: vertical; line-height: 1.5; }
     select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236060a0'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .75rem center; padding-right: 2rem; cursor: pointer; }
     select option { background: var(--card2); color: var(--text); }
-    .tr { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .4rem; }
-    .tag { background: rgba(255,255,255,.05); border: 1px solid var(--border2); border-radius: 5px; padding: .18rem .55rem; font-size: .73rem; display: flex; align-items: center; gap: .3rem; color: var(--text2); }
-    .tag button { background: none; border: none; cursor: pointer; color: var(--text3); font-size: .78rem; padding: 0; }
-    .tag button:hover { color: var(--accent2); }
-    .ti { display: flex; gap: .45rem; margin-top: .4rem; }
-    .ti input { flex: 1; }
-    .bxs { padding: .4rem .8rem; border-radius: 7px; border: 1px solid var(--border2); font-size: .75rem; font-weight: 500; cursor: pointer; background: var(--card2); color: var(--text2); font-family: inherit; white-space: nowrap; transition: all .15s; }
-    .bxs:hover { border-color: var(--accent); color: var(--accent); }
     .div { height: 1px; background: var(--border); margin: 1.25rem 0; }
     .no-appt-banner { background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.3); border-radius: 8px; padding: .75rem 1rem; font-size: .78rem; color: #f5a623; margin-bottom: 1rem; }
+    .bxs { padding: .4rem .8rem; border-radius: 7px; border: 1px solid var(--border2); font-size: .75rem; font-weight: 500; cursor: pointer; background: var(--card2); color: var(--text2); font-family: inherit; white-space: nowrap; transition: all .15s; }
+    .bxs:hover { border-color: var(--accent); color: var(--accent); }
 
     .og { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
     .opt { background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: .9rem 1rem; cursor: pointer; display: flex; align-items: flex-start; gap: .7rem; transition: all .2s; }
     .opt:hover { border-color: rgba(231,76,60,.35); background: rgba(231,76,60,.05); }
     .opt.sel { border-color: var(--accent); background: rgba(231,76,60,.08); box-shadow: 0 0 16px rgba(231,76,60,.1); }
     .oi { flex-shrink: 0; margin-top: .05rem; }
-    .ot { font-size: .83rem; font-weight: 600; color: var(--text); margin-bottom: .08rem; }
+    .ot { font-size: .83rem; font-weight: 600; margin-bottom: .08rem; }
     .os { font-size: .72rem; color: var(--text2); line-height: 1.35; }
     .oc { margin-left: auto; width: 15px; height: 15px; border-radius: 4px; border: 1.5px solid var(--border2); flex-shrink: 0; align-self: center; transition: all .15s; display: flex; align-items: center; justify-content: center; }
     .opt.sel .oc { background: var(--accent); border-color: var(--accent); }
@@ -313,7 +246,7 @@
     .bt:hover { background: rgba(0,201,177,.25); }
 
     .prog { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
-    .prog-title { font-size: .85rem; font-weight: 600; margin-bottom: .75rem; color: var(--text); }
+    .prog-title { font-size: .85rem; font-weight: 600; margin-bottom: .75rem; }
     .prog-bg { background: rgba(255,255,255,.06); border-radius: 10px; height: 4px; margin-bottom: .5rem; overflow: hidden; }
     .prog-bar { background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 10px; height: 4px; transition: width .4s ease; }
     .prog-status { font-size: .74rem; color: var(--text2); }
@@ -326,10 +259,8 @@
     .ftab { padding: .3rem .75rem; border-radius: 6px; border: 1px solid var(--border); background: transparent; font-size: .73rem; cursor: pointer; transition: all .15s; color: var(--text3); }
     .ftab:hover { color: var(--text2); }
     .ftab.active { border-color: var(--border2); color: var(--text); background: rgba(255,255,255,.05); font-weight: 600; }
-
     .rbox { background: var(--card); border: 1px solid var(--border); border-radius: 12px; border-left: 3px solid var(--accent); padding: 1.5rem; white-space: pre-wrap; font-size: .81rem; line-height: 1.8; max-height: 520px; overflow-y: auto; margin-bottom: 1rem; color: var(--text); font-family: 'Segoe UI', monospace; }
 
-    /* ── TTS Overlay ── */
     .tts-overlay { position: fixed; bottom: 5rem; right: 1.5rem; background: var(--card2); border: 1px solid var(--teal); border-radius: 10px; padding: .75rem 1.1rem; display: none; align-items: center; gap: .65rem; font-size: .78rem; color: var(--teal); box-shadow: 0 4px 20px rgba(0,201,177,.15); z-index: 998; }
     .tts-overlay.show { display: flex; }
     .tts-wave { display: flex; gap: 3px; align-items: center; }
@@ -338,7 +269,6 @@
     @keyframes wave { 0%,100%{transform:scaleY(1)}50%{transform:scaleY(.4)} }
     .tts-stop { background: none; border: 1px solid var(--teal); border-radius: 5px; color: var(--teal); font-size: .72rem; padding: .18rem .5rem; cursor: pointer; font-family: inherit; }
 
-    /* ── Tile Slider ── */
     .stop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
     .ag { display: flex; gap: .35rem; }
     .arr { width: 28px; height: 28px; border-radius: 7px; border: 1px solid var(--border2); background: var(--card2); cursor: pointer; font-size: .78rem; display: flex; align-items: center; justify-content: center; transition: all .15s; color: var(--text2); }
@@ -347,7 +277,7 @@
     .tpages { overflow: hidden; }
     .tpage { display: none; grid-template-columns: 1fr 1fr; gap: .75rem; animation: fi .2s ease; }
     .tpage.active { display: grid; }
-    @keyframes fi { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fi { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
     .dots { display: flex; justify-content: center; gap: .4rem; margin-top: 1rem; }
     .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border2); cursor: pointer; transition: all .2s; }
     .dot.active { background: var(--accent); width: 16px; border-radius: 2px; }
@@ -358,7 +288,7 @@
     .tiw svg { width: 16px; height: 16px; stroke: var(--text2); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
     .tile:hover .tiw svg { stroke: var(--accent2); }
     .tb { flex: 1; }
-    .tt { font-size: .86rem; font-weight: 600; color: var(--text); margin-bottom: .15rem; }
+    .tt { font-size: .86rem; font-weight: 600; margin-bottom: .15rem; }
     .td { font-size: .74rem; color: var(--text2); line-height: 1.4; }
     .ta { color: var(--text3); font-size: .85rem; align-self: center; flex-shrink: 0; transition: color .2s; }
     .tile:hover .ta { color: var(--accent2); }
@@ -376,24 +306,24 @@
 </head>
 <body>
 
-<!-- ══ SPLASH SCREEN ══ -->
+<!-- SPLASH -->
 <div id="splash">
   <img class="splash-hans" src="hans-logo.png" alt="H.A.N.S."
-       onerror="this.style.cssText='font-size:3.5rem;font-weight:900;color:#FF0055;letter-spacing:2px;animation:splashIn .8s ease forwards;'"/>
-  <div class="splash-divider"></div>
+       onerror="this.style.cssText='font-size:4rem;font-weight:900;color:#FF0055;animation:splashIn .8s ease forwards;'"/>
+  <div class="splash-div"></div>
   <div class="splash-by">by</div>
-  <div class="splash-divider"></div>
+  <div class="splash-div"></div>
   <img class="splash-unzer" src="unzer-logo.jpg" alt="Unzer"
-       onerror="this.style.cssText='font-size:2.5rem;font-weight:900;color:#FF0055;animation:splashIn .8s ease .4s both;'"/>
+       onerror="this.style.cssText='font-size:3rem;font-weight:900;color:#FF0055;animation:splashIn .8s ease .4s both;'"/>
 </div>
 
-<!-- Voice Bar -->
+<!-- VOICE BAR -->
 <div class="voice-bar" id="voice-bar">
   <div class="vdot"></div>
   <span id="voice-bar-txt">Listening...</span>
 </div>
 
-<!-- TTS Overlay -->
+<!-- TTS OVERLAY -->
 <div class="tts-overlay" id="tts-overlay">
   <div class="tts-wave"><span></span><span></span><span></span><span></span><span></span></div>
   <span id="tts-overlay-txt">H.A.N.S. is speaking...</span>
@@ -403,27 +333,24 @@
 <header>
   <div class="hl">
     <img src="hans-logo.png" onclick="goHome()" title="Home"
-         style="height:36px;cursor:pointer;flex-shrink:0;object-fit:contain;"
-         alt="H.A.N.S."
-         onerror="this.outerHTML='<span onclick=goHome() style=cursor:pointer;font-size:.9rem;font-weight:900;color:#FF0055;letter-spacing:1px;flex-shrink:0>H.A.N.S.</span>'"/>
-    <div>
-      <div class="h-sub">Handover Assistant · Account Plan Controller · Unzer Relay</div>
-    </div>
+         style="height:36px;cursor:pointer;flex-shrink:0;object-fit:contain;" alt="H.A.N.S."
+         onerror="this.outerHTML='<span onclick=goHome() style=cursor:pointer;font-size:.9rem;font-weight:900;color:#FF0055;flex-shrink:0>H.A.N.S.</span>'"/>
+    <div><div class="h-sub">Handover Assistant · Account Plan Controller · Unzer Relay</div></div>
   </div>
   <div class="hr2">
-    <button class="voice-btn" id="global-voice-btn" onclick="toggleGlobalVoice()">
+    <button class="hbtn" id="gbtn-voice" onclick="toggleGlobalVoice()">
       <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-      <span id="voice-btn-lbl">Voice</span>
+      <span id="lbl-voice">Voice</span>
     </button>
-    <button class="tts-btn" id="tts-toggle-btn" onclick="toggleTTS()">
+    <button class="hbtn teal" id="gbtn-tts" onclick="toggleTTS()">
       <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-      <span id="tts-btn-lbl">Read Aloud</span>
+      <span id="lbl-tts">Read Aloud</span>
     </button>
     <div class="lang-toggle">
       <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
       <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
     </div>
-    <button class="home-btn" onclick="goHome()">
+    <button class="hbtn" onclick="goHome()">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <span id="lbl-home">Home</span>
     </button>
@@ -432,17 +359,17 @@
 
 <main>
 
-<!-- ══ S-HOME ══ -->
+<!-- S-HOME -->
 <div id="s-home">
   <div class="ph">
     <h2 id="ph-title">Welcome to H.A.N.S.</h2>
     <p id="ph-sub">Handover Assistant & Account Plan Controller · Unzer Relay</p>
   </div>
   <div class="home-grid">
-    <div class="home-section handover" onclick="go('s-handover-start')">
+    <div class="home-section handover" onclick="go('s-ho-start')">
       <div class="hs-icon">📋</div>
-      <div class="hs-title" id="hs-ho-title">Handover Assistant</div>
-      <div class="hs-desc" id="hs-ho-desc">Create structured handovers for vacation, customer transitions and project transfers.</div>
+      <div class="hs-title" id="hs-ho-t">Handover Assistant</div>
+      <div class="hs-desc" id="hs-ho-d">Create structured handovers for vacation, customer transitions and project transfers.</div>
       <div class="hs-items">
         <div class="hs-item" id="hs-ho-1">Vacation Handover</div>
         <div class="hs-item" id="hs-ho-2">Customer Handover</div>
@@ -453,8 +380,8 @@
     </div>
     <div class="home-section controller" onclick="go('s-apc')">
       <div class="hs-icon">📊</div>
-      <div class="hs-title" id="hs-apc-title">Account Plan Controller</div>
-      <div class="hs-desc" id="hs-apc-desc">Live dashboard for all accounts. Track KPIs, health scores, open issues and growing timelines.</div>
+      <div class="hs-title" id="hs-apc-t">Account Plan Controller</div>
+      <div class="hs-desc" id="hs-apc-d">Live dashboard for all accounts. Track KPIs, health scores, open issues and growing timelines.</div>
       <div class="hs-items">
         <div class="hs-item" id="hs-apc-1">Live KPI Dashboard</div>
         <div class="hs-item" id="hs-apc-2">Health Score & Alerts</div>
@@ -466,11 +393,11 @@
   </div>
 </div>
 
-<!-- ══ S-HANDOVER-START ══ -->
-<div id="s-handover-start" class="hidden">
+<!-- S-HO-START -->
+<div id="s-ho-start" class="hidden">
   <div class="ph">
-    <h2 id="hph-title">Create New Handover</h2>
-    <p id="hph-sub">Select the handover type to get started.</p>
+    <h2 id="hph-t">Create New Handover</h2>
+    <p id="hph-d">Select the handover type to get started.</p>
   </div>
   <div class="card card-glow">
     <div class="stop">
@@ -484,19 +411,19 @@
       <div class="tpage active" id="tp-0">
         <div class="tile" onclick="pickMode('vacation')">
           <div class="tiw"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8v4h8V3z"/></svg></div>
-          <div class="tb"><div class="tt" id="tile-vac-t">Vacation Handover</div><div class="td" id="tile-vac-d">Internal coverage for absence period</div></div>
+          <div class="tb"><div class="tt" id="t-vac-t">Vacation Handover</div><div class="td" id="t-vac-d">Internal coverage for absence period</div></div>
           <div class="ta">›</div>
         </div>
         <div class="tile" onclick="pickMode('customer')">
           <div class="tiw"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-          <div class="tb"><div class="tt" id="tile-cust-t">Customer Handover</div><div class="td" id="tile-cust-d">Cross-team handover of customers & opportunities</div></div>
+          <div class="tb"><div class="tt" id="t-cust-t">Customer Handover</div><div class="td" id="t-cust-d">Cross-team handover of customers & opportunities</div></div>
           <div class="ta">›</div>
         </div>
       </div>
       <div class="tpage" id="tp-1">
         <div class="tile" onclick="pickMode('project')">
           <div class="tiw"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg></div>
-          <div class="tb"><div class="tt" id="tile-proj-t">Project Handover</div><div class="td" id="tile-proj-d">Transfer of ongoing projects to other teams</div></div>
+          <div class="tb"><div class="tt" id="t-proj-t">Project Handover</div><div class="td" id="t-proj-d">Transfer of ongoing projects to other teams</div></div>
           <div class="ta">›</div>
         </div>
       </div>
@@ -509,7 +436,7 @@
   <div class="br"><button class="btn bg" onclick="goHome()">← Back</button></div>
 </div>
 
-<!-- ══ S-FORM ══ -->
+<!-- S-FORM -->
 <div id="s-form" class="hidden">
   <div class="steps">
     <div class="step done"><div class="sn">✓</div><span id="s1a">Type</span></div>
@@ -524,60 +451,55 @@
   <!-- VACATION -->
   <div id="f-vacation" class="hidden">
     <div class="card">
-      <div class="sl" id="lbl-sel-cust">Select Customers – Multiple Selection</div>
+      <div class="sl" id="lbl-sc1">Select Customers – Multiple Selection</div>
       <div class="cust-grid">
         <div class="cust-card" onclick="toggleCust('bella_casa','v',this)">
           <div class="cust-chk"></div>
-          <div><div class="cust-name">Bella Casa Living AG</div><div class="cust-meta"><span class="htag he">🚨 <span class="esc-lbl">Escalation</span></span> · EUR 31.8M · DE/AT</div></div>
+          <div><div class="cust-name">Bella Casa Living AG</div><div class="cust-meta"><span class="htag he">🚨 <span class="esc1">Escalation</span></span> · EUR 31.8M · DE/AT</div></div>
         </div>
         <div class="cust-card" onclick="toggleCust('fitfuel','v',this)">
           <div class="cust-chk"></div>
-          <div><div class="cust-name">FitFuel Nutrition Europe</div><div class="cust-meta"><span class="htag hp"><span class="pos-lbl">Positive</span></span> · EUR 14.7M · EU</div></div>
+          <div><div class="cust-name">FitFuel Nutrition Europe</div><div class="cust-meta"><span class="htag hp"><span class="pos1">Positive</span></span> · EUR 14.7M · EU</div></div>
         </div>
         <div class="cust-card" onclick="toggleCust('nordlicht','v',this)">
           <div class="cust-chk"></div>
-          <div><div class="cust-name">Nordlicht Outdoor GmbH</div><div class="cust-meta"><span class="htag hm"><span class="med-lbl">Medium</span></span> · EUR 18.4M · DACH</div></div>
+          <div><div class="cust-name">Nordlicht Outdoor GmbH</div><div class="cust-meta"><span class="htag hm"><span class="med1">Medium</span></span> · EUR 18.4M · DACH</div></div>
         </div>
         <div class="cust-card" onclick="toggleCust('urbancraft','v',this)">
           <div class="cust-chk"></div>
-          <div><div class="cust-name">UrbanCraft Market GmbH</div><div class="cust-meta"><span class="htag hf"><span class="frag-lbl">Fragile</span></span> · EUR 8.9M · DACH</div></div>
+          <div><div class="cust-name">UrbanCraft Market GmbH</div><div class="cust-meta"><span class="htag hf"><span class="fra1">Fragile</span></span> · EUR 8.9M · DACH</div></div>
         </div>
       </div>
       <div class="sel-info" id="v-si"></div>
       <div class="div"></div>
-      <div class="sl" id="lbl-ho-det">Handover Details</div>
+      <div class="sl" id="lbl-hd1">Handover Details</div>
       <div class="fg">
         <label id="lbl-yn">Your Name <span class="req">*</span></label>
         <div class="field-wrap has-mic">
           <input type="text" id="v-name" placeholder="Maria Schmidt"/>
-          <button class="mic-btn" onclick="startFieldVoice('v-name',this)"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></button>
+          <button class="mic-btn" onclick="startFV('v-name',this)"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></button>
         </div>
       </div>
-
-      <!-- ── MULTI-PERSON COVERAGE ── -->
       <div class="recipient-wrap">
         <label id="lbl-cov">Coverage By / Team <span class="req">*</span></label>
-        <div class="recipient-input-row">
-          <input type="text" id="v-sub-inp"
-                 placeholder="Name or Team..."
-                 onkeydown="if(event.key==='Enter'){event.preventDefault();addRecipient('v');}"/>
-          <button class="bxs" onclick="addRecipient('v')" id="btn-add-rec-v">+ Add</button>
+        <div class="recipient-row">
+          <input type="text" id="v-rec-inp" placeholder="Name or Team..."
+                 onkeydown="if(event.key==='Enter'){event.preventDefault();addRec('v');}"/>
+          <button class="bxs" onclick="addRec('v')">+ Add</button>
         </div>
-        <div class="recipient-tags" id="v-recipients"></div>
-        <div class="recipient-hint" id="lbl-rec-hint">Press Enter or click + Add for each person/team</div>
-        <input type="hidden" id="v-sub"/>
+        <div class="recipient-tags" id="v-rec-tags"></div>
+        <div class="rec-hint" id="lbl-rec-hint">Press Enter or + Add for each person/team</div>
       </div>
-
       <div class="r2">
-        <div class="fg"><label id="lbl-from">From <span class="req">*</span></label><input type="date" id="v-start" onchange="checkTermine()"/></div>
-        <div class="fg"><label id="lbl-until">Until <span class="req">*</span></label><input type="date" id="v-end" onchange="checkTermine()"/></div>
+        <div class="fg"><label id="lbl-from">From <span class="req">*</span></label><input type="date" id="v-start" onchange="checkAppts()"/></div>
+        <div class="fg"><label id="lbl-until">Until <span class="req">*</span></label><input type="date" id="v-end" onchange="checkAppts()"/></div>
       </div>
-      <div id="appt-hint" class="no-appt-banner hidden">ℹ️ <span id="no-appt-txt">No appointments found for the selected period.</span></div>
+      <div id="appt-hint" class="no-appt-banner hidden">ℹ️ <span id="lbl-no-appt">No appointments found for the selected period.</span></div>
       <div class="fg">
-        <label id="lbl-notes">Additional Notes (optional)</label>
+        <label id="lbl-notes1">Additional Notes (optional)</label>
         <div class="field-wrap has-mic">
           <textarea id="v-notes" placeholder="..."></textarea>
-          <button class="mic-btn" style="top:.75rem;transform:none" onclick="startFieldVoice('v-notes',this)"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></button>
+          <button class="mic-btn" style="top:.75rem;transform:none" onclick="startFV('v-notes',this)"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></button>
         </div>
       </div>
     </div>
@@ -586,55 +508,50 @@
   <!-- CUSTOMER -->
   <div id="f-customer" class="hidden">
     <div class="card">
-      <div class="sl" id="lbl-sel-cust2">Select Customers – Multiple Selection</div>
+      <div class="sl" id="lbl-sc2">Select Customers – Multiple Selection</div>
       <div class="cust-grid">
         <div class="cust-card" onclick="toggleCust('bella_casa','c',this)">
           <div class="cust-chk"></div>
-          <div><div class="cust-name">Bella Casa Living AG</div><div class="cust-meta"><span class="htag he">🚨 <span class="esc-lbl2">Escalation</span></span> · EUR 31.8M · DE/AT</div></div>
+          <div><div class="cust-name">Bella Casa Living AG</div><div class="cust-meta"><span class="htag he">🚨 <span class="esc2">Escalation</span></span> · EUR 31.8M · DE/AT</div></div>
         </div>
         <div class="cust-card" onclick="toggleCust('fitfuel','c',this)">
           <div class="cust-chk"></div>
-          <div><div class="cust-name">FitFuel Nutrition Europe</div><div class="cust-meta"><span class="htag hp"><span class="pos-lbl2">Positive</span></span> · EUR 14.7M · EU</div></div>
+          <div><div class="cust-name">FitFuel Nutrition Europe</div><div class="cust-meta"><span class="htag hp"><span class="pos2">Positive</span></span> · EUR 14.7M · EU</div></div>
         </div>
         <div class="cust-card" onclick="toggleCust('nordlicht','c',this)">
           <div class="cust-chk"></div>
-          <div><div class="cust-name">Nordlicht Outdoor GmbH</div><div class="cust-meta"><span class="htag hm"><span class="med-lbl2">Medium</span></span> · EUR 18.4M · DACH</div></div>
+          <div><div class="cust-name">Nordlicht Outdoor GmbH</div><div class="cust-meta"><span class="htag hm"><span class="med2">Medium</span></span> · EUR 18.4M · DACH</div></div>
         </div>
         <div class="cust-card" onclick="toggleCust('urbancraft','c',this)">
           <div class="cust-chk"></div>
-          <div><div class="cust-name">UrbanCraft Market GmbH</div><div class="cust-meta"><span class="htag hf"><span class="frag-lbl2">Fragile</span></span> · EUR 8.9M · DACH</div></div>
+          <div><div class="cust-name">UrbanCraft Market GmbH</div><div class="cust-meta"><span class="htag hf"><span class="fra2">Fragile</span></span> · EUR 8.9M · DACH</div></div>
         </div>
       </div>
       <div class="sel-info" id="c-si"></div>
       <div class="div"></div>
-      <div class="sl" id="lbl-ho-det2">Handover Details</div>
+      <div class="sl" id="lbl-hd2">Handover Details</div>
       <div class="fg">
         <label id="lbl-hof">Handover From <span class="req">*</span></label>
         <div class="field-wrap has-mic">
           <input type="text" id="c-from" placeholder="Name + Team"/>
-          <button class="mic-btn" onclick="startFieldVoice('c-from',this)"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></button>
+          <button class="mic-btn" onclick="startFV('c-from',this)"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></button>
         </div>
       </div>
-
-      <!-- ── MULTI-PERSON COVERAGE CUSTOMER ── -->
       <div class="recipient-wrap">
         <label id="lbl-hot">Handover To / Team <span class="req">*</span></label>
-        <div class="recipient-input-row">
-          <input type="text" id="c-to-inp"
-                 placeholder="Name or Team..."
-                 onkeydown="if(event.key==='Enter'){event.preventDefault();addRecipient('c');}"/>
-          <button class="bxs" onclick="addRecipient('c')" id="btn-add-rec-c">+ Add</button>
+        <div class="recipient-row">
+          <input type="text" id="c-rec-inp" placeholder="Name or Team..."
+                 onkeydown="if(event.key==='Enter'){event.preventDefault();addRec('c');}"/>
+          <button class="bxs" onclick="addRec('c')">+ Add</button>
         </div>
-        <div class="recipient-tags" id="c-recipients"></div>
-        <div class="recipient-hint" id="lbl-rec-hint2">Press Enter or click + Add for each person/team</div>
-        <input type="hidden" id="c-to"/>
+        <div class="recipient-tags" id="c-rec-tags"></div>
+        <div class="rec-hint" id="lbl-rec-hint2">Press Enter or + Add for each person/team</div>
       </div>
-
       <div class="fg">
         <label id="lbl-notes2">Additional Notes (optional)</label>
         <div class="field-wrap has-mic">
           <textarea id="c-notes" placeholder="..."></textarea>
-          <button class="mic-btn" style="top:.75rem;transform:none" onclick="startFieldVoice('c-notes',this)"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></button>
+          <button class="mic-btn" style="top:.75rem;transform:none" onclick="startFV('c-notes',this)"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></button>
         </div>
       </div>
     </div>
@@ -643,26 +560,23 @@
   <!-- PROJECT -->
   <div id="f-project" class="hidden">
     <div class="card">
-      <div class="sl" id="lbl-proj-det">Project Details</div>
+      <div class="sl" id="lbl-pd">Project Details</div>
       <div class="r2">
         <div class="fg">
           <label id="lbl-pn">Project Name <span class="req">*</span></label>
           <div class="field-wrap has-mic">
             <input type="text" id="p-name" placeholder="e.g. CRM Migration"/>
-            <button class="mic-btn" onclick="startFieldVoice('p-name',this)"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></button>
+            <button class="mic-btn" onclick="startFV('p-name',this)"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></button>
           </div>
         </div>
         <div class="fg">
-          <!-- MULTI-PERSON PROJECT -->
           <label id="lbl-pt">Handover To / Team <span class="req">*</span></label>
-          <div class="recipient-input-row">
-            <input type="text" id="p-to-inp"
-                   placeholder="Name or Team..."
-                   onkeydown="if(event.key==='Enter'){event.preventDefault();addRecipient('p');}"/>
-            <button class="bxs" onclick="addRecipient('p')">+ Add</button>
+          <div class="recipient-row">
+            <input type="text" id="p-rec-inp" placeholder="Name or Team..."
+                   onkeydown="if(event.key==='Enter'){event.preventDefault();addRec('p');}"/>
+            <button class="bxs" onclick="addRec('p')">+ Add</button>
           </div>
-          <div class="recipient-tags" id="p-recipients"></div>
-          <input type="hidden" id="p-to"/>
+          <div class="recipient-tags" id="p-rec-tags"></div>
         </div>
       </div>
       <div class="fg"><label id="lbl-stat">Status & Phase</label><textarea id="p-status" placeholder="..."></textarea></div>
@@ -673,12 +587,12 @@
   </div>
 
   <div class="br">
-    <button class="btn bg" onclick="go('s-handover-start')" id="btn-back1">← Back</button>
+    <button class="btn bg" onclick="go('s-ho-start')" id="btn-back1">← Back</button>
     <button class="btn bp" onclick="toOutput()" id="btn-cont">Continue →</button>
   </div>
 </div>
 
-<!-- ══ S-OUTPUT ══ -->
+<!-- S-OUTPUT -->
 <div id="s-output" class="hidden">
   <div class="steps">
     <div class="step done"><div class="sn">✓</div><span id="s1b">Type</span></div>
@@ -694,22 +608,22 @@
     <div class="og">
       <div class="opt" onclick="togOpt(this,'short')">
         <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-        <div style="flex:1"><div class="ot" id="fmt-s-t">Short Overview</div><div class="os" id="fmt-s-d">Compact 1-page summary</div></div>
+        <div style="flex:1"><div class="ot" id="fmt-st">Short Overview</div><div class="os" id="fmt-sd">Compact 1-page summary</div></div>
         <div class="oc"></div>
       </div>
       <div class="opt" onclick="togOpt(this,'email')">
         <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-        <div style="flex:1"><div class="ot" id="fmt-e-t">Email to Coverage</div><div class="os" id="fmt-e-d">Ready to send, fully formatted</div></div>
+        <div style="flex:1"><div class="ot" id="fmt-et">Email to Coverage</div><div class="os" id="fmt-ed">Ready to send, fully formatted</div></div>
         <div class="oc"></div>
       </div>
       <div class="opt" onclick="togOpt(this,'deadlines')">
         <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-        <div style="flex:1"><div class="ot" id="fmt-d-t">Deadlines & Appointments</div><div class="os" id="fmt-d-d">Schedule + .ics calendar export</div></div>
+        <div style="flex:1"><div class="ot" id="fmt-dt">Deadlines & Appointments</div><div class="os" id="fmt-dd">Schedule + .ics calendar export</div></div>
         <div class="oc"></div>
       </div>
       <div class="opt" onclick="togOpt(this,'bullets')">
         <div class="oi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--text2)"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
-        <div style="flex:1"><div class="ot" id="fmt-b-t">Bullet Point Handover</div><div class="os" id="fmt-b-d">Structured bullet point overview</div></div>
+        <div style="flex:1"><div class="ot" id="fmt-bt">Bullet Point Handover</div><div class="os" id="fmt-bd">Structured bullet point overview</div></div>
         <div class="oc"></div>
       </div>
     </div>
@@ -721,7 +635,7 @@
   </div>
 </div>
 
-<!-- ══ S-RESULT ══ -->
+<!-- S-RESULT -->
 <div id="s-result" class="hidden">
   <div class="steps">
     <div class="step done"><div class="sn">✓</div><span id="s1c">Type</span></div>
@@ -749,54 +663,54 @@
   </div>
 </div>
 
-<!-- ══ S-APC ══ -->
+<!-- S-APC -->
 <div id="s-apc" class="hidden">
   <div class="ph">
-    <h2 id="apc-ph-title">Account Plan Controller</h2>
-    <p id="apc-ph-sub">Live overview of all accounts · Click any account for details</p>
+    <h2 id="apc-t">Account Plan Controller</h2>
+    <p id="apc-d">Live overview of all accounts · Click any account for details</p>
   </div>
-  <div class="stats-grid" style="margin-bottom:1.25rem;">
-    <div class="stat-box"><div class="stat-val" style="color:var(--teal)">4</div><div class="stat-lbl" id="stat-accounts">Active Accounts</div></div>
-    <div class="stat-box"><div class="stat-val" style="color:var(--accent)">1</div><div class="stat-lbl" id="stat-escalations">Active Escalations</div></div>
-    <div class="stat-box"><div class="stat-val">EUR 74M</div><div class="stat-lbl" id="stat-tpv">Total Portfolio TPV</div></div>
-    <div class="stat-box"><div class="stat-val" style="color:var(--yellow)">20</div><div class="stat-lbl" id="stat-issues">Open Issues</div></div>
+  <div class="stats-grid" style="margin-bottom:1.25rem">
+    <div class="stat-box"><div class="stat-val" style="color:var(--teal)">4</div><div class="stat-lbl" id="s-accs">Active Accounts</div></div>
+    <div class="stat-box"><div class="stat-val" style="color:var(--accent)">1</div><div class="stat-lbl" id="s-escs">Active Escalations</div></div>
+    <div class="stat-box"><div class="stat-val">EUR 74M</div><div class="stat-lbl" id="s-tpv">Total Portfolio TPV</div></div>
+    <div class="stat-box"><div class="stat-val" style="color:var(--yellow)">20</div><div class="stat-lbl" id="s-iss">Open Issues</div></div>
   </div>
   <div class="apc-grid" id="apc-grid"></div>
   <div class="br"><button class="btn bg" onclick="goHome()">← Back</button></div>
 </div>
 
-<!-- ══ S-APC-DETAIL ══ -->
+<!-- S-APC-DETAIL -->
 <div id="s-apc-detail" class="hidden">
   <div class="detail-header">
     <button class="detail-back" onclick="go('s-apc')">← Back</button>
     <div>
-      <div class="detail-title" id="detail-name"></div>
-      <div style="font-size:.74rem;color:var(--text3);margin-top:.2rem" id="detail-sub"></div>
+      <div class="detail-title" id="det-name"></div>
+      <div style="font-size:.74rem;color:var(--text3);margin-top:.2rem" id="det-sub"></div>
     </div>
-    <div id="detail-badge" style="margin-left:auto"></div>
+    <div id="det-badge" style="margin-left:auto"></div>
   </div>
-  <div class="stats-grid" id="detail-stats"></div>
+  <div class="stats-grid" id="det-stats"></div>
   <div class="tabs-row">
-    <button class="tab-btn active" onclick="switchDetailTab('overview',this)" id="tab-overview">Overview</button>
-    <button class="tab-btn" onclick="switchDetailTab('issues',this)" id="tab-issues">Open Issues</button>
-    <button class="tab-btn" onclick="switchDetailTab('timeline',this)" id="tab-timeline">Timeline</button>
-    <button class="tab-btn" onclick="switchDetailTab('contacts',this)" id="tab-contacts">Contacts</button>
-    <button class="tab-btn" onclick="switchDetailTab('add',this)" id="tab-add">+ Add Entry</button>
+    <button class="tab-btn active" onclick="switchTab('overview',this)" id="tab-ov">Overview</button>
+    <button class="tab-btn" onclick="switchTab('issues',this)" id="tab-iss">Open Issues</button>
+    <button class="tab-btn" onclick="switchTab('timeline',this)" id="tab-tl">Timeline</button>
+    <button class="tab-btn" onclick="switchTab('contacts',this)" id="tab-ct">Contacts</button>
+    <button class="tab-btn" onclick="switchTab('add',this)" id="tab-add">+ Add Entry</button>
   </div>
-  <div class="tab-panel active" id="panel-overview"><div class="card"><div id="detail-overview-content"></div></div></div>
+  <div class="tab-panel active" id="panel-overview"><div class="card"><div id="det-ov"></div></div></div>
   <div class="tab-panel" id="panel-issues">
-    <div class="card"><div class="clbl" id="lbl-open-issues">Open Issues</div><div id="detail-issues-list"></div></div>
-    <div class="card"><div class="clbl" id="lbl-next-actions">Recommended Next Actions</div><div id="detail-actions-list"></div></div>
+    <div class="card"><div class="clbl" id="lbl-oi">Open Issues</div><div id="det-iss"></div></div>
+    <div class="card"><div class="clbl" id="lbl-na">Recommended Next Actions</div><div id="det-act"></div></div>
   </div>
-  <div class="tab-panel" id="panel-timeline"><div class="card"><div class="clbl" id="lbl-timeline">Account Timeline</div><div class="timeline" id="detail-timeline"></div></div></div>
-  <div class="tab-panel" id="panel-contacts"><div class="card"><div class="clbl" id="lbl-contacts">Key Contacts</div><div id="detail-contacts-list"></div></div></div>
+  <div class="tab-panel" id="panel-timeline"><div class="card"><div class="clbl" id="lbl-tl">Account Timeline</div><div class="timeline" id="det-tl"></div></div></div>
+  <div class="tab-panel" id="panel-contacts"><div class="card"><div class="clbl" id="lbl-ct">Key Contacts</div><div id="det-ct"></div></div></div>
   <div class="tab-panel" id="panel-add">
     <div class="add-entry-form">
-      <div class="ae-title" id="lbl-add-entry">+ Add New Entry to Account Timeline</div>
+      <div class="ae-title" id="lbl-ae">+ Add New Entry to Account Timeline</div>
       <div class="ae-grid">
-        <div class="ae-field"><label class="ae-label" id="lbl-entry-date">Date</label><input type="date" id="entry-date"/></div>
-        <div class="ae-field"><label class="ae-label" id="lbl-entry-type">Type</label>
-          <select id="entry-type">
+        <div class="ae-field"><label class="ae-label" id="lbl-aed">Date</label><input type="date" id="ae-date"/></div>
+        <div class="ae-field"><label class="ae-label" id="lbl-aet">Type</label>
+          <select id="ae-type">
             <option value="positive">✅ Positive</option>
             <option value="neutral" selected>⚪ Neutral</option>
             <option value="negative">🔴 Negative</option>
@@ -804,14 +718,14 @@
           </select>
         </div>
       </div>
-      <div class="ae-field" style="margin-bottom:.6rem"><label class="ae-label" id="lbl-entry-title">Title / Topic</label><input type="text" id="entry-title" placeholder="e.g. KPI Review, Escalation Call..."/></div>
-      <div class="ae-field" style="margin-bottom:.85rem"><label class="ae-label" id="lbl-entry-body">Content</label><textarea id="entry-body" style="min-height:80px" placeholder="What happened? Key outcomes, decisions, next steps..."></textarea></div>
-      <button class="btn bt" onclick="addTimelineEntry()" id="btn-add-entry">+ Add to Timeline</button>
+      <div class="ae-field" style="margin-bottom:.6rem"><label class="ae-label" id="lbl-aetitle">Title / Topic</label><input type="text" id="ae-title" placeholder="e.g. KPI Review, Escalation Call..."/></div>
+      <div class="ae-field" style="margin-bottom:.85rem"><label class="ae-label" id="lbl-aebody">Content</label><textarea id="ae-body" style="min-height:80px" placeholder="What happened? Key outcomes, decisions, next steps..."></textarea></div>
+      <button class="btn bt" onclick="addEntry()" id="btn-ae">+ Add to Timeline</button>
     </div>
   </div>
   <div class="br" style="margin-top:.5rem">
     <button class="btn bg" onclick="go('s-apc')">← All Accounts</button>
-    <button class="btn bp" onclick="pickMode('vacation');go('s-form')" id="btn-create-handover">Create Handover →</button>
+    <button class="btn bp" onclick="pickMode('vacation');go('s-form')" id="btn-cho">Create Handover →</button>
   </div>
 </div>
 
@@ -826,30 +740,30 @@ setTimeout(()=>{ const s=document.getElementById('splash'); if(s)s.style.display
 // TRANSLATIONS
 // ═══════════════════════════════════════
 const T = {
-  en: {
+  en:{
     home:'Home', phTitle:'Welcome to H.A.N.S.', phSub:'Handover Assistant & Account Plan Controller · Unzer Relay',
-    hsHoTitle:'Handover Assistant', hsHoDesc:'Create structured handovers for vacation, customer transitions and project transfers.',
+    hsHoT:'Handover Assistant', hsHoD:'Create structured handovers for vacation, customer transitions and project transfers.',
     hsHo1:'Vacation Handover', hsHo2:'Customer Handover', hsHo3:'Project Handover', hsHo4:'Multi-Person Coverage', hsHoCta:'Create Handover →',
-    hsApcTitle:'Account Plan Controller', hsApcDesc:'Live dashboard for all accounts. Track KPIs, health scores, open issues and growing timelines.',
+    hsApcT:'Account Plan Controller', hsApcD:'Live dashboard for all accounts. Track KPIs, health scores, open issues and growing timelines.',
     hsApc1:'Live KPI Dashboard', hsApc2:'Health Score & Alerts', hsApc3:'Open Issues Tracking', hsApc4:'Growing Timeline', hsApcCta:'Open Controller →',
-    hphTitle:'Create New Handover', hphSub:'Select the handover type to get started.',
+    hphT:'Create New Handover', hphD:'Select the handover type to get started.',
     lblType:'Handover Type',
-    tileVacT:'Vacation Handover', tileVacD:'Internal coverage for absence period',
-    tileCustT:'Customer Handover', tileCustD:'Cross-team handover of customers & opportunities',
-    tileProjT:'Project Handover', tileProjD:'Transfer of ongoing projects to other teams',
+    tVacT:'Vacation Handover', tVacD:'Internal coverage for absence period',
+    tCustT:'Customer Handover', tCustD:'Cross-team handover of customers & opportunities',
+    tProjT:'Project Handover', tProjD:'Transfer of ongoing projects to other teams',
     s1:'Type', s2:'Details', s3:'Format', s4:'Result',
-    selCust:'Select Customers – Multiple Selection',
-    hoDet:'Handover Details', yn:'Your Name', cov:'Coverage By / Team',
+    sc:'Select Customers – Multiple Selection',
+    hd:'Handover Details', yn:'Your Name', cov:'Coverage By / Team',
     from:'From', until:'Until', noAppt:'No appointments found for the selected period.',
-    notes:'Additional Notes (optional)', hoFrom:'Handover From', hoTo:'Handover To / Team',
-    projDet:'Project Details', pn:'Project Name', pt:'Handover To / Team',
+    notes:'Additional Notes (optional)', hof:'Handover From', hot:'Handover To / Team',
+    pd:'Project Details', pn:'Project Name', pt:'Handover To / Team',
     stat:'Status & Phase', tasks:'Open Tasks', risks:'Risks & Dependencies', links:'Links & Documentation',
     back:'← Back', cont:'Continue →',
     fmt:'Output Format – Multiple Selection Possible',
-    shortT:'Short Overview', shortD:'Compact 1-page summary',
-    emailT:'Email to Coverage', emailD:'Ready to send, fully formatted',
-    deadT:'Deadlines & Appointments', deadD:'Schedule + .ics calendar export',
-    bullT:'Bullet Point Handover', bullD:'Structured bullet point overview',
+    stT:'Short Overview', stD:'Compact 1-page summary',
+    etT:'Email to Coverage', etD:'Ready to send, fully formatted',
+    dtT:'Deadlines & Appointments', dtD:'Schedule + .ics calendar export',
+    btT:'Bullet Point Handover', btD:'Structured bullet point overview',
     create:'Create Handover →',
     copy:'Copy', readAloud:'🔊 Read Aloud', stopRead:'■ Stop',
     openEmail:'Open Email', icsExp:'.ics Export', newHo:'New Handover',
@@ -861,47 +775,46 @@ const T = {
     expDone:(n)=>`✓ ${n} appointment(s) exported.`,
     fill:'Please fill in all required fields.',
     selMin:'Please select at least one customer.',
-    fillHo:'Please add at least one recipient.',
+    addRec:'Please add at least one recipient.',
     esc:'Escalation', pos:'Positive', med:'Medium', frag:'Fragile',
-    fmtLabels:{short:'Short Overview',email:'Email',deadlines:'Deadlines',bullets:'Bullet Points'},
+    fmtL:{short:'Short Overview',email:'Email',deadlines:'Deadlines',bullets:'Bullet Points'},
     voiceOn:'🎤 Listening...', voiceOff:'Voice',
     ttsOn:'■ Stop', ttsOff:'Read Aloud', ttsSpeak:'H.A.N.S. is speaking...',
     voiceHint:'Speak now...', noVoice:'Voice input not supported.',
     micDenied:'⚠️ Please allow microphone access.',
-    recHint:'Press Enter or click + Add for each person/team',
-    apcTitle:'Account Plan Controller', apcSub:'Live overview of all accounts · Click any account for details',
-    statAccounts:'Active Accounts', statEsc:'Active Escalations', statTpv:'Total Portfolio TPV', statIssues:'Open Issues',
-    viewDetails:'View Details', openIssues:'Open Issues', nextActions:'Recommended Next Actions',
-    timeline:'Account Timeline', contacts:'Key Contacts', addEntry:'+ Add New Entry to Account Timeline',
-    entryDate:'Date', entryType:'Type', entryTitle:'Title / Topic', entryBody:'Content',
-    btnAddEntry:'+ Add to Timeline', createHandover:'Create Handover →',
-    entryAdded:'✓ Entry added to timeline.',
-    tabOverview:'Overview', tabIssues:'Open Issues', tabTimeline:'Timeline', tabContacts:'Contacts', tabAdd:'+ Add Entry',
+    recHint:'Press Enter or + Add for each person/team',
+    apcT:'Account Plan Controller', apcD:'Live overview · Click account for details',
+    sAccs:'Active Accounts', sEscs:'Active Escalations', sTpv:'Total Portfolio TPV', sIss:'Open Issues',
+    viewDet:'View Details', oi:'Open Issues', na:'Recommended Next Actions',
+    tl:'Account Timeline', ct:'Key Contacts', ae:'+ Add New Entry',
+    aed:'Date', aet:'Type', aetitle:'Title / Topic', aebody:'Content',
+    btnAe:'+ Add to Timeline', cho:'Create Handover →', entryAdded:'✓ Entry added.',
+    tabOv:'Overview', tabIss:'Open Issues', tabTl:'Timeline', tabCt:'Contacts', tabAdd:'+ Add Entry',
   },
-  de: {
+  de:{
     home:'Home', phTitle:'Willkommen bei H.A.N.S.', phSub:'Handover Assistant & Account Plan Controller · Unzer Relay',
-    hsHoTitle:'Handover Assistant', hsHoDesc:'Erstelle strukturierte Übergaben für Urlaub, Kundenübergaben und Projektübergaben.',
+    hsHoT:'Handover Assistant', hsHoD:'Erstelle strukturierte Übergaben für Urlaub, Kundenübergaben und Projektübergaben.',
     hsHo1:'Urlaubsübergabe', hsHo2:'Kundenhandover', hsHo3:'Projektübergabe', hsHo4:'Mehrere Empfänger / Teams', hsHoCta:'Übergabe erstellen →',
-    hsApcTitle:'Account Plan Controller', hsApcDesc:'Live Dashboard für alle Accounts. KPIs, Health Scores, offene Issues und wachsende Timelines.',
+    hsApcT:'Account Plan Controller', hsApcD:'Live Dashboard für alle Accounts. KPIs, Health Scores, offene Issues und wachsende Timelines.',
     hsApc1:'Live KPI Dashboard', hsApc2:'Health Score & Alerts', hsApc3:'Offene Issues Tracking', hsApc4:'Wachsende Timeline', hsApcCta:'Controller öffnen →',
-    hphTitle:'Neue Übergabe erstellen', hphSub:'Wähle den Übergabetyp um zu beginnen.',
+    hphT:'Neue Übergabe erstellen', hphD:'Wähle den Übergabetyp um zu beginnen.',
     lblType:'Übergabetyp',
-    tileVacT:'Urlaubsübergabe', tileVacD:'Interne Vertretung für Abwesenheitszeitraum',
-    tileCustT:'Kundenhandover', tileCustD:'Teamübergreifende Übergabe von Kunden & Opportunities',
-    tileProjT:'Projektübergabe', tileProjD:'Übergabe laufender Projekte an andere Teams',
+    tVacT:'Urlaubsübergabe', tVacD:'Interne Vertretung für Abwesenheitszeitraum',
+    tCustT:'Kundenhandover', tCustD:'Teamübergreifende Übergabe von Kunden & Opportunities',
+    tProjT:'Projektübergabe', tProjD:'Übergabe laufender Projekte an andere Teams',
     s1:'Typ', s2:'Eingaben', s3:'Format', s4:'Ergebnis',
-    selCust:'Kunden auswählen – Mehrfachauswahl',
-    hoDet:'Übergabedaten', yn:'Dein Name', cov:'Vertretung / Team',
+    sc:'Kunden auswählen – Mehrfachauswahl',
+    hd:'Übergabedaten', yn:'Dein Name', cov:'Vertretung / Team',
     from:'Von', until:'Bis', noAppt:'Keine Termine im gewählten Zeitraum.',
-    notes:'Weitere Notizen (optional)', hoFrom:'Übergabe von', hoTo:'Übergabe an / Team',
-    projDet:'Projektdaten', pn:'Projektname', pt:'Übergabe an / Team',
+    notes:'Weitere Notizen (optional)', hof:'Übergabe von', hot:'Übergabe an / Team',
+    pd:'Projektdaten', pn:'Projektname', pt:'Übergabe an / Team',
     stat:'Status & Phase', tasks:'Offene Aufgaben', risks:'Risiken & Abhängigkeiten', links:'Links & Dokumentation',
     back:'← Zurück', cont:'Weiter →',
     fmt:'Ausgabeformat – Mehrfachauswahl möglich',
-    shortT:'Short Overview', shortD:'Kompakte 1-Seiten-Zusammenfassung',
-    emailT:'E-Mail an Vertretung', emailD:'Fertig formuliert, direkt versendbar',
-    deadT:'Deadlines & Termine', deadD:'Terminliste + .ics Kalender-Export',
-    bullT:'Stichpunkt-Übergabe', bullD:'Strukturierte Bullet-Point-Übersicht',
+    stT:'Short Overview', stD:'Kompakte 1-Seiten-Zusammenfassung',
+    etT:'E-Mail an Vertretung', etD:'Fertig formuliert, direkt versendbar',
+    dtT:'Deadlines & Termine', dtD:'Terminliste + .ics Kalender-Export',
+    btT:'Stichpunkt-Übergabe', btD:'Strukturierte Bullet-Point-Übersicht',
     create:'Übergabe erstellen →',
     copy:'Kopieren', readAloud:'🔊 Vorlesen', stopRead:'■ Stop',
     openEmail:'E-Mail öffnen', icsExp:'.ics Export', newHo:'Neue Übergabe',
@@ -913,22 +826,21 @@ const T = {
     expDone:(n)=>`✓ ${n} Termin(e) exportiert.`,
     fill:'Bitte alle Pflichtfelder ausfüllen.',
     selMin:'Bitte mindestens einen Kunden wählen.',
-    fillHo:'Bitte mindestens einen Empfänger hinzufügen.',
+    addRec:'Bitte mindestens einen Empfänger hinzufügen.',
     esc:'Eskalation', pos:'Positiv', med:'Medium', frag:'Fragil',
-    fmtLabels:{short:'Short Overview',email:'E-Mail',deadlines:'Deadlines',bullets:'Stichpunkte'},
+    fmtL:{short:'Short Overview',email:'E-Mail',deadlines:'Deadlines',bullets:'Stichpunkte'},
     voiceOn:'🎤 Hört zu…', voiceOff:'Sprache',
     ttsOn:'■ Stop', ttsOff:'Vorlesen', ttsSpeak:'H.A.N.S. spricht…',
     voiceHint:'Jetzt sprechen…', noVoice:'Spracheingabe nicht unterstützt.',
     micDenied:'⚠️ Bitte Mikrofon-Berechtigung erlauben.',
-    recHint:'Enter drücken oder + Add klicken für jede Person/Team',
-    apcTitle:'Account Plan Controller', apcSub:'Live Übersicht aller Accounts · Klicke einen Account für Details',
-    statAccounts:'Aktive Accounts', statEsc:'Aktive Eskalationen', statTpv:'Gesamt Portfolio TPV', statIssues:'Offene Issues',
-    viewDetails:'Details', openIssues:'Offene Issues', nextActions:'Empfohlene nächste Schritte',
-    timeline:'Account Timeline', contacts:'Ansprechpartner', addEntry:'+ Neuen Eintrag hinzufügen',
-    entryDate:'Datum', entryType:'Typ', entryTitle:'Titel / Thema', entryBody:'Inhalt',
-    btnAddEntry:'+ Zur Timeline hinzufügen', createHandover:'Übergabe erstellen →',
-    entryAdded:'✓ Eintrag zur Timeline hinzugefügt.',
-    tabOverview:'Übersicht', tabIssues:'Offene Issues', tabTimeline:'Timeline', tabContacts:'Kontakte', tabAdd:'+ Eintrag',
+    recHint:'Enter drücken oder + Add für jede Person/Team',
+    apcT:'Account Plan Controller', apcD:'Live Übersicht · Account für Details anklicken',
+    sAccs:'Aktive Accounts', sEscs:'Aktive Eskalationen', sTpv:'Gesamt Portfolio TPV', sIss:'Offene Issues',
+    viewDet:'Details', oi:'Offene Issues', na:'Empfohlene nächste Schritte',
+    tl:'Account Timeline', ct:'Ansprechpartner', ae:'+ Neuen Eintrag hinzufügen',
+    aed:'Datum', aet:'Typ', aetitle:'Titel / Thema', aebody:'Inhalt',
+    btnAe:'+ Zur Timeline hinzufügen', cho:'Übergabe erstellen →', entryAdded:'✓ Eintrag hinzugefügt.',
+    tabOv:'Übersicht', tabIss:'Offene Issues', tabTl:'Timeline', tabCt:'Kontakte', tabAdd:'+ Eintrag',
   }
 };
 
@@ -943,53 +855,49 @@ function applyT() {
   const t = T[lang];
   const s = (id, v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
   s('lbl-home',t.home); s('ph-title',t.phTitle); s('ph-sub',t.phSub);
-  s('hs-ho-title',t.hsHoTitle); s('hs-ho-desc',t.hsHoDesc);
+  s('hs-ho-t',t.hsHoT); s('hs-ho-d',t.hsHoD);
   s('hs-ho-1',t.hsHo1); s('hs-ho-2',t.hsHo2); s('hs-ho-3',t.hsHo3); s('hs-ho-4',t.hsHo4); s('hs-ho-cta',t.hsHoCta);
-  s('hs-apc-title',t.hsApcTitle); s('hs-apc-desc',t.hsApcDesc);
+  s('hs-apc-t',t.hsApcT); s('hs-apc-d',t.hsApcD);
   s('hs-apc-1',t.hsApc1); s('hs-apc-2',t.hsApc2); s('hs-apc-3',t.hsApc3); s('hs-apc-4',t.hsApc4); s('hs-apc-cta',t.hsApcCta);
-  s('hph-title',t.hphTitle); s('hph-sub',t.hphSub); s('lbl-type',t.lblType);
-  s('tile-vac-t',t.tileVacT); s('tile-vac-d',t.tileVacD);
-  s('tile-cust-t',t.tileCustT); s('tile-cust-d',t.tileCustD);
-  s('tile-proj-t',t.tileProjT); s('tile-proj-d',t.tileProjD);
+  s('hph-t',t.hphT); s('hph-d',t.hphD); s('lbl-type',t.lblType);
+  s('t-vac-t',t.tVacT); s('t-vac-d',t.tVacD);
+  s('t-cust-t',t.tCustT); s('t-cust-d',t.tCustD);
+  s('t-proj-t',t.tProjT); s('t-proj-d',t.tProjD);
   ['s1a','s1b','s1c'].forEach(id=>s(id,t.s1));
   ['s2a','s2b','s2c'].forEach(id=>s(id,t.s2));
   ['s3a','s3b','s3c'].forEach(id=>s(id,t.s3));
   ['s4a','s4b','s4c'].forEach(id=>s(id,t.s4));
-  ['lbl-sel-cust','lbl-sel-cust2'].forEach(id=>s(id,t.selCust));
-  ['lbl-ho-det','lbl-ho-det2'].forEach(id=>s(id,t.hoDet));
+  ['lbl-sc1','lbl-sc2'].forEach(id=>s(id,t.sc));
+  ['lbl-hd1','lbl-hd2'].forEach(id=>s(id,t.hd));
   s('lbl-yn',t.yn+' *'); s('lbl-cov',t.cov+' *');
   s('lbl-from',t.from+' *'); s('lbl-until',t.until+' *');
-  s('no-appt-txt',t.noAppt);
-  ['lbl-notes','lbl-notes2'].forEach(id=>s(id,t.notes));
-  s('lbl-hof',t.hoFrom+' *'); s('lbl-hot',t.hoTo+' *');
-  s('lbl-proj-det',t.projDet); s('lbl-pn',t.pn+' *'); s('lbl-pt',t.pt+' *');
+  s('lbl-no-appt',t.noAppt);
+  ['lbl-notes1','lbl-notes2'].forEach(id=>s(id,t.notes));
+  s('lbl-hof',t.hof+' *'); s('lbl-hot',t.hot+' *');
+  s('lbl-pd',t.pd); s('lbl-pn',t.pn+' *'); s('lbl-pt',t.pt+' *');
   s('lbl-stat',t.stat); s('lbl-tasks',t.tasks); s('lbl-risks',t.risks); s('lbl-links',t.links);
   s('btn-back1',t.back); s('btn-back2',t.back); s('btn-cont',t.cont);
   s('lbl-fmt',t.fmt);
-  s('fmt-s-t',t.shortT); s('fmt-s-d',t.shortD); s('fmt-e-t',t.emailT); s('fmt-e-d',t.emailD);
-  s('fmt-d-t',t.deadT); s('fmt-d-d',t.deadD); s('fmt-b-t',t.bullT); s('fmt-b-d',t.bullD);
+  s('fmt-st',t.stT); s('fmt-sd',t.stD); s('fmt-et',t.etT); s('fmt-ed',t.etD);
+  s('fmt-dt',t.dtT); s('fmt-dd',t.dtD); s('fmt-bt',t.btT); s('fmt-bd',t.btD);
   s('btn-gen',t.create); s('btn-copy',t.copy);
   s('btn-read-lbl', window.speechSynthesis?.speaking ? t.stopRead : t.readAloud);
   s('btn-mail',t.openEmail); s('btn-ics',t.icsExp); s('btn-new',t.newHo);
-  s('voice-btn-lbl', voiceActive ? t.voiceOn : t.voiceOff);
-  s('tts-btn-lbl', ttsEnabled ? t.ttsOn : t.ttsOff);
+  s('lbl-voice', voiceActive ? t.voiceOn : t.voiceOff);
+  s('lbl-tts', ttsEnabled ? t.ttsOn : t.ttsOff);
   s('tts-overlay-txt', t.ttsSpeak);
-  s('apc-ph-title',t.apcTitle); s('apc-ph-sub',t.apcSub);
-  s('stat-accounts',t.statAccounts); s('stat-escalations',t.statEsc);
-  s('stat-tpv',t.statTpv); s('stat-issues',t.statIssues);
-  s('lbl-open-issues',t.openIssues); s('lbl-next-actions',t.nextActions);
-  s('lbl-timeline',t.timeline); s('lbl-contacts',t.contacts);
-  s('lbl-add-entry',t.addEntry); s('lbl-entry-date',t.entryDate);
-  s('lbl-entry-type',t.entryType); s('lbl-entry-title',t.entryTitle);
-  s('lbl-entry-body',t.entryBody); s('btn-add-entry',t.btnAddEntry);
-  s('btn-create-handover',t.createHandover);
-  s('tab-overview',t.tabOverview); s('tab-issues',t.tabIssues);
-  s('tab-timeline',t.tabTimeline); s('tab-contacts',t.tabContacts); s('tab-add',t.tabAdd);
+  s('apc-t',t.apcT); s('apc-d',t.apcD);
+  s('s-accs',t.sAccs); s('s-escs',t.sEscs); s('s-tpv',t.sTpv); s('s-iss',t.sIss);
+  s('lbl-oi',t.oi); s('lbl-na',t.na); s('lbl-tl',t.tl); s('lbl-ct',t.ct);
+  s('lbl-ae',t.ae); s('lbl-aed',t.aed); s('lbl-aet',t.aet);
+  s('lbl-aetitle',t.aetitle); s('lbl-aebody',t.aebody);
+  s('btn-ae',t.btnAe); s('btn-cho',t.cho);
+  s('tab-ov',t.tabOv); s('tab-iss',t.tabIss); s('tab-tl',t.tabTl); s('tab-ct',t.tabCt); s('tab-add',t.tabAdd);
   ['lbl-rec-hint','lbl-rec-hint2'].forEach(id=>s(id,t.recHint));
-  document.querySelectorAll('.esc-lbl,.esc-lbl2').forEach(e=>e.textContent=t.esc);
-  document.querySelectorAll('.pos-lbl,.pos-lbl2').forEach(e=>e.textContent=t.pos);
-  document.querySelectorAll('.med-lbl,.med-lbl2').forEach(e=>e.textContent=t.med);
-  document.querySelectorAll('.frag-lbl,.frag-lbl2').forEach(e=>e.textContent=t.frag);
+  document.querySelectorAll('.esc1,.esc2').forEach(e=>e.textContent=t.esc);
+  document.querySelectorAll('.pos1,.pos2').forEach(e=>e.textContent=t.pos);
+  document.querySelectorAll('.med1,.med2').forEach(e=>e.textContent=t.med);
+  document.querySelectorAll('.fra1,.fra2').forEach(e=>e.textContent=t.frag);
 }
 
 // ═══════════════════════════════════════
@@ -1017,14 +925,14 @@ const DB = {
     ],
     issues:{
       en:['🚨 ESCALATION: Deliver consolidated finance solution by 26.06.2026','Formal legal threat – C-Level must be involved immediately','All operational topics blocked until escalation resolution','Consolidated response to open settlement and fee questions','Improve ownership structure across teams'],
-      de:['🚨 ESKALATION: Konsolidierte Finance-Lösung bis 26.06.2026 liefern','Formale Klagedrohung – C-Level sofort involvieren','Alle operativen Themen blockiert','Konsolidierte Antwort auf Settlement- und Gebührenfragen','Ownership-Struktur verbessern']
+      de:['🚨 ESKALATION: Konsolidierte Finance-Lösung bis 26.06.2026','Formale Klagedrohung – C-Level sofort involvieren','Alle operativen Themen blockiert','Konsolidierte Antwort auf Settlement- und Gebührenfragen','Ownership-Struktur verbessern']
     },
     actions:{
       en:['IMMEDIATE: Inform and coordinate C-Level','IMMEDIATE: Present binding timeline','DEADLINE 26.06.2026: Deliver complete finance solution','Document fee logic clearly','Post-escalation: Set up QBR format'],
       de:['SOFORT: C-Level informieren','SOFORT: Verbindlichen Zeitplan präsentieren','DEADLINE 26.06.2026: Finance-Lösung liefern','Gebührenlogik dokumentieren','QBR-Format aufsetzen']
     },
     risks:{en:'🚨 ACTIVE ESCALATION: Legal threat deadline 26.06.2026.',de:'🚨 AKTIVE ESKALATION: Klagedrohung bis 26.06.2026.'},
-    opportunities:{en:'Post-escalation: Strategic expansion; better finance reporting; QBR format',de:'Nach Eskalation: Strategischer Ausbau; besseres Finance-Reporting; QBR-Format'},
+    opportunities:{en:'Post-escalation: Strategic expansion; better finance reporting; QBR format',de:'Nach Eskalation: Strategischer Ausbau; Finance-Reporting; QBR-Format'},
     handoverNote:{en:'🚨 ESCALATION ACTIVE: MD Martin Seidel C-Level escalation. DEADLINE 26.06.2026.',de:'🚨 ESKALATION AKTIV: GF Martin Seidel C-Level-Eskalation. DEADLINE 26.06.2026.'},
     termine:[
       {date:'2026-06-18',time:'09:00',title:{en:'🚨 Escalation Start',de:'🚨 Eskalationsbeginn'},attendees:'Martin Seidel, C-Level, AM',prep:{en:'All finance docs ready',de:'Finance-Unterlagen bereithalten'},prio:'high'},
@@ -1036,9 +944,9 @@ const DB = {
     timeline:[
       {date:'2024-11-01',type:'positive',title:{en:'Go-Live Successful',de:'Go-Live erfolgreich'},body:{en:'First transactions running as expected.',de:'Erste Transaktionen laufen erwartungsgemäß.'}},
       {date:'2024-11-27',type:'negative',title:{en:'Fee Transparency Issues',de:'Gebühren nicht verständlich'},body:{en:'Finance team reports fee positions not self-explanatory.',de:'Finance-Team meldet Gebührenpositionen nicht selbsterklärend.'}},
-      {date:'2025-02-05',type:'escalated',title:{en:'Finance Escalation',de:'Finance Eskalation'},body:{en:'Customer escalates. No consolidated answer with clear derivation.',de:'Kunde eskaliert. Keine konsolidierte Antwort mit Herleitung.'}},
-      {date:'2025-05-07',type:'positive',title:{en:'Consolidated Finance Response Thanked',de:'Konsolidierte Finance-Rückmeldung gedankt'},body:{en:'Customer thanks for consolidated response. Clear progress.',de:'Kunde bedankt sich für konsolidierte Rückmeldung.'}},
-      {date:'2026-06-18',type:'escalated',title:{en:'🚨 C-Level Escalation Active',de:'🚨 C-Level-Eskalation aktiv'},body:{en:'MD Martin Seidel formally escalated. Legal threat. DEADLINE: 26.06.2026.',de:'GF Martin Seidel formell eskaliert. Klagedrohung. DEADLINE: 26.06.2026.'}}
+      {date:'2025-02-05',type:'escalated',title:{en:'Finance Escalation',de:'Finance Eskalation'},body:{en:'Customer escalates. No consolidated answer with clear derivation.',de:'Kunde eskaliert. Keine konsolidierte Antwort.'}},
+      {date:'2025-05-07',type:'positive',title:{en:'Consolidated Finance Response Thanked',de:'Konsolidierte Rückmeldung gedankt'},body:{en:'Customer thanks for consolidated response.',de:'Kunde bedankt sich für konsolidierte Rückmeldung.'}},
+      {date:'2026-06-18',type:'escalated',title:{en:'🚨 C-Level Escalation Active',de:'🚨 C-Level-Eskalation aktiv'},body:{en:'MD Martin Seidel formally escalated. Legal threat. DEADLINE: 26.06.2026.',de:'GF Martin Seidel formell eskaliert. DEADLINE: 26.06.2026.'}}
     ]
   },
   fitfuel: {
@@ -1063,7 +971,7 @@ const DB = {
     },
     actions:{
       en:['Establish regular KPI review rhythm','Analyze subscription retry strategies','Set up mobile checkout optimization roadmap','Improve shop-change monitoring','Structure wallet benchmarking'],
-      de:['KPI-Review-Rhythmus etablieren','Subscription Retry-Strategien analysieren','Mobile Checkout Roadmap aufsetzen','Shop-Change-Begleitung verbessern','Wallet-Benchmarking strukturieren']
+      de:['KPI-Review-Rhythmus etablieren','Subscription Retry analysieren','Mobile Checkout Roadmap aufsetzen','Shop-Change-Begleitung verbessern','Wallet-Benchmarking strukturieren']
     },
     risks:{en:'Conversion drop after shop changes; insufficient KPI interpretation',de:'Conversion-Einbruch nach Shop-Änderungen; unzureichende KPI-Einordnung'},
     opportunities:{en:'Strong growth partnership; mobile checkout & wallet optimization',de:'Starke Growth-Partnerschaft; Mobile Checkout & Wallet-Optimierung'},
@@ -1076,9 +984,9 @@ const DB = {
     ],
     timeline:[
       {date:'2024-10-22',type:'positive',title:{en:'Go-Live Successful',de:'Go-Live erfolgreich'},body:{en:'First transactions running.',de:'Erste Transaktionen laufen.'}},
-      {date:'2025-01-25',type:'positive',title:{en:'Wallet Activation Uplift',de:'Wallet-Aktivierung Uplift'},body:{en:'After additional wallet options: better mobile conversion.',de:'Nach zusätzlichen Wallet-Optionen: bessere Mobile Conversion.'}},
-      {date:'2025-02-18',type:'negative',title:{en:'Checkout Drop after Theme Update',de:'Checkout-Drop nach Theme-Update'},body:{en:'Significant drop-off in last checkout step after theme update.',de:'Deutlicher Drop-off im letzten Checkout-Schritt.'}},
-      {date:'2025-03-10',type:'positive',title:{en:'Quick KPI Resolution Praised',de:'Schnelle KPI-Einordnung gelobt'},body:{en:'Team praised for fast structured KPI interpretation.',de:'Team für schnelle strukturierte KPI-Einordnung gelobt.'}},
+      {date:'2025-01-25',type:'positive',title:{en:'Wallet Activation Uplift',de:'Wallet-Aktivierung Uplift'},body:{en:'After additional wallet options: better mobile conversion.',de:'Nach Wallet-Optionen: bessere Mobile Conversion.'}},
+      {date:'2025-02-18',type:'negative',title:{en:'Checkout Drop after Theme Update',de:'Checkout-Drop nach Theme-Update'},body:{en:'Significant drop-off in last checkout step.',de:'Deutlicher Drop-off im letzten Checkout-Schritt.'}},
+      {date:'2025-03-10',type:'positive',title:{en:'Quick KPI Resolution Praised',de:'Schnelle KPI-Einordnung gelobt'},body:{en:'Team praised for fast structured KPI interpretation.',de:'Team für schnelle KPI-Einordnung gelobt.'}},
       {date:'2025-05-30',type:'positive',title:{en:'Strong Growth Foundation',de:'Starke Wachstumsbasis'},body:{en:'Confirmed as strong growth partner.',de:'Als starker Wachstumspartner bestätigt.'}}
     ]
   },
@@ -1105,23 +1013,23 @@ const DB = {
     },
     actions:{
       en:['Establish monthly KPI review','Prepare payment methods roadmap','Document release governance','Define incident communication standard','Link pricing to stability model'],
-      de:['Monatlichen KPI-Review etablieren','Roadmap für Zahlarten vorbereiten','Release-Governance dokumentieren','Incident-Kommunikationsstandard definieren','Preisgespräche mit Stabilitätsmodell verknüpfen']
+      de:['Monatlichen KPI-Review etablieren','Roadmap für Zahlarten vorbereiten','Release-Governance dokumentieren','Incident-Kommunikationsstandard definieren','Preisgespräche mit Stabilitätsmodell']
     },
     risks:{en:'Recurring wallet/checkout failures (Google Pay 13% critical)',de:'Erneute Wallet- oder Checkout-Ausfälle (Google Pay 13% kritisch)'},
     opportunities:{en:'Additional payment methods; performance reviews; mobile checkout optimization',de:'Ausbau Zahlarten; Performance-Reviews; Mobile Checkout Optimization'},
     handoverNote:{en:'Wallets business-critical (64% mobile, Google Pay 13%). Tight update intervals expected during incidents.',de:'Wallets geschäftskritisch (64% Mobile, Google Pay 13%). Enges Update-Intervall bei Incidents.'},
     termine:[
-      {date:'2025-06-23',time:'10:00',title:{en:'Mobile Checkout & Conversion Workshop',de:'Workshop Mobile Checkout & Conversion'},attendees:'Lena Hoffmann, Nina Roth',prep:{en:'Wallet split data',de:'Wallet-Split-Daten'},prio:'high'},
+      {date:'2025-06-23',time:'10:00',title:{en:'Mobile Checkout & Conversion Workshop',de:'Workshop Mobile Checkout & Conversion'},attendees:'Lena Hoffmann, Nina Roth',prep:{en:'Wallet split data, mobile checkout flows',de:'Wallet-Split-Daten, Mobile Checkout Flows'},prio:'high'},
       {date:'2025-06-26',time:'14:00',title:{en:'Release Governance & Rollback Framework',de:'Release-Governance & Rollback-Framework'},attendees:'Paul Jensen, Tim Becker',prep:{en:'Finalize test criteria',de:'Testkriterien finalisieren'},prio:'high'},
       {date:'2025-06-30',time:'11:00',title:{en:'Commercial Discussion & H2 Growth',de:'Konditionsgespräch & Wachstumsperspektive'},attendees:'Lena Hoffmann, Markus Feld',prep:{en:'Prepare commercial proposal',de:'Commercial Proposal'},prio:'high'},
       {date:'2025-07-07',time:'15:00',title:{en:'Monthly KPI Review (Pilot)',de:'Monatlicher KPI-Review (Pilot)'},attendees:'Lena Hoffmann, Paul Jensen, Tim Becker',prep:{en:'TPV, checkout, auth rate',de:'TPV, Checkout, Auth Rate'},prio:'high'}
     ],
     timeline:[
       {date:'2024-10-21',type:'positive',title:{en:'Go-Live Successful',de:'Go-Live erfolgreich'},body:{en:'First transactions running smoothly.',de:'Erste Transaktionen laufen sauber.'}},
-      {date:'2024-11-29',type:'negative',title:{en:'Google Pay Not Visible',de:'Google Pay nicht sichtbar'},body:{en:'Google Pay disappeared from checkout during campaign.',de:'Google Pay während Kampagne nicht mehr sichtbar.'}},
-      {date:'2025-01-12',type:'escalated',title:{en:'Wallet Outage – Campaign Weekend',de:'Wallet-Ausfall – Kampagnenwochenende'},body:{en:'Google Pay not visible again. Revenue at risk EUR 48,000.',de:'Google Pay erneut nicht sichtbar. Umsatzrisiko EUR 48.000.'}},
-      {date:'2025-03-09',type:'neutral',title:{en:'Lessons Learned Review',de:'Lessons Learned Review'},body:{en:'Constructive review. Customer requests better risk communication.',de:'Konstruktive Nachbereitung. Bessere Risikokommunikation gefordert.'}},
-      {date:'2025-06-18',type:'positive',title:{en:'Positive End of Period Feedback',de:'Positives Feedback'},body:{en:'Customer confirms improvement in collaboration.',de:'Kunde bestätigt Verbesserung der Zusammenarbeit.'}}
+      {date:'2024-11-29',type:'negative',title:{en:'Google Pay Not Visible',de:'Google Pay nicht sichtbar'},body:{en:'Google Pay disappeared during campaign.',de:'Google Pay während Kampagne verschwunden.'}},
+      {date:'2025-01-12',type:'escalated',title:{en:'Wallet Outage – Campaign',de:'Wallet-Ausfall – Kampagne'},body:{en:'Google Pay not visible again. EUR 48,000 at risk.',de:'Google Pay erneut nicht sichtbar. EUR 48.000 Risiko.'}},
+      {date:'2025-03-09',type:'neutral',title:{en:'Lessons Learned Review',de:'Lessons Learned Review'},body:{en:'Better risk communication requested.',de:'Bessere Risikokommunikation gefordert.'}},
+      {date:'2025-06-18',type:'positive',title:{en:'Positive Feedback End of Period',de:'Positives Feedback'},body:{en:'Customer confirms improvement in collaboration.',de:'Kunde bestätigt Verbesserung der Zusammenarbeit.'}}
     ]
   },
   urbancraft: {
@@ -1129,4 +1037,729 @@ const DB = {
     segment:'SMB / Small Mid-Market', region:'DACH',
     tpv:'EUR 8.9M', tpvDE:'EUR 8,9 Mio.',
     growth:'+9% YoY', aov:'EUR 74', mobile:'55%', feeRate:'1.96%',
-    checkout:'66.8
+    checkout:'66.8%', authRate:'91.9%',
+    payment:'Cards 47%, Invoice 35%, Wallets 18%',
+    integration:'Custom Integration', churn:'Medium', growthPot:'Medium',
+    eskalation:null,
+    contacts:[
+      {name:'Jana Seifert',role:'Operations Lead (Main Contact)',email:'jana.seifert@urbancraft-demo.com',primary:true},
+      {name:'Felix Krüger',role:'Managing Director (Escalation)',email:'felix.krueger@urbancraft-demo.com'},
+      {name:'Mira Lang',role:'Customer Support Manager',email:'mira.lang@urbancraft-demo.com'},
+      {name:'Adrian Voß',role:'Technical Project Contact',email:'adrian.voss@urbancraft-demo.com'}
+    ],
+    issues:{
+      en:['Make central ownership visible for all open topics','Track open support cases consolidated','Define clear escalation and response paths','Separate billing, tech, and relationship topics','Establish regular status rhythm'],
+      de:['Zentrale Ownership für alle Themen sichtbar machen','Offene Support-Fälle konsolidiert nachhalten','Klare Eskalationswege definieren','Billing-, Tech- und Relationship-Themen trennen','Regelmäßigen Statusrhythmus etablieren']
+    },
+    actions:{
+      en:['Establish permanent central ownership model','Maintain weekly open issues rhythm','Separate billing, tech, and support topics','Document escalation path','Place expansion topics only after stabilization'],
+      de:['Dauerhaftes Ownership-Modell etablieren','Wöchentlichen Open-Issues-Rhythmus beibehalten','Themen sauber trennen','Eskalationspfad dokumentieren','Erst nach Stabilisierung Ausbau platzieren']
+    },
+    risks:{en:'Cumulative trust loss through missing updates; perceived unavailability',de:'Kumulierter Vertrauensverlust durch fehlende Updates'},
+    opportunities:{en:'Central coordination; clear contact structure; mid-term payment expansion',de:'Zentrale Steuerung; klare Ansprechpartnerstruktur; Zahlarten-Ausbau'},
+    handoverNote:{en:'⚠️ FRAGILE: Ownership more important than perfection. Felix Krüger appears during escalations.',de:'⚠️ FRAGILE: Ownership wichtiger als Perfektion. Felix Krüger erscheint bei Eskalationen.'},
+    termine:[
+      {date:'2025-07-01',time:'10:00',title:{en:'Bi-Weekly Open Issues Review',de:'Bi-Weekly Open Issues Review'},attendees:'Jana Seifert, AM',prep:{en:'All open support cases',de:'Alle offenen Support-Fälle'},prio:'high'},
+      {date:'2025-07-08',time:'11:00',title:{en:'Quarterly Relationship Review',de:'Quarterly Relationship Review'},attendees:'Felix Krüger, Jana Seifert, AM',prep:{en:'Evaluate governance model',de:'Governance-Modell bewerten'},prio:'high'},
+      {date:'2025-07-14',time:'15:30',title:{en:'Billing Clarification Meeting',de:'Billing-Klärungstermin'},attendees:'Mira Lang, Billing Team',prep:{en:'Open billing positions',de:'Offene Abrechnungspositionen'},prio:'medium'}
+    ],
+    timeline:[
+      {date:'2024-09-03',type:'neutral',title:{en:'Onboarding Start',de:'Onboarding Start'},body:{en:'Customer requests clear contact structure.',de:'Kunde wünscht klare Ansprechpartnerstruktur.'}},
+      {date:'2024-10-16',type:'negative',title:{en:'Missing Updates',de:'Fehlende Updates'},body:{en:'No response to open checkout question. Customer frustrated.',de:'Keine Rückmeldung zu Checkout-Frage. Kunde frustriert.'}},
+      {date:'2024-11-11',type:'negative',title:{en:'De-escalation Call',de:'Deeskalationsgespräch'},body:{en:'Felix Krüger involved. Issue: perceived lack of governance.',de:'Felix Krüger involviert. Thema: mangelnde Steuerung.'}},
+      {date:'2024-11-21',type:'positive',title:{en:'Structured Overview Thanked',de:'Strukturierte Übersicht gedankt'},body:{en:'Customer thanks for structured open issues list.',de:'Kunde bedankt sich für strukturierte Offene-Punkte-Liste.'}},
+      {date:'2025-02-07',type:'escalated',title:{en:'Multiple Missing Responses',de:'Mehrfach keine Rückmeldung'},body:{en:'Customer escalates after multiple unanswered requests.',de:'Kunde eskaliert nach mehrfach unbeantworteten Anfragen.'}},
+      {date:'2025-05-30',type:'positive',title:{en:'Positive Development Confirmed',de:'Positive Entwicklung bestätigt'},body:{en:'Ownership model working. Good foundation established.',de:'Ownership-Modell funktioniert. Gute Basis etabliert.'}}
+    ]
+  }
+};
+
+// ═══════════════════════════════════════
+// VOICE INPUT
+// ═══════════════════════════════════════
+let voiceActive=false, currentRecognition=null, activeFieldBtn=null;
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+function toggleGlobalVoice() {
+  if (!SR) { showToast(T[lang].noVoice); return; }
+  const doIt = () => {
+    voiceActive = !voiceActive;
+    const btn = document.getElementById('gbtn-voice');
+    btn.classList.toggle('listening', voiceActive);
+    document.getElementById('lbl-voice').textContent = voiceActive ? T[lang].voiceOn : T[lang].voiceOff;
+    if (voiceActive) showVBar(T[lang].voiceHint);
+    else { hideVBar(); if(currentRecognition){currentRecognition.stop();currentRecognition=null;} }
+  };
+  if (navigator.mediaDevices?.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({audio:true}).then(doIt).catch(()=>showToast(T[lang].micDenied));
+  } else doIt();
+}
+
+function startFV(fieldId, btn) {
+  if (!SR) { showToast(T[lang].noVoice); return; }
+  const doIt = () => {
+    if(activeFieldBtn&&activeFieldBtn!==btn){activeFieldBtn.classList.remove('active');if(currentRecognition)currentRecognition.stop();}
+    activeFieldBtn=btn; btn.classList.add('active'); showVBar(T[lang].voiceHint);
+    const r=new SR();
+    r.lang=lang==='de'?'de-DE':'en-US'; r.continuous=false; r.interimResults=false; currentRecognition=r;
+    r.onresult=(e)=>{
+      const txt=e.results[0][0].transcript;
+      const el=document.getElementById(fieldId);
+      if(el){el.value=el.value?el.value+' '+txt:txt;}
+      btn.classList.remove('active'); hideVBar(); showToast('✓ "'+txt+'"');
+    };
+    r.onerror=()=>{btn.classList.remove('active');hideVBar();};
+    r.onend=()=>{btn.classList.remove('active');hideVBar();};
+    r.start();
+  };
+  if(navigator.mediaDevices?.getUserMedia){
+    navigator.mediaDevices.getUserMedia({audio:true}).then(doIt).catch(()=>showToast(T[lang].micDenied));
+  } else doIt();
+}
+
+function showVBar(txt){document.getElementById('voice-bar-txt').textContent=txt;document.getElementById('voice-bar').classList.add('show');}
+function hideVBar(){document.getElementById('voice-bar').classList.remove('show');}
+
+// ═══════════════════════════════════════
+// TTS
+// ═══════════════════════════════════════
+let ttsEnabled=false;
+function toggleTTS(){
+  ttsEnabled=!ttsEnabled;
+  document.getElementById('gbtn-tts').classList.toggle('speaking',ttsEnabled);
+  document.getElementById('lbl-tts').textContent=ttsEnabled?T[lang].ttsOn:T[lang].ttsOff;
+  if(!ttsEnabled)stopSpeech();
+  else showToast(lang==='de'?'🔊 Vorlesen aktiviert':'🔊 Read aloud enabled');
+}
+function speak(text){
+  if(!window.speechSynthesis)return; stopSpeech();
+  const u=new SpeechSynthesisUtterance(text.substring(0,3000));
+  u.lang=lang==='de'?'de-DE':'en-US'; u.rate=0.95; u.pitch=1;
+  document.getElementById('tts-overlay').classList.add('show');
+  u.onend=()=>document.getElementById('tts-overlay').classList.remove('show');
+  u.onerror=()=>document.getElementById('tts-overlay').classList.remove('show');
+  window.speechSynthesis.speak(u);
+}
+function stopSpeech(){if(window.speechSynthesis)window.speechSynthesis.cancel();document.getElementById('tts-overlay').classList.remove('show');}
+function readResult(){
+  const text=(results[activeCust]&&results[activeCust][activeFmt])||'';
+  if(!text){showToast(lang==='de'?'Kein Inhalt.':'No content.');return;}
+  if(window.speechSynthesis?.speaking){stopSpeech();return;}
+  if(!ttsEnabled){ttsEnabled=true;document.getElementById('gbtn-tts').classList.add('speaking');}
+  speak(text);
+}
+
+// ═══════════════════════════════════════
+// RECIPIENT MULTI-SELECT
+// ═══════════════════════════════════════
+const recipients = {v:[], c:[], p:[]};
+
+function addRec(ctx) {
+  const inp = document.getElementById(ctx+'-rec-inp');
+  const val = inp.value.trim();
+  if (!val) return;
+  recipients[ctx].push(val);
+  inp.value = '';
+  renderRec(ctx);
+}
+
+function removeRec(ctx, i) {
+  recipients[ctx].splice(i, 1);
+  renderRec(ctx);
+}
+
+function renderRec(ctx) {
+  const container = document.getElementById(ctx+'-rec-tags');
+  if (!container) return;
+  container.innerHTML = recipients[ctx].map((r, i) =>
+    `<div class="rtag">${r}<button onclick="removeRec('${ctx}',${i})">×</button></div>`
+  ).join('');
+}
+
+function getRecipientString(ctx) {
+  return recipients[ctx].join(', ');
+}
+
+// ═══════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════
+function filterTermine(t,s,e){if(!s||!e)return t;return t.filter(x=>x.date>=s&&x.date<=e);}
+function getTermine(c,d){return(d.startDate&&d.endDate)?filterTermine(c.termine,d.startDate,d.endDate):c.termine;}
+function checkAppts(){
+  const s=document.getElementById('v-start').value;
+  const e=document.getElementById('v-end').value;
+  const hint=document.getElementById('appt-hint');
+  if(!s||!e){hint.classList.add('hidden');return;}
+  const custs=Array.from(selCusts['v']);
+  if(!custs.length){hint.classList.add('hidden');return;}
+  const has=custs.some(cid=>filterTermine(DB[cid].termine,s,e).length>0);
+  hint.classList.toggle('hidden',has);
+}
+function getEscBanner(c,l){
+  if(!c.eskalation?.aktiv)return '';
+  const e=c.eskalation[l];
+  const lbl=l==='en'?'ESCALATION ACTIVE':'ESKALATION AKTIV';
+  return `\n${'!'.repeat(60)}\n🚨 ${lbl} – ${e.stufe}\n${'!'.repeat(60)}\n  ${l==='en'?'Period':'Zeitraum'}: ${e.zeitraum}\n  DEADLINE: ${e.deadline}\n  ${e.inhalt}\n${'!'.repeat(60)}\n`;
+}
+function tT(t){return typeof t==='object'?t[lang]:t;}
+
+// ═══════════════════════════════════════
+// OUTPUT TEMPLATES
+// ═══════════════════════════════════════
+function genOutput(c,d,fmt,l){
+  const isDE=l==='de';
+  const hlMap={escalated:isDE?'🚨 Eskalation':'🚨 Escalation',fragile:isDE?'🔴 Fragil':'🔴 Fragile',medium:'🟡 Medium',positive:isDE?'🟢 Positiv':'🟢 Positive'};
+  const hl=hlMap[c.health]||'🟡 Medium';
+  const from=d.name||d.fromPerson||(isDE?'Übergeber':'Sender');
+  const toList=d.toList||(isDE?'Empfänger':'Recipient');
+  const period=d.startDate?`${d.startDate} – ${d.endDate}`:(isDE?'laufend':'ongoing');
+  const primary=c.contacts.find(x=>x.primary)||c.contacts[0];
+  const esc=c.contacts[1]||c.contacts[0];
+  const appts=getTermine(c,d);
+  const banner=getEscBanner(c,l);
+  const issues=c.issues[l];
+  const actions=c.actions[l];
+  const tpv=isDE?c.tpvDE:c.tpv;
+  const noAppt=isDE?'Keine Termine im angegebenen Zeitraum.':'No appointments in the selected period.';
+  const apptStr=appts.length>0?appts.map(t=>`  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}  –  ${tT(t.title)}\n     → ${t.attendees}\n     → ${isDE?'Vorbereitung':'Prep'}: ${tT(t.prep)}`).join('\n\n'):`  ${noAppt}`;
+  const date=new Date().toLocaleDateString(isDE?'de-DE':'en-GB');
+  const multiTo=Array.isArray(d.toList)?d.toList.join(', '):toList;
+
+  if(fmt==='short')return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SHORT OVERVIEW  ·  ${c.name}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${banner}
+${isDE?'ÜBERGABE':'HANDOVER'}
+  ${isDE?'Von':'From'}:       ${from}
+  ${isDE?'An':'To'}:         ${multiTo}
+  ${isDE?'Zeitraum':'Period'}:  ${period}
+
+${isDE?'KUNDENPROFIL':'CUSTOMER PROFILE'}
+  ${c.name}  (${c.id})  ·  ${c.segment}  ·  ${c.region}
+  Health: ${hl}  ·  TPV: ${tpv}  ·  ${isDE?'Wachstum':'Growth'}: ${c.growth}
+  ${isDE?'Ø WK':'Avg. Cart'}: ${c.aov}  ·  Mobile: ${c.mobile}
+  ${isDE?'Zahlung':'Payments'}: ${c.payment}
+  Fee Rate: ${c.feeRate}
+
+──────────────────────────────────────────────────────────────
+${isDE?'TOP THEMEN':'TOP TOPICS'}
+──────────────────────────────────────────────────────────────
+${issues.map((t,i)=>`  ${i+1}. ${t}`).join('\n')}
+
+──────────────────────────────────────────────────────────────
+${isDE?'TERMINE IM ZEITRAUM':'APPOINTMENTS IN PERIOD'} (${period})
+──────────────────────────────────────────────────────────────
+${apptStr}
+
+──────────────────────────────────────────────────────────────
+${isDE?`SOFORT-TO-DOS FÜR ${multiTo.toUpperCase()}`:`IMMEDIATE TO-DOS FOR ${multiTo.toUpperCase()}`}
+──────────────────────────────────────────────────────────────
+${actions.map((a,i)=>`  ${i+1}. ${a}`).join('\n')}
+
+──────────────────────────────────────────────────────────────
+${isDE?'ANSPRECHPARTNER':'KEY CONTACTS'}
+──────────────────────────────────────────────────────────────
+${c.contacts.map(x=>`  ${(x.name+(x.primary?' ★':'')).padEnd(24)}  ${x.role.padEnd(28)}  ${x.email}`).join('\n')}
+
+──────────────────────────────────────────────────────────────
+${isDE?'ESKALATIONSWEG':'ESCALATION PATH'}
+──────────────────────────────────────────────────────────────
+  ${isDE?'Primär':'Primary'}:    ${primary.name}  ·  ${primary.email}
+  ${isDE?'Eskalation':'Escalation'}: ${esc.name}  ·  ${esc.email}
+
+⚠️  ${c.handoverNote[l]}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+H.A.N.S. – Handover Assistant · Unzer Relay · ${date}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+  if(fmt==='email')return `${isDE?'Betreff':'Subject'}: ${isDE?'Übergabe':'Handover'} ${c.name}  |  ${from} → ${multiTo}  |  ${period}${c.eskalation?.aktiv?(isDE?' 🚨 ESKALATION AKTIV':' 🚨 ESCALATION ACTIVE'):''}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${banner}
+${isDE?'Hallo':'Hi'} ${multiTo},
+
+${isDE?`im Rahmen meiner Abwesenheit (${period}) übergebe ich euch alle relevanten Informationen zu ${c.name}.`:`during my absence (${period}) I am handing over all relevant information regarding ${c.name} to you.`}
+${c.eskalation?.aktiv?(isDE?'\n⚠️ ACHTUNG: Aktive Eskalationsphase!\n':'\n⚠️ ATTENTION: Active escalation phase!\n'):''}
+──────────────────────────────────────────────────────────────
+${isDE?'WAS IHR WISSEN MÜSST':'WHAT YOU NEED TO KNOW'}
+──────────────────────────────────────────────────────────────
+${issues.map((t,i)=>`  ${i+1}. ${t}`).join('\n')}
+
+──────────────────────────────────────────────────────────────
+${isDE?'EURE WICHTIGSTEN TO-DOS':'YOUR KEY TO-DOS'}
+──────────────────────────────────────────────────────────────
+${actions.map((a,i)=>`  ${i+1}. ${a}`).join('\n')}
+
+──────────────────────────────────────────────────────────────
+${isDE?`TERMINE IN MEINER ABWESENHEIT (${period})`:`APPOINTMENTS DURING MY ABSENCE (${period})`}
+──────────────────────────────────────────────────────────────
+${apptStr}
+
+──────────────────────────────────────────────────────────────
+${isDE?'ANSPRECHPARTNER BEIM KUNDEN':'CUSTOMER CONTACTS'}
+──────────────────────────────────────────────────────────────
+${c.contacts.map(x=>`  • ${x.name}${x.primary?(isDE?' (Hauptkontakt)':' (Main Contact)'):''}\n    ${x.role}  ·  ${x.email}`).join('\n')}
+
+──────────────────────────────────────────────────────────────
+${isDE?'BEI DRINGENDEN FRAGEN':'FOR URGENT QUESTIONS'}
+──────────────────────────────────────────────────────────────
+  ${isDE?'Primär':'Primary'}:    ${primary.name}  ·  ${primary.email}
+  ${isDE?'Eskalation':'Escalation'}: ${esc.name}  ·  ${esc.email}
+
+⚠️  ${c.handoverNote[l]}
+${d.notes?`\n${isDE?'Notizen':'Notes'}:\n  ${d.notes}`:''}
+
+${isDE?'Vielen Dank und viele Grüße,':'Thank you! Best regards,'}
+${from}
+
+──────────────────────────────────────────────────────────────
+H.A.N.S. – Handover Assistant · Unzer Relay · ${date}`;
+
+  if(fmt==='deadlines')return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${isDE?'DEADLINES & TERMINE':'DEADLINES & APPOINTMENTS'}  ·  ${c.name}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ${isDE?'Von':'From'}: ${from}  ·  ${isDE?'Zeitraum':'Period'}: ${period}
+${banner}
+──────────────────────────────────────────────────────────────
+${isDE?'TERMINE IM ZEITRAUM':'APPOINTMENTS IN PERIOD'}
+──────────────────────────────────────────────────────────────
+${appts.length>0?appts.map(t=>`  ${t.prio==='high'?'🔴':'🟡'}  ${t.date}  ${t.time}\n     ${isDE?'Termin':'Appointment'}: ${tT(t.title)}\n     ${isDE?'Teilnehmer':'Attendees'}: ${t.attendees}\n     ${isDE?'Vorbereitung':'Prep'}: ${tT(t.prep)}`).join('\n\n'):`  ${noAppt}`}
+
+──────────────────────────────────────────────────────────────
+🔴 ${isDE?'KRITISCH':'CRITICAL'}
+──────────────────────────────────────────────────────────────
+${appts.filter(t=>t.prio==='high').map(t=>`  • ${t.date}  ${t.time}  –  ${tT(t.title)}\n    → ${t.attendees}`).join('\n\n')||`  ${isDE?'Keine':'None'}`}
+
+──────────────────────────────────────────────────────────────
+${isDE?'OFFENE ISSUES':'OPEN ISSUES'}
+──────────────────────────────────────────────────────────────
+${issues.map((t,i)=>`  ${i+1}. ${t}`).join('\n')}
+
+──────────────────────────────────────────────────────────────
+${isDE?'NÄCHSTE SCHRITTE':'NEXT STEPS'}
+──────────────────────────────────────────────────────────────
+${actions.map((a,i)=>`  ${i+1}. ${a}`).join('\n')}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${appts.length} ${isDE?'Termin(e) · .ics Export verfügbar':'appointment(s) · .ics export available'}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+  if(fmt==='bullets')return `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${isDE?'STICHPUNKT-ÜBERGABE':'BULLET POINT HANDOVER'}  ·  ${c.name}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ${isDE?'Von':'From'}: ${from}  →  ${isDE?'An':'To'}: ${multiTo}
+  ${isDE?'Zeitraum':'Period'}: ${period}
+${banner}
+──────────────────────────────────────────────────────────────
+${isDE?'KUNDENSTATUS':'CUSTOMER STATUS'}
+──────────────────────────────────────────────────────────────
+  • Health: ${hl}  ·  ${c.segment}  ·  ${c.region}
+  • TPV: ${tpv}  ·  ${isDE?'Wachstum':'Growth'}: ${c.growth}
+  • ${isDE?'Ø WK':'Avg. Cart'}: ${c.aov}  ·  Mobile: ${c.mobile}
+  • ${isDE?'Zahlung':'Payments'}: ${c.payment}
+  • Fee Rate: ${c.feeRate}
+
+──────────────────────────────────────────────────────────────
+${isDE?'OFFENE THEMEN':'OPEN TOPICS'}
+──────────────────────────────────────────────────────────────
+${issues.map(t=>`  • ${t}`).join('\n')}
+
+──────────────────────────────────────────────────────────────
+${isDE?`TERMINE IM ZEITRAUM (${period})`:`APPOINTMENTS IN PERIOD (${period})`}
+──────────────────────────────────────────────────────────────
+${apptStr}
+
+──────────────────────────────────────────────────────────────
+⚡ ${isDE?'TOP 3 PRIORITÄTEN':'TOP 3 PRIORITIES'}
+──────────────────────────────────────────────────────────────
+  1. ${actions[0]}
+  2. ${actions[1]}
+  3. ${actions[2]}
+
+──────────────────────────────────────────────────────────────
+🚨 ${isDE?'ESKALATIONSWEG':'ESCALATION PATH'}
+──────────────────────────────────────────────────────────────
+  ${isDE?'Tagesgeschäft':'Day-to-day'}: ${primary.name}  ·  ${primary.email}
+  ${isDE?'Eskalation':'Escalation'}: ${esc.name}  ·  ${esc.email}
+
+⚠️  ${c.handoverNote[l]}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+H.A.N.S. – Handover Assistant · Unzer Relay · ${date}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+  return '';
+}
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let hoMode=null, selCusts={v:new Set(),c:new Set()}, selFmts=new Set();
+let results={}, activeCust=null, activeFmt=null, tilePage=0;
+let customTimelines={bella_casa:[],fitfuel:[],nordlicht:[],urbancraft:[]};
+let currentDetailId=null;
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+const SCREENS=['s-home','s-ho-start','s-form','s-output','s-result','s-apc','s-apc-detail'];
+function go(id){
+  SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.classList.add('hidden');});
+  const t=document.getElementById(id);if(t)t.classList.remove('hidden');
+  window.scrollTo(0,0); stopSpeech();
+}
+function goHome(){
+  selCusts={v:new Set(),c:new Set()}; selFmts.clear(); results={};
+  recipients.v=[]; recipients.c=[]; recipients.p=[];
+  ['v-rec-tags','c-rec-tags','p-rec-tags'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='';});
+  document.querySelectorAll('.opt,.cust-card').forEach(el=>el.classList.remove('sel'));
+  document.querySelectorAll('.sel-info').forEach(el=>el.textContent='');
+  const bg=document.getElementById('btn-gen');if(bg)bg.disabled=true;
+  goPage(0); go('s-home');
+}
+function pickMode(m){
+  hoMode=m;
+  ['vacation','customer','project'].forEach(f=>{const el=document.getElementById('f-'+f);if(el)el.classList.add('hidden');});
+  const form=document.getElementById('f-'+m);if(form)form.classList.remove('hidden');
+  go('s-form');
+}
+function toOutput(){if(!validateHo())return;go('s-output');}
+function slide(dir){goPage(tilePage+dir);}
+function goPage(n){
+  tilePage=Math.max(0,Math.min(1,n));
+  document.querySelectorAll('.tpage').forEach((p,i)=>p.classList.toggle('active',i===tilePage));
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===tilePage));
+  document.getElementById('arr-l').disabled=tilePage===0;
+  document.getElementById('arr-r').disabled=tilePage===1;
+}
+
+// ═══════════════════════════════════════
+// HANDOVER STATE
+// ═══════════════════════════════════════
+function toggleCust(id,ctx,el){
+  el.classList.toggle('sel');
+  const s=selCusts[ctx];
+  s.has(id)?s.delete(id):s.add(id);
+  document.getElementById(ctx+'-si').textContent=s.size>0?T[lang].custSel(s.size):'';
+  if(ctx==='v')checkAppts();
+}
+function togOpt(el,val){
+  el.classList.toggle('sel');
+  selFmts.has(val)?selFmts.delete(val):selFmts.add(val);
+  document.getElementById('btn-gen').disabled=selFmts.size===0;
+  document.getElementById('fmt-si').textContent=selFmts.size>0?T[lang].fmtSel(selFmts.size):'';
+}
+function vv(id){const e=document.getElementById(id);return e?e.value.trim():'';}
+function validateHo(){
+  const t=T[lang];
+  if(hoMode==='vacation'){
+    if(!vv('v-name')){showToast(t.fill);return false;}
+    if(recipients.v.length===0){showToast(t.addRec);return false;}
+    if(!vv('v-start')||!vv('v-end')){showToast(t.fill);return false;}
+  }
+  if(hoMode==='customer'){
+    if(selCusts['c'].size===0){showToast(t.selMin);return false;}
+    if(!vv('c-from')){showToast(t.fill);return false;}
+    if(recipients.c.length===0){showToast(t.addRec);return false;}
+  }
+  if(hoMode==='project'){
+    if(!vv('p-name')){showToast(t.fill);return false;}
+    if(recipients.p.length===0){showToast(t.addRec);return false;}
+  }
+  return true;
+}
+function collectData(){
+  if(hoMode==='vacation')return{
+    name:vv('v-name'),
+    toList:recipients.v,
+    substitute:recipients.v.join(', '),
+    startDate:vv('v-start'),endDate:vv('v-end'),
+    notes:vv('v-notes')
+  };
+  if(hoMode==='customer')return{
+    fromPerson:vv('c-from'),
+    toList:recipients.c,
+    toPerson:recipients.c.join(', '),
+    notes:vv('c-notes')
+  };
+  return{
+    projectName:vv('p-name'),
+    toList:recipients.p,
+    toPerson:recipients.p.join(', '),
+    status:vv('p-status'),todos:vv('p-todos'),
+    risks:vv('p-risks'),links:vv('p-links')
+  };
+}
+
+// ═══════════════════════════════════════
+// GENERATE HANDOVER
+// ═══════════════════════════════════════
+function generateHandover(){
+  const d=collectData();
+  const custIds=Array.from(hoMode==='vacation'?selCusts['v']:hoMode==='customer'?selCusts['c']:new Set());
+  if(!custIds.length)custIds.push('_free');
+  const fmts=Array.from(selFmts);
+  results={};
+  go('s-result');
+
+  const prog=document.getElementById('prog');
+  const progB=document.getElementById('prog-b');
+  const progT=document.getElementById('prog-t');
+  const progS=document.getElementById('prog-s');
+  prog.classList.remove('hidden');
+  ['ctabs','ftabs','rbox','ract'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('hidden');});
+  progT.textContent=T[lang].generating;
+
+  const total=custIds.length*fmts.length; let done=0;
+  custIds.forEach(cid=>{
+    results[cid]={};
+    const c=DB[cid];
+    fmts.forEach(fmt=>{
+      results[cid][fmt]=cid==='_free'?genFree(fmt,d):genOutput(c,d,fmt,lang);
+      done++;
+      progB.style.width=Math.round((done/total)*100)+'%';
+      progS.textContent=`${c?c.name:'Project'} – ${T[lang].fmtL[fmt]} (${done}/${total})`;
+    });
+  });
+
+  progT.textContent=T[lang].docDone(done);
+  progB.style.width='100%';
+
+  setTimeout(()=>{
+    prog.classList.add('hidden');
+    activeCust=custIds[0]; activeFmt=fmts[0];
+    renderCustTabs(custIds); renderFmtTabs(fmts);
+    showResult(activeCust,activeFmt);
+    document.getElementById('ract').classList.remove('hidden');
+    document.getElementById('btn-mail').classList.toggle('hidden',!selFmts.has('email'));
+    document.getElementById('btn-ics').classList.toggle('hidden',!selFmts.has('deadlines'));
+    if(ttsEnabled)speak(results[activeCust]?.[activeFmt]||'');
+  },500);
+}
+
+function genFree(fmt,d){
+  const isDE=lang==='de';
+  const from=d.projectName||(isDE?'Übergeber':'Project');
+  const toStr=Array.isArray(d.toList)&&d.toList.length?d.toList.join(', '):(isDE?'Empfänger':'Recipient');
+  if(fmt==='short')return `SHORT OVERVIEW\n${'━'.repeat(50)}\n${isDE?'Projekt':'Project'}: ${from} → ${toStr}\nStatus: ${d.status||'–'}\n${isDE?'Aufgaben':'Tasks'}: ${d.todos||'–'}`;
+  if(fmt==='email')return `${isDE?'Betreff':'Subject'}: ${isDE?'Projektübergabe':'Project Handover'} ${from} → ${toStr}\n\n${isDE?'Hallo':'Hi'} ${toStr},\n${isDE?'hiermit übergebe ich das Projekt.':'Please find the handover below.'}\n\nStatus: ${d.status||'–'}\n${isDE?'Aufgaben':'Tasks'}: ${d.todos||'–'}\n\n${isDE?'Viele Grüße':'Best regards'}`;
+  if(fmt==='deadlines')return `${isDE?'DEADLINES & TERMINE':'DEADLINES'}\n${'━'.repeat(50)}\n${isDE?'Aufgaben':'Tasks'}:\n${d.todos||'–'}`;
+  if(fmt==='bullets')return `${isDE?'STICHPUNKT-ÜBERGABE':'BULLET POINT HANDOVER'}\n${'━'.repeat(50)}\n${from} → ${toStr}\n• Status: ${d.status||'–'}\n• ${isDE?'Aufgaben':'Tasks'}: ${d.todos||'–'}`;
+  return '';
+}
+
+// ═══════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════
+function renderCustTabs(ids){
+  const el=document.getElementById('ctabs');if(!el)return;
+  el.innerHTML=ids.map(id=>{
+    const name=id==='_free'?(lang==='de'?'Projekt':'Project'):DB[id]?.name||id;
+    const hasEsk=id!=='_free'&&DB[id]?.eskalation?.aktiv;
+    return `<div class="ctab${id===activeCust?' active':''}" onclick="switchCust('${id}')">${hasEsk?'🚨 ':''}${name}</div>`;
+  }).join('');
+  el.classList.remove('hidden');
+}
+function renderFmtTabs(fmts){
+  const labels=T[lang].fmtL;
+  const el=document.getElementById('ftabs');if(!el)return;
+  el.innerHTML=fmts.map(f=>`<div class="ftab${f===activeFmt?' active':''}" onclick="switchFmt('${f}')">${labels[f]}</div>`).join('');
+  el.classList.remove('hidden');
+}
+function switchCust(id){
+  activeCust=id;
+  document.querySelectorAll('.ctab').forEach((el,i)=>el.classList.toggle('active',Object.keys(results)[i]===id));
+  showResult(activeCust,activeFmt);
+}
+function switchFmt(f){
+  activeFmt=f;
+  const labels=T[lang].fmtL;
+  document.querySelectorAll('.ftab').forEach(el=>el.classList.toggle('active',el.textContent===labels[f]));
+  showResult(activeCust,activeFmt);
+}
+function showResult(cid,fmt){
+  const box=document.getElementById('rbox');if(!box)return;
+  box.textContent=(results[cid]&&results[cid][fmt])||'';
+  box.classList.remove('hidden');
+  if(ttsEnabled)speak(results[cid]?.[fmt]||'');
+}
+
+// ═══════════════════════════════════════
+// APC
+// ═══════════════════════════════════════
+function renderAPC(){
+  const t=T[lang];
+  const grid=document.getElementById('apc-grid');if(!grid)return;
+  grid.innerHTML=Object.entries(DB).map(([id,c])=>{
+    const hlMap={escalated:`<span class="health-badge h-escalated">🚨 ${t.esc}</span>`,fragile:`<span class="health-badge h-fragile">⚠️ ${lang==='de'?'Fragil':'Fragile'}</span>`,medium:`<span class="health-badge h-medium">🟡 Medium</span>`,positive:`<span class="health-badge h-positive">🟢 ${t.pos}</span>`};
+    const tpv=lang==='de'?c.tpvDE:c.tpv;
+    return `<div class="apc-card ${c.health}" onclick="openDetail('${id}')">
+      <div class="apc-header">
+        <div><div class="apc-name">${c.name}</div><div class="apc-id">${c.id} · ${c.region}</div></div>
+        ${hlMap[c.health]||''}
+      </div>
+      <div class="apc-kpis">
+        <div class="kpi-box"><div class="kpi-val">${tpv}</div><div class="kpi-lbl">TPV</div></div>
+        <div class="kpi-box"><div class="kpi-val" style="color:var(--green)">${c.growth}</div><div class="kpi-lbl">Growth</div></div>
+        <div class="kpi-box"><div class="kpi-val">${c.checkout}</div><div class="kpi-lbl">Checkout</div></div>
+      </div>
+      <div class="apc-issues">
+        ${c.issues[lang].slice(0,3).map(i=>`<div class="issue-item"><div class="issue-dot"></div>${i}</div>`).join('')}
+      </div>
+      <div class="apc-footer">
+        <div class="apc-trend">Mobile: ${c.mobile} · Fee: ${c.feeRate}</div>
+        <button class="apc-btn">${t.viewDet} →</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openDetail(id){
+  currentDetailId=id;
+  const c=DB[id]; const t=T[lang];
+  const tpv=lang==='de'?c.tpvDE:c.tpv;
+  const hlMap={escalated:`<span class="health-badge h-escalated">🚨 ${t.esc}</span>`,fragile:`<span class="health-badge h-fragile">⚠️ ${lang==='de'?'Fragil':'Fragile'}</span>`,medium:`<span class="health-badge h-medium">🟡 Medium</span>`,positive:`<span class="health-badge h-positive">🟢 ${t.pos}</span>`};
+
+  document.getElementById('det-name').textContent=c.name;
+  document.getElementById('det-sub').textContent=`${c.id} · ${c.segment} · ${c.region}`;
+  document.getElementById('det-badge').innerHTML=hlMap[c.health]||'';
+
+  document.getElementById('det-stats').innerHTML=`
+    <div class="stat-box"><div class="stat-val">${tpv}</div><div class="stat-lbl">Annual TPV</div></div>
+    <div class="stat-box"><div class="stat-val" style="color:var(--green)">${c.growth}</div><div class="stat-lbl">YoY Growth</div></div>
+    <div class="stat-box"><div class="stat-val">${c.checkout}</div><div class="stat-lbl">Checkout Rate</div></div>
+    <div class="stat-box"><div class="stat-val">${c.authRate}</div><div class="stat-lbl">Auth Rate</div></div>
+    <div class="stat-box"><div class="stat-val">${c.mobile}</div><div class="stat-lbl">Mobile Share</div></div>
+    <div class="stat-box"><div class="stat-val">${c.aov}</div><div class="stat-lbl">Avg. Cart</div></div>
+    <div class="stat-box"><div class="stat-val">${c.feeRate}</div><div class="stat-lbl">Fee Rate</div></div>
+    <div class="stat-box"><div class="stat-val" style="color:var(--yellow)">${c.growthPot}</div><div class="stat-lbl">Growth Pot.</div></div>
+  `;
+
+  const escBanner=c.eskalation?.aktiv?`<div style="background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4);border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem;font-size:.8rem;color:#ff6b6b;">🚨 <strong>${c.eskalation[lang].stufe}</strong><br>${c.eskalation[lang].zeitraum} · DEADLINE: ${c.eskalation[lang].deadline}<br>${c.eskalation[lang].inhalt}</div>`:'';
+
+  document.getElementById('det-ov').innerHTML=`${escBanner}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div>
+        <div class="clbl" style="margin-bottom:.5rem">${lang==='de'?'Zahlungsarten':'Payment Mix'}</div>
+        <div style="font-size:.8rem;color:var(--text2)">${c.payment}</div>
+        <div class="clbl" style="margin-bottom:.5rem;margin-top:1rem">${lang==='de'?'Integration':'Integration'}</div>
+        <div style="font-size:.8rem;color:var(--text2)">${c.integration}</div>
+      </div>
+      <div>
+        <div class="clbl" style="margin-bottom:.5rem">${lang==='de'?'Risiken':'Risks'}</div>
+        <div style="font-size:.78rem;color:var(--text2)">${c.risks[lang]}</div>
+        <div class="clbl" style="margin-bottom:.5rem;margin-top:1rem">${lang==='de'?'Chancen':'Opportunities'}</div>
+        <div style="font-size:.78rem;color:var(--green)">${c.opportunities[lang]}</div>
+      </div>
+    </div>
+    <div style="margin-top:1rem;background:rgba(0,201,177,.08);border:1px solid rgba(0,201,177,.2);border-radius:8px;padding:.75rem 1rem;font-size:.79rem;color:var(--teal)">
+      ⚠️ <strong>${lang==='de'?'Handover-Hinweis':'Handover Note'}:</strong> ${c.handoverNote[lang]}
+    </div>`;
+
+  document.getElementById('det-iss').innerHTML=c.issues[lang].map((i,idx)=>`<div class="issue-item" style="margin-bottom:.5rem;font-size:.8rem"><div class="issue-dot"></div><strong>${idx+1}.</strong> ${i}</div>`).join('');
+  document.getElementById('det-act').innerHTML=c.actions[lang].map((a,idx)=>`<div class="issue-item" style="margin-bottom:.5rem;font-size:.8rem"><div class="issue-dot" style="background:var(--teal)"></div><strong>${idx+1}.</strong> ${a}</div>`).join('');
+
+  renderTimeline(id);
+
+  document.getElementById('det-ct').innerHTML=c.contacts.map(x=>`
+    <div style="display:flex;align-items:flex-start;gap:.75rem;padding:.75rem 0;border-bottom:1px solid var(--border)">
+      <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0">${x.name.split(' ').map(n=>n[0]).join('').slice(0,2)}</div>
+      <div>
+        <div style="font-size:.83rem;font-weight:600">${x.name}${x.primary?` <span style="color:var(--teal);font-size:.68rem">★</span>`:''}</div>
+        <div style="font-size:.74rem;color:var(--text2)">${x.role}</div>
+        <div style="font-size:.72rem;color:var(--text3)">${x.email}</div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('ae-date').value=new Date().toISOString().split('T')[0];
+  switchTab('overview',document.getElementById('tab-ov'));
+  go('s-apc-detail');
+}
+
+function renderTimeline(id){
+  const c=DB[id];
+  const all=[...c.timeline,...(customTimelines[id]||[])].sort((a,b)=>b.date.localeCompare(a.date));
+  document.getElementById('det-tl').innerHTML=all.map(e=>`
+    <div class="tl-item ${e.type}">
+      <div class="tl-dot"></div>
+      <div class="tl-date">${e.date}</div>
+      <div class="tl-title">${typeof e.title==='object'?e.title[lang]:e.title}</div>
+      <div class="tl-body">${typeof e.body==='object'?e.body[lang]:e.body}</div>
+    </div>`).join('');
+}
+
+function addEntry(){
+  const id=currentDetailId;if(!id)return;
+  const date=document.getElementById('ae-date').value;
+  const type=document.getElementById('ae-type').value;
+  const title=document.getElementById('ae-title').value.trim();
+  const body=document.getElementById('ae-body').value.trim();
+  if(!date||!title||!body){showToast(T[lang].fill);return;}
+  customTimelines[id].push({date,type,title,body});
+  document.getElementById('ae-title').value='';
+  document.getElementById('ae-body').value='';
+  renderTimeline(id);
+  switchTab('timeline',document.getElementById('tab-tl'));
+  showToast(T[lang].entryAdded);
+}
+
+function switchTab(tab,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  const panel=document.getElementById('panel-'+tab);
+  if(panel)panel.classList.add('active');
+}
+
+// ═══════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════
+function copyRes(){
+  const t=(results[activeCust]&&results[activeCust][activeFmt])||'';
+  navigator.clipboard.writeText(t).then(()=>showToast(T[lang].copied));
+}
+function doMailto(){
+  const emailText=results[activeCust]?.['email']||Object.values(results[activeCust]||{})[0]||'';
+  const cname=activeCust!=='_free'?DB[activeCust]?.name||'':activeCust;
+  const subj=lang==='de'?`Übergabe ${cname}`:`Handover ${cname}`;
+  window.location.href=`mailto:?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(emailText)}`;
+}
+function icsExport(){
+  const d=collectData();
+  const ids=Object.keys(results).filter(id=>id!=='_free'&&DB[id]);
+  const allEvents=[];
+  ids.forEach(cid=>{
+    getTermine(DB[cid],d).forEach((t,i)=>{
+      const tp=t.time?t.time.replace(':',''):'1000';
+      const dt=t.date.replace(/-/g,'')+`T${tp}00`;
+      const [h,m]=t.time?t.time.split(':'):['10','00'];
+      const eH=String(parseInt(h)+1).padStart(2,'0');
+      const de=t.date.replace(/-/g,'')+`T${eH}${m}00`;
+      allEvents.push('BEGIN:VEVENT',
+        `UID:hans-${cid}-${i}-${Date.now()}@unzer.com`,
+        `DTSTAMP:${new Date().toISOString().replace(/[-:.]/g,'').slice(0,15)}Z`,
+        `DTSTART:${dt}`,`DTEND:${de}`,
+        `SUMMARY:${DB[cid].name}: ${tT(t.title)}`,
+        `DESCRIPTION:${lang==='de'?'Teilnehmer':'Attendees'}: ${t.attendees}\\nPrep: ${tT(t.prep)}`,
+        'END:VEVENT');
+    });
+  });
+  if(!allEvents.length){showToast(T[lang].noExp);return;}
+  const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//H.A.N.S. Unzer Relay//EN','X-WR-CALNAME:H.A.N.S. Handover',...allEvents,'END:VCALENDAR'];
+  const blob=new Blob([lines.join('\r\n')],{type:'text/calendar'});
+  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:`hans-handover-${Date.now()}.ics`});
+  a.click();URL.revokeObjectURL(a.href);
+  showToast(T[lang].expDone(allEvents.length));
+}
+
+function showToast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),3500);
+}
+
+// Init
+applyT(); renderAPC();
+</script>
+</body>
+</html>
